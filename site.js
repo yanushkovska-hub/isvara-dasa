@@ -84,13 +84,13 @@
     contact: 'Leave an email or Telegram/phone so I can reply.',
     email: 'Please check the email address.',
     consent: 'Please tick the box to agree to the privacy policy.',
-    ok: 'The form is not connected yet. Please message me on Telegram: @Ishvaradass.'
+    ok: 'The form is not connected yet. Please message me on Telegram: @Ishvaradasa.'
   } : {
     name: 'Напишите, как Вас зовут.',
     contact: 'Оставьте email или Telegram/телефон, чтобы я мог ответить.',
     email: 'Проверьте email: похоже, в нём ошибка.',
     consent: 'Поставьте галочку, чтобы согласиться с политикой конфиденциальности.',
-    ok: 'Форма ещё не подключена. Напишите напрямую в Telegram: @Ishvaradass.'
+    ok: 'Форма ещё не подключена. Напишите напрямую в Telegram: @Ishvaradasa.'
   };
   function mark(input, bad) { if (input) input.setAttribute('aria-invalid', bad ? 'true' : 'false'); }
   form.addEventListener('submit', function (ev) {
