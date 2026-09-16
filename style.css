@@ -443,6 +443,7 @@ body.notes-off mark.note,body.notes-off .is-draft{display:none}
 .btn-send:hover{background:#18214A}
 .btn-send:active{transform:translateY(1px)}
 .btn-send:focus-visible{outline:2px solid var(--lapis);outline-offset:3px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
 .form-fine{margin:14px 0 0;font-size:14px;line-height:1.5}
 .form-card .form-status{margin-top:10px;font-size:15.5px;font-weight:600}
 @media (max-width:860px){.contact-intro{margin-bottom:8px}}

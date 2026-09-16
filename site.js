@@ -74,25 +74,33 @@
   btn.addEventListener('click', function () { set(document.body.classList.contains('notes-off')); });
 })();
 
-/* Форма: пока не подключена к Telegram-боту */
+/* Форма заявки: отправка через приёмник на Cloudflare, оттуда в Telegram */
 (function () {
   var form = document.getElementById('lead-form');
   var status = document.getElementById('form-status');
   if (!form) return;
-  var T = document.documentElement.lang === 'en' ? {
+  var ENDPOINT = 'https://isvara-dasa-form.isvara-dasa.workers.dev';
+  var EN = document.documentElement.lang === 'en';
+  var T = EN ? {
     name: 'Please enter your name.',
     contact: 'Leave an email or Telegram/phone so I can reply.',
     email: 'Please check the email address.',
     consent: 'Please tick the box to agree to the privacy policy.',
-    ok: 'The form is not connected yet. Please message me on Telegram: @Ishvaradasa.'
+    sending: 'Sending\u2026',
+    ok: 'Thank you, your request has reached me. I reply personally, within 24 hours.',
+    fail: 'The request did not go through. Please try again, or message me on Telegram: @Ishvaradasa'
   } : {
-    name: 'Напишите, как Вас зовут.',
-    contact: 'Оставьте email или Telegram/телефон, чтобы я мог ответить.',
-    email: 'Проверьте email: похоже, в нём ошибка.',
-    consent: 'Поставьте галочку, чтобы согласиться с политикой конфиденциальности.',
-    ok: 'Форма ещё не подключена. Напишите напрямую в Telegram: @Ishvaradasa.'
+    name: '\u041d\u0430\u043f\u0438\u0448\u0438\u0442\u0435, \u043a\u0430\u043a \u0412\u0430\u0441 \u0437\u043e\u0432\u0443\u0442.',
+    contact: '\u041e\u0441\u0442\u0430\u0432\u044c\u0442\u0435 email \u0438\u043b\u0438 Telegram/\u0442\u0435\u043b\u0435\u0444\u043e\u043d, \u0447\u0442\u043e\u0431\u044b \u044f \u043c\u043e\u0433 \u043e\u0442\u0432\u0435\u0442\u0438\u0442\u044c.',
+    email: '\u041f\u0440\u043e\u0432\u0435\u0440\u044c\u0442\u0435 email: \u043f\u043e\u0445\u043e\u0436\u0435, \u0432 \u043d\u0451\u043c \u043e\u0448\u0438\u0431\u043a\u0430.',
+    consent: '\u041f\u043e\u0441\u0442\u0430\u0432\u044c\u0442\u0435 \u0433\u0430\u043b\u043e\u0447\u043a\u0443, \u0447\u0442\u043e\u0431\u044b \u0441\u043e\u0433\u043b\u0430\u0441\u0438\u0442\u044c\u0441\u044f \u0441 \u043f\u043e\u043b\u0438\u0442\u0438\u043a\u043e\u0439 \u043a\u043e\u043d\u0444\u0438\u0434\u0435\u043d\u0446\u0438\u0430\u043b\u044c\u043d\u043e\u0441\u0442\u0438.',
+    sending: '\u041e\u0442\u043f\u0440\u0430\u0432\u043b\u044f\u044e\u2026',
+    ok: '\u0421\u043f\u0430\u0441\u0438\u0431\u043e, \u0437\u0430\u044f\u0432\u043a\u0430 \u0443 \u043c\u0435\u043d\u044f. \u041e\u0442\u0432\u0435\u0447\u0443 \u043b\u0438\u0447\u043d\u043e, \u0432 \u0442\u0435\u0447\u0435\u043d\u0438\u0435 \u0441\u0443\u0442\u043e\u043a.',
+    fail: '\u0417\u0430\u044f\u0432\u043a\u0430 \u043d\u0435 \u0443\u0448\u043b\u0430. \u041f\u043e\u043f\u0440\u043e\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437 \u0438\u043b\u0438 \u043d\u0430\u043f\u0438\u0448\u0438\u0442\u0435 \u043c\u043d\u0435 \u0432 Telegram: @Ishvaradasa'
   };
   function mark(input, bad) { if (input) input.setAttribute('aria-invalid', bad ? 'true' : 'false'); }
+  function val(n) { var el = form.elements[n]; return el ? String(el.value || '').trim() : ''; }
+
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
     var name = form.elements.name, email = form.elements.email, contact = form.elements.contact;
@@ -113,7 +121,29 @@
     else if (badEmail) { errors.push(T.email); first = first || email; }
     if (noConsent) { errors.push(T.consent); first = first || consent; }
     if (errors.length) { status.textContent = errors.join(' '); if (first) first.focus(); return; }
-    status.textContent = T.ok;
+
+    var btn = form.querySelector('.btn-send');
+    if (btn) btn.disabled = true;
+    status.textContent = T.sending;
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: val('name'), email: emailVal, contact: contactVal,
+        question: val('question'), topic: val('topic'), website: val('website'),
+        lang: EN ? 'en' : 'ru', page: location.href
+      })
+    }).then(function (r) {
+      return r.json().catch(function () { return null; });
+    }).then(function (j) {
+      if (j && j.ok) { form.reset(); status.textContent = T.ok; }
+      else { status.textContent = T.fail; }
+    }).catch(function () {
+      status.textContent = T.fail;
+    }).then(function () {
+      if (btn) btn.disabled = false;
+    });
   });
 })();
 
