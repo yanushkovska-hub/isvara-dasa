@@ -1,71 +1,58 @@
-/* Гравированная таблица: 360 градусов, 108 пад, 27 накшатр, 12 знаков */
+/* Карта рождения: 12 домов северо-индийского чертежа, знаки и планеты в них */
 (function () {
   var svg = document.getElementById('plate-svg');
   if (!svg) return;
-  var NS = 'http://www.w3.org/2000/svg', C = 300;
+  var NS = 'http://www.w3.org/2000/svg';
+  var M = 20, S = 560, EN = document.documentElement.lang === 'en';
+
   function el(tag, attrs, parent) {
     var e = document.createElementNS(NS, tag);
     for (var k in attrs) e.setAttribute(k, attrs[k]);
     (parent || svg).appendChild(e);
     return e;
   }
-  function pt(r, deg) {
-    var a = (deg - 90) * Math.PI / 180;
-    return [+(C + r * Math.cos(a)).toFixed(2), +(C + r * Math.sin(a)).toFixed(2)];
-  }
-  function radial(g, r1, r2, deg) {
-    var p1 = pt(r1, deg), p2 = pt(r2, deg);
-    return el('line', { x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1], style: '--d:' + deg.toFixed(2) }, g);
-  }
-  var defs = el('defs', {});
+  function X(u) { return +(M + S * u).toFixed(1); }
+  function Y(v) { return +(M + S * v).toFixed(1); }
 
-  var rings = el('g', { 'class': 'p-rings' });
-  [292, 287, 262, 226, 220, 156, 150, 92].forEach(function (r, i) {
-    el('circle', { cx: C, cy: C, r: r, pathLength: 1, style: '--i:' + i }, rings);
+  /* n - знак в доме; nu/nv - где стоит число; u/v - где начинается столбик подписей */
+  var HOUSES = [
+    { n: 4, nu: 0.500, nv: 0.405, u: 0.500, v: 0.175, body: [['Лг', 'Asc', 'lg'], ['Гу', 'Ju', ''], ['Ча', 'Mo', '']] },
+    { n: 5, nu: 0.300, nv: 0.085 },
+    { n: 6, nu: 0.090, nv: 0.310, u: 0.157, v: 0.190, body: [['Ша', 'Sa', ''], ['Гл', 'Gk', 'dim'], ['Мн', 'Md', 'dim']] },
+    { n: 7, nu: 0.403, nv: 0.500 },
+    { n: 8, nu: 0.085, nv: 0.690, u: 0.170, v: 0.755, body: [['Пл', 'Pl', '']] },
+    { n: 9, nu: 0.300, nv: 0.905, u: 0.232, v: 0.825, body: [['(Ра)', '(Ra)', 'sh']] },
+    { n: 10, nu: 0.500, nv: 0.592 },
+    { n: 11, nu: 0.700, nv: 0.905, u: 0.765, v: 0.825, body: [['Ур', 'Ur', '']] },
+    { n: 12, nu: 0.930, nv: 0.712, u: 0.845, v: 0.688, body: [['Шу', 'Ve', ''], ['Не', 'Ne', ''], ['УП', 'UL', 'pt']] },
+    { n: 1, nu: 0.567, nv: 0.500, u: 0.775, v: 0.440, body: [['Су', 'Su', ''], ['Ма', 'Ma', ''], ['АЛ', 'AL', 'pt']] },
+    { n: 2, nu: 0.912, nv: 0.310, u: 0.800, v: 0.220, body: [['Бу', 'Me', '']] },
+    { n: 3, nu: 0.690, nv: 0.085, u: 0.752, v: 0.152, body: [['(Ке)', '(Ke)', 'sh']] }
+  ];
+  var LINE = 30;
+
+  var frame = el('g', { 'class': 'k-frame' });
+  el('rect', { x: M, y: M, width: S, height: S, pathLength: 1 }, frame);
+
+  var grid = el('g', { 'class': 'k-grid' });
+  el('line', { x1: X(0), y1: Y(0), x2: X(1), y2: Y(1), pathLength: 1, style: '--i:0' }, grid);
+  el('line', { x1: X(1), y1: Y(0), x2: X(0), y2: Y(1), pathLength: 1, style: '--i:1' }, grid);
+  el('polygon', {
+    points: [[0.5, 0], [1, 0.5], [0.5, 1], [0, 0.5]].map(function (p) { return X(p[0]) + ',' + Y(p[1]); }).join(' '),
+    pathLength: 1, style: '--i:2'
+  }, grid);
+
+  var nums = el('g', { 'class': 'k-num' });
+  var body = el('g', { 'class': 'k-body' });
+  HOUSES.forEach(function (h, i) {
+    var t = el('text', { x: X(h.nu), y: Y(h.nv), style: '--i:' + i }, nums);
+    t.textContent = h.n;
+    if (!h.body) return;
+    h.body.forEach(function (row, j) {
+      var b = el('text', { x: X(h.u), y: Y(h.v) + j * LINE, 'class': row[2], style: '--i:' + (i + j) }, body);
+      b.textContent = EN ? row[1] : row[0];
+    });
   });
-
-  var degs = el('g', { 'class': 'p-deg' });
-  for (var d = 0; d < 360; d++) {
-    radial(degs, 287, 287 - (d % 10 === 0 ? 15 : d % 5 === 0 ? 10 : 5), d);
-  }
-  var degLabels = el('g', { 'class': 'p-deglabels' });
-  for (var d2 = 0; d2 < 360; d2 += 30) {
-    var lp = pt(308, d2);
-    var lt = el('text', { x: lp[0], y: lp[1], 'text-anchor': 'middle', 'dominant-baseline': 'central', style: '--d:' + d2 }, degLabels);
-    lt.textContent = d2 + '°';
-  }
-
-  var nak = el('g', { 'class': 'p-nak' });
-  var nakNum = el('g', { 'class': 'p-naknum' });
-  for (var n = 0; n < 27; n++) {
-    var start = n * 360 / 27;
-    radial(nak, 262, 226, start);
-    var mid = start + 180 / 27, np = pt(244, mid);
-    var nt = el('text', { x: np[0], y: np[1], 'text-anchor': 'middle', 'dominant-baseline': 'central', style: '--d:' + mid.toFixed(2) }, nakNum);
-    nt.textContent = n + 1;
-  }
-
-  var pada = el('g', { 'class': 'p-pada' });
-  for (var p = 0; p < 108; p++) radial(pada, 226, 220, p * 10 / 3);
-
-  var rashi = el('g', { 'class': 'p-rashi' });
-  var rashiNames = el('g', { 'class': 'p-rashiname' });
-  (document.documentElement.lang === 'en'
-    ? ['Mesha', 'Vrishabha', 'Mithuna', 'Karka', 'Simha', 'Kanya', 'Tula', 'Vrishchika', 'Dhanu', 'Makara', 'Kumbha', 'Meena']
-    : ['Меша', 'Вришабха', 'Митхуна', 'Карка', 'Симха', 'Канья', 'Тула', 'Вришчика', 'Дхану', 'Макара', 'Кумбха', 'Мина']).forEach(function (name, k) {
-    var a0 = k * 30, R = 186, m = a0 + 15, bottom = m > 90 && m < 270;
-    radial(rashi, 220, 150, a0);
-    var s = pt(R, bottom ? a0 + 29.5 : a0 + 0.5), e = pt(R, bottom ? a0 + 0.5 : a0 + 29.5);
-    var id = 'rashi-arc-' + k;
-    el('path', { id: id, d: 'M' + s[0] + ' ' + s[1] + ' A' + R + ' ' + R + ' 0 0 ' + (bottom ? 0 : 1) + ' ' + e[0] + ' ' + e[1] }, defs);
-    var t = el('text', { style: '--d:' + m }, rashiNames);
-    var tp = el('textPath', { href: '#' + id, startOffset: '50%', 'text-anchor': 'middle' }, t);
-    tp.textContent = name;
-  });
-
-  var core = el('g', { 'class': 'p-core' });
-  [0, 90, 180, 270].forEach(function (a) { radial(core, 142, 12, a); });
-  el('circle', { cx: C, cy: C, r: 3 }, core);
 
   requestAnimationFrame(function () { svg.classList.add('is-drawn'); });
 })();

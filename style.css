@@ -82,29 +82,21 @@ blockquote,figure{margin:0}
 .plate svg{display:block;width:100%;height:auto;overflow:visible}
 .plate-cap{margin:22px auto 0;max-width:27em;text-align:center;color:var(--leaf);font-size:15.5px;line-height:1.5;font-style:italic}
 .plate-no{display:block;margin-bottom:6px;font-family:var(--f-display);font-style:normal;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
-.p-rings circle{fill:none;stroke:var(--gold);stroke-width:1}
-.p-rings circle:first-child{stroke-width:1.5}
-.p-deg line{stroke:var(--gold);stroke-width:.7;stroke-opacity:.6}
-.p-pada line{stroke:var(--gold);stroke-width:.8;stroke-opacity:.75}
-.p-nak line{stroke:var(--gold);stroke-width:.9;stroke-opacity:.9}
-.p-rashi line{stroke:var(--gold);stroke-width:1.1}
-.p-core line{stroke:var(--gold);stroke-width:.7;stroke-opacity:.55;stroke-dasharray:2 5}
-.p-core circle{fill:var(--gold)}
-.p-naknum text{fill:var(--gold);font-family:var(--f-display);font-size:13px}
-.p-rashiname text{fill:var(--leaf);font-family:var(--f-display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;dominant-baseline:central}
-.p-deglabels text{fill:var(--gold);font-family:var(--f-data);font-size:10.5px}
+.k-frame rect{fill:none;stroke:var(--gold);stroke-width:1.5}
+.k-grid line,.k-grid polygon{fill:none;stroke:var(--gold);stroke-width:1;stroke-opacity:.8}
+.k-num text{fill:var(--gold);fill-opacity:.78;font-family:var(--f-display);font-size:18px;text-anchor:middle;dominant-baseline:central}
+.k-body text{fill:var(--leaf);font-family:var(--f-display);font-size:22px;letter-spacing:.04em;text-anchor:middle;dominant-baseline:central}
+.k-body text.lg{fill:var(--gold);letter-spacing:.12em}
+.k-body text.pt{fill:var(--gold);fill-opacity:.92}
+.k-body text.dim{fill-opacity:.6}
+.k-body text.sh{font-style:italic;fill-opacity:.78}
 @media (prefers-reduced-motion:no-preference){
-  .p-rings circle{stroke-dasharray:1;stroke-dashoffset:1}
-  .is-drawn .p-rings circle{animation:p-draw 1.9s cubic-bezier(.65,.05,.25,1) forwards;animation-delay:calc(var(--i) * 110ms)}
-  .p-deg line,.p-pada line,.p-nak line,.p-rashi line,.p-naknum text,.p-rashiname text,.p-deglabels text,.p-core{opacity:0}
-  .is-drawn .p-deg line{animation:p-show .35s ease forwards;animation-delay:calc(500ms + var(--d) * 3ms)}
-  .is-drawn .p-pada line{animation:p-show .35s ease forwards;animation-delay:calc(800ms + var(--d) * 3ms)}
-  .is-drawn .p-nak line{animation:p-show .4s ease forwards;animation-delay:calc(1000ms + var(--d) * 3ms)}
-  .is-drawn .p-rashi line{animation:p-show .4s ease forwards;animation-delay:calc(1200ms + var(--d) * 2ms)}
-  .is-drawn .p-naknum text{animation:p-show .5s ease forwards;animation-delay:calc(1500ms + var(--d) * 2ms)}
-  .is-drawn .p-rashiname text{animation:p-show .6s ease forwards;animation-delay:calc(1800ms + var(--d) * 2ms)}
-  .is-drawn .p-deglabels text{animation:p-show .6s ease forwards;animation-delay:calc(2100ms + var(--d) * 1ms)}
-  .is-drawn .p-core{animation:p-show 1s ease 2.2s forwards}
+  .k-frame rect,.k-grid line,.k-grid polygon{stroke-dasharray:1;stroke-dashoffset:1}
+  .is-drawn .k-frame rect{animation:p-draw 1.6s cubic-bezier(.65,.05,.25,1) forwards}
+  .is-drawn .k-grid line,.is-drawn .k-grid polygon{animation:p-draw 1.2s cubic-bezier(.65,.05,.25,1) forwards;animation-delay:calc(700ms + var(--i) * 200ms)}
+  .k-num text,.k-body text{opacity:0}
+  .is-drawn .k-num text{animation:p-show .5s ease forwards;animation-delay:calc(1500ms + var(--i) * 55ms)}
+  .is-drawn .k-body text{animation:p-show .6s ease forwards;animation-delay:calc(1950ms + var(--i) * 55ms)}
 }
 @keyframes p-draw{to{stroke-dashoffset:0}}
 @keyframes p-show{to{opacity:1}}
