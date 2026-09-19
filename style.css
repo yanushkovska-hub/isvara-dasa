@@ -709,3 +709,10 @@ body::after{z-index:-1;background:
 @media (prefers-reduced-motion:reduce){.rv:hover{transform:none}}
 /* v18: короткая стена отзывов (2 карточки) - по центру, без пустой третьей колонки */
 .rv-wall-small{max-width:780px;margin-left:auto;margin-right:auto}
+/* v20: «О персональной книге» на первом экране - второстепенная кнопка с контуром.
+   Текстовая ссылка читалась как обычный текст, по ней не понимали, что можно нажать. */
+.page-title .actions .link-arrow{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:12px 26px;font-size:17px;font-weight:500;color:var(--lapis);text-decoration:none;border-radius:var(--r-sm);box-shadow:inset 0 0 0 1px rgba(36,49,101,.5);transition:background-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.page-title .actions .link-arrow:hover{background:rgba(36,49,101,.07);box-shadow:inset 0 0 0 1px var(--lapis);transform:translateY(-1px)}
+.page-title .actions .link-arrow:active{transform:none}
+@media (max-width:520px){.page-title .actions{gap:12px}.page-title .actions .btn,.page-title .actions .link-arrow{width:100%}}
+@media (min-width:521px){.page-title .actions .btn,.page-title .actions .link-arrow{min-width:290px}}
