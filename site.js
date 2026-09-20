@@ -406,3 +406,118 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', function () { measure(); frame(); });
 })();
+
+/* Витрина книг: появляется шторкой снизу вверх, когда доходит до экрана */
+(function () {
+  var items = document.querySelectorAll('.sc-item');
+  if (!items.length) return;
+  if (!('IntersectionObserver' in window) ||
+      window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
+    for (var i = 0; i < items.length; i++) items[i].classList.add('is-seen');
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('is-seen'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.2 });
+  for (var j = 0; j < items.length; j++) io.observe(items[j]);
+})();
+
+/* Читалка: настоящие страницы книги, перелистывание стрелками */
+(function () {
+  var btn = document.querySelector('[data-reader]');
+  if (!btn) return;
+  var anchor = document.querySelector('.showcase img') || document.querySelector('.book-cover img');
+  if (!anchor) return;
+  var base = anchor.getAttribute('src').replace(/img\/.*$/, '');
+  var EN = document.documentElement.lang === 'en';
+  var T = EN ? { close: 'Close', prev: 'Previous page', next: 'Next page',
+                 hint: 'Arrow keys or click the arrows · Esc to close' }
+             : { close: 'Закрыть', prev: 'Предыдущая страница', next: 'Следующая страница',
+                 hint: 'Стрелки на клавиатуре или кнопки по краям · Esc закрывает' };
+
+  var pages = [];
+  for (var i = 1; i <= 12; i++) {
+    pages.push(base + 'img/kniga/stranica-' + (i < 10 ? '0' + i : i) + '.webp');
+  }
+
+  var box, page, prev, next, count, idx = 0, lastFocus = null;
+
+  function build() {
+    box = document.createElement('div');
+    box.className = 'reader';
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.hidden = true;
+    box.innerHTML =
+      '<button class="reader-close" type="button" aria-label="' + T.close + '">&#215;</button>' +
+      '<button class="reader-nav reader-prev" type="button" aria-label="' + T.prev + '">&#8592;</button>' +
+      '<div class="reader-stage"><img class="reader-page" alt=""></div>' +
+      '<button class="reader-nav reader-next" type="button" aria-label="' + T.next + '">&#8594;</button>' +
+      '<p class="reader-hint">' + T.hint + '</p>' +
+      '<p class="reader-count"></p>';
+    document.body.appendChild(box);
+    page = box.querySelector('.reader-page');
+    prev = box.querySelector('.reader-prev');
+    next = box.querySelector('.reader-next');
+    count = box.querySelector('.reader-count');
+    prev.addEventListener('click', function () { show(idx - 1); });
+    next.addEventListener('click', function () { show(idx + 1); });
+    box.querySelector('.reader-close').addEventListener('click', close);
+    box.addEventListener('click', function (ev) { if (ev.target === box) close(); });
+    document.addEventListener('keydown', function (ev) {
+      if (box.hidden) return;
+      if (ev.key === 'Escape') close();
+      if (ev.key === 'ArrowRight') show(idx + 1);
+      if (ev.key === 'ArrowLeft') show(idx - 1);
+    });
+  }
+
+  function preload(n) {
+    if (n < 0 || n >= pages.length) return;
+    var im = new Image();
+    im.src = pages[n];
+  }
+
+  function show(n) {
+    if (n < 0 || n >= pages.length) return;
+    idx = n;
+    count.textContent = (idx + 1) + ' / ' + pages.length;
+    prev.disabled = idx === 0;
+    next.disabled = idx === pages.length - 1;
+    // ждём, пока страница загрузится, и только потом показываем:
+    // иначе на секунду мелькает пустой лист
+    var want = idx;
+    var im = new Image();
+    im.onload = function () {
+      if (want !== idx) return;
+      page.classList.remove('is-in');
+      void page.offsetWidth;
+      page.src = im.src;
+      page.classList.add('is-in');
+      preload(idx + 1);
+      preload(idx - 1);
+    };
+    im.src = pages[idx];
+  }
+
+  function open() {
+    if (!box) build();
+    lastFocus = document.activeElement;
+    box.hidden = false;
+    document.body.classList.add('reader-open');
+    show(0);
+    requestAnimationFrame(function () { box.classList.add('is-open'); });
+    next.focus();
+  }
+
+  function close() {
+    box.classList.remove('is-open');
+    document.body.classList.remove('reader-open');
+    setTimeout(function () { box.hidden = true; }, 450);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  btn.addEventListener('click', open);
+})();
