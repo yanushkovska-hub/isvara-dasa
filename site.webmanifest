@@ -1,0 +1,11 @@
+{
+  "name": "Ишвара Дас · Īśvara Dāsa",
+  "short_name": "Ишвара Дас",
+  "icons": [
+    { "src": "icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "theme_color": "#161E45",
+  "background_color": "#161E45",
+  "display": "browser"
+}
