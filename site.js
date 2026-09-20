@@ -271,9 +271,10 @@
   });
 })();
 
-/* Книга на первом экране страницы книги: объём и оживание при прокрутке.
-   Только десктоп и только если человек не просил убрать анимацию.
-   Разметку не трогаем - если скрипт не сработал, остаётся обычная обложка. */
+/* Книга на первом экране страницы книги: крупный план и оживание при прокрутке.
+   Сделано по образцу «часовых» сайтов: сначала камера идёт вплотную к обложке
+   и скользит по ней, потом отходит, книга поворачивается и раскрывается.
+   Только десктоп; разметку не трогаем - без скрипта остаётся обычная обложка. */
 (function () {
   var fig = document.querySelector('.hero-cloth .book-object');
   if (!fig) return;
@@ -283,21 +284,28 @@
   var img = fig.querySelector('.book-cover img');
   if (!section || !img || !section.parentNode) return;
 
+  var COVER = img.getAttribute('src').replace(/img\/personal-book\.jpg.*$/, 'img/book-cover-hd.webp');
+
   var stage = document.createElement('div');
   stage.className = 'book3d-stage';
-  stage.style.height = '320vh';
+  stage.style.height = '380vh';
   section.parentNode.insertBefore(stage, section);
   stage.appendChild(section);
   section.classList.add('book3d-sticky');
 
+  var echo = document.createElement('div');
+  echo.className = 'book3d-echo';
+  echo.innerHTML = '<img src="' + COVER + '" alt="">';
+  fig.appendChild(echo);
+
   var sheets = '';
-  for (var i = 0; i < 6; i++) sheets += '<span class="b-sheet" style="--i:' + i + '"></span>';
+  for (var i = 0; i < 7; i++) sheets += '<span class="b-sheet" style="--i:' + i + '"></span>';
   var scene = document.createElement('div');
   scene.className = 'book3d-scene';
   scene.innerHTML = '<div class="book3d">' +
     '<span class="b-back"></span><span class="b-block"></span><span class="b-spine"></span>' +
     '<span class="b-leaves">' + sheets + '</span>' +
-    '<span class="b-front"><img src="' + img.getAttribute('src') + '" alt=""><span class="b-glare"></span></span>' +
+    '<span class="b-front"><img src="' + COVER + '" alt=""><span class="b-glare"></span></span>' +
     '</div>';
   fig.appendChild(scene);
   fig.classList.add('is-3d');
@@ -326,51 +334,60 @@
     var total = stage.offsetHeight - window.innerHeight;
     var p = Math.max(0, Math.min(1, -rect.top / (total || 1)));
 
-    // 1. камера подходит к книге и скользит по обложке
-    var a = ease(span(p, 0, 0.18));
-    // 2. книга поворачивается
-    var b = ease(span(p, 0.18, 0.38));
-    // 3. камера отходит
-    var c = ease(span(p, 0.38, 0.52));
-    // 4. книга открывается и листаются страницы
-    var d = ease(span(p, 0.52, 0.80));
-    // 5. книга уходит влево, появляется текст
-    var e = ease(span(p, 0.80, 1));
+    var a = ease(span(p, 0, 0.24));     // вплотную: камера скользит по обложке
+    var b = ease(span(p, 0.24, 0.44));  // камера отходит, книга поворачивается
+    var c = ease(span(p, 0.44, 0.56));  // разворот к зрителю
+    var d = ease(span(p, 0.56, 0.82));  // раскрывается, листаются страницы
+    var e = ease(span(p, 0.82, 1));     // закрывается и уходит влево
+    var move = ease(span(p, 0.72, 0.95));
 
-    var scale = lerp(0.82, 1.5, a);
-    scale = lerp(scale, 1.32, b);
+    var scale = lerp(2.62, 2.15, a);
+    scale = lerp(scale, 1.18, b);
     scale = lerp(scale, 1.02, c);
-    scale = lerp(scale, 0.92, e);
-    var rotY = lerp(-6, 2, a);
-    rotY = lerp(rotY, -42, b);
-    rotY = lerp(rotY, -16, c);
-    rotY = lerp(rotY, -8, d);
+    scale = lerp(scale, 0.78, e);
+
+    var rotY = lerp(-5, 4, a);
+    rotY = lerp(rotY, -40, b);
+    rotY = lerp(rotY, -13, c);
+    rotY = lerp(rotY, -7, d);
     rotY = lerp(rotY, 0, e);
-    var rotX = lerp(6, 0, a) + lerp(0, 4, b) - lerp(0, 4, c);
-    // книга уезжает влево раньше, чем проявляется текст,
-    // чтобы они не накладывались друг на друга
-    var move = ease(span(p, 0.70, 0.93));
+
+    var rotX = lerp(3, -2, a) + lerp(0, 4, b) - lerp(0, 4, c);
+
+    // скольжение камеры по обложке в первой фазе
+    var panX = lerp(-9, 7, a) * (1 - b);
+    var panY = lerp(7, -6, a) * (1 - b);
+
     var shift = centerShift * (1 - move);
-    var lift = lerp(30, 0, a) - lerp(0, 10, d);
+    var vw = window.innerWidth / 100;
 
-    scene.style.transform = 'translate3d(' + shift.toFixed(1) + 'px,' + lift.toFixed(1) + 'px,0)';
-    book.style.transform = 'scale(' + scale.toFixed(3) + ') rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg)';
-    glare.style.transform = 'translateX(' + lerp(-70, 70, a).toFixed(1) + '%)';
-    glare.style.opacity = (a > 0 && a < 1 ? 1 : 0.12).toFixed(2);
-    // к концу книга закрывается, чтобы первый экран замер на обложке,
-    // а не на пустой странице
-    var open = d * (1 - e);
+    scene.style.transform = 'translate3d(' + (shift + panX * vw).toFixed(1) + 'px,' +
+      (panY * vw).toFixed(1) + 'px,0)';
+    // внутренние слои книги проявляются, только когда камера отошла:
+    // вплотную к обложке они выглядывают по краям из-за перспективы
+    book.style.setProperty('--inner', Math.min(1, b * 1.7).toFixed(2));
+    book.style.transform = 'scale(' + scale.toFixed(3) + ') rotateX(' + rotX.toFixed(2) +
+      'deg) rotateY(' + rotY.toFixed(2) + 'deg)';
+
+    echo.style.transform = 'translate3d(' + (shift + panX * vw * 0.45).toFixed(1) + 'px,' +
+      (panY * vw * 0.45 - 20).toFixed(1) + 'px,0) scale(' + (scale * 1.5).toFixed(3) + ')';
+    echo.style.opacity = (0.42 * (1 - Math.max(c, e))).toFixed(3);
+
+    glare.style.transform = 'translateX(' + lerp(-75, 75, a).toFixed(1) + '%)';
+    glare.style.opacity = (a > 0.02 && a < 0.98 ? 0.9 : 0.1).toFixed(2);
+
+    // закрывается быстрее, чем уезжает, чтобы не мелькать тёмной изнанкой
+    var open = d * (1 - ease(span(p, 0.78, 0.88)));
     front.style.transform = 'rotateY(' + (-152 * open).toFixed(2) + 'deg)';
-
     for (var i = 0; i < leaves.length; i++) {
-      var from = 0.56 + i * 0.035, to = from + 0.06;
-      var t = ease(span(p, from, to));
-      leaves[i].style.transform = 'translateZ(' + (-2 * i) + 'px) rotateY(' + (-150 * t * (1 - e)).toFixed(2) + 'deg)';
+      var from = 0.60 + i * 0.028, to = from + 0.05;
+      var t = ease(span(p, from, to)) * (1 - ease(span(p, 0.78, 0.88)));
+      leaves[i].style.transform = 'translateZ(' + (-2.5 * i) + 'px) rotateY(' + (-150 * t).toFixed(2) + 'deg)';
     }
 
     // прозрачность ставим прямо здесь: если скрипт не дойдёт сюда,
     // текст останется видимым, а не пропадёт со страницы
-    var show = ease(span(p, 0.80, 0.96));
+    var show = ease(span(p, 0.84, 0.97));
     if (text) {
       text.style.opacity = show.toFixed(3);
       text.style.transform = 'translateY(' + lerp(22, 0, show).toFixed(1) + 'px)';
