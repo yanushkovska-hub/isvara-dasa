@@ -716,3 +716,29 @@ body::after{z-index:-1;background:
 .page-title .actions .link-arrow:active{transform:none}
 @media (max-width:520px){.page-title .actions{gap:12px}.page-title .actions .btn,.page-title .actions .link-arrow{width:100%}}
 @media (min-width:521px){.page-title .actions .btn,.page-title .actions .link-arrow{min-width:290px}}
+/* ===== v21: объёмная книга на первом экране страницы книги ===== */
+.book3d-stage{position:relative}
+.book3d-sticky{position:sticky;top:0;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+.book-object.is-3d .book-cover{opacity:0;visibility:hidden}
+.book-object.is-3d{position:relative;perspective:1600px;perspective-origin:50% 45%}
+.book3d-scene{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform-style:preserve-3d;will-change:transform}
+.book3d{position:relative;width:min(300px,22vw);aspect-ratio:700/994;transform-style:preserve-3d;will-change:transform}
+.book3d span{position:absolute;display:block}
+.book3d .b-front,.book3d .b-back{inset:0;border-radius:2px 6px 6px 2px;backface-visibility:hidden;transform-style:preserve-3d}
+.book3d .b-front{transform-origin:left center;background:var(--cloth-deep);overflow:hidden;
+  box-shadow:0 2px 0 rgba(0,0,0,.35),0 40px 60px -28px rgba(0,0,0,.9)}
+.book3d .b-front img{width:100%;height:100%;object-fit:cover;display:block}
+.book3d .b-glare{position:absolute;inset:-10% -60%;background:linear-gradient(105deg,rgba(255,255,255,0) 38%,rgba(255,255,255,.34) 50%,rgba(255,255,255,0) 62%);pointer-events:none}
+.book3d .b-back{transform:translateZ(-26px);background:linear-gradient(120deg,#1B2450,#141B3E);border-radius:2px 6px 6px 2px}
+.book3d .b-spine{left:0;top:0;bottom:0;width:26px;transform-origin:left center;transform:rotateY(-90deg);
+  background:linear-gradient(90deg,#141B3E,#232E66 55%,#141B3E);border-radius:2px 0 0 2px}
+.book3d .b-block{top:6px;bottom:6px;right:1px;width:22px;transform:translateZ(-13px) translateX(3px);
+  background:repeating-linear-gradient(90deg,#F4EEE1 0 2px,#DCD2BC 2px 3px);border-radius:0 3px 3px 0}
+.book3d .b-leaves{inset:6px 2px 6px 0;transform-style:preserve-3d}
+.book3d .b-sheet{inset:0;transform-origin:left center;background:linear-gradient(105deg,#FBF7EE,#EFE7D6);
+  border-radius:0 4px 4px 0;box-shadow:inset 0 0 0 1px rgba(117,89,26,.12);
+  transform:translateZ(calc(-2px * var(--i))) rotateY(0deg);backface-visibility:hidden}
+.book3d .b-sheet::after{content:"";position:absolute;inset:14% 12% 14% 16%;
+  background:repeating-linear-gradient(180deg,rgba(28,28,40,.16) 0 1px,transparent 1px 9px);opacity:.5}
+.hero-late{transition:opacity .55s ease,transform .55s ease}
+@media (max-width:999px){.book3d-sticky{position:static;min-height:0}.book3d-scene{display:none}}
