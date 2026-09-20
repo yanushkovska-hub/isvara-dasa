@@ -347,24 +347,30 @@
     rotY = lerp(rotY, -8, d);
     rotY = lerp(rotY, 0, e);
     var rotX = lerp(6, 0, a) + lerp(0, 4, b) - lerp(0, 4, c);
-    var shift = centerShift * (1 - e);
+    // книга уезжает влево раньше, чем проявляется текст,
+    // чтобы они не накладывались друг на друга
+    var move = ease(span(p, 0.70, 0.93));
+    var shift = centerShift * (1 - move);
     var lift = lerp(30, 0, a) - lerp(0, 10, d);
 
     scene.style.transform = 'translate3d(' + shift.toFixed(1) + 'px,' + lift.toFixed(1) + 'px,0)';
     book.style.transform = 'scale(' + scale.toFixed(3) + ') rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg)';
     glare.style.transform = 'translateX(' + lerp(-70, 70, a).toFixed(1) + '%)';
     glare.style.opacity = (a > 0 && a < 1 ? 1 : 0.12).toFixed(2);
-    front.style.transform = 'rotateY(' + (-152 * d).toFixed(2) + 'deg)';
+    // к концу книга закрывается, чтобы первый экран замер на обложке,
+    // а не на пустой странице
+    var open = d * (1 - e);
+    front.style.transform = 'rotateY(' + (-152 * open).toFixed(2) + 'deg)';
 
     for (var i = 0; i < leaves.length; i++) {
       var from = 0.56 + i * 0.035, to = from + 0.06;
       var t = ease(span(p, from, to));
-      leaves[i].style.transform = 'translateZ(' + (-2 * i) + 'px) rotateY(' + (-150 * t).toFixed(2) + 'deg)';
+      leaves[i].style.transform = 'translateZ(' + (-2 * i) + 'px) rotateY(' + (-150 * t * (1 - e)).toFixed(2) + 'deg)';
     }
 
     // прозрачность ставим прямо здесь: если скрипт не дойдёт сюда,
     // текст останется видимым, а не пропадёт со страницы
-    var show = ease(span(p, 0.74, 0.92));
+    var show = ease(span(p, 0.80, 0.96));
     if (text) {
       text.style.opacity = show.toFixed(3);
       text.style.transform = 'translateY(' + lerp(22, 0, show).toFixed(1) + 'px)';
