@@ -742,3 +742,11 @@ body::after{z-index:-1;background:
   background:repeating-linear-gradient(180deg,rgba(28,28,40,.16) 0 1px,transparent 1px 9px);opacity:.5}
 .hero-late{transition:opacity .55s ease,transform .55s ease}
 @media (max-width:999px){.book3d-sticky{position:static;min-height:0}.book3d-scene{display:none}}
+/* ===== v22: подзаголовки выделены золотой чертой, перечень сфер ===== */
+.nontemplate h3{position:relative;margin:0 0 10px;padding-top:16px;font-family:var(--f-display);
+  font-size:24px;line-height:1.15;color:var(--lapis)}
+.nontemplate h3::before{content:"";position:absolute;left:0;top:0;width:46px;height:2px;background:var(--gold-ink)}
+.spheres{margin-top:26px}
+.spheres li{padding-bottom:15px}
+.spheres b{font-family:var(--f-display);font-size:20.5px;font-weight:700;color:var(--lapis)}
+@media (max-width:780px){.nontemplate h3{font-size:22px}}
