@@ -704,9 +704,10 @@
       var rotX = 4 - 7 * ease(span(p, 0.02, OPN1));
       bk.style.transform = 'rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg)';
 
-      // закрытая книга - это правая половина кадра, поэтому ведём её к центру
-      var shift = -25 * (1 - openAmt) * Math.cos(rotY * Math.PI / 180);
+      // закрытая книга - это правая половина кадра, поэтому ведём её к центру.
+      // сдвиг считаем уже с учётом увеличения: иначе крупная книга уезжает вправо
       var scale = (1 + boost * (1 - openAmt)) * (1 - 0.10 * grow - 0.09 * outP);
+      var shift = -25 * scale * (1 - openAmt) * Math.cos(rotY * Math.PI / 180);
       var lift = (1 - grow) * 13;
       wrap.style.transform = 'translate3d(' + (-50 + shift).toFixed(2) + '%,' +
         (-50 + lift).toFixed(2) + '%,0) scale(' + scale.toFixed(3) + ')';

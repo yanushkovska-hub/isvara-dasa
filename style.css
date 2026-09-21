@@ -1006,7 +1006,7 @@ body.reader-open{overflow:hidden}
 
   /* раскрытый разворот вписан в ширину экрана, закрытая книга крупнее его */
   .era-book-wrap{width:min(92vw,420px);height:auto;aspect-ratio:1.4286 / 1;
-    transform:translate(-75%,-34%) scale(1.72);--closed-boost:.72}
+    transform:translate(-93%,-34%) scale(1.72);--closed-boost:.72}
   .era-book{perspective:1200px}
   .bk{--th:18px}
   .bk-extra{display:none}                    /* листов меньше - ради плавности хода */
