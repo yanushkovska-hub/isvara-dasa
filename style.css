@@ -1296,7 +1296,15 @@ body.reader-open{overflow:hidden}
 /* ===== v27: строка цифр и блок «Что внутри» обычной вёрсткой - НАЧАЛО ===== */
 
 /* ---------- строка важных цифр сразу после первого экрана ---------- */
-.facts-band{padding:clamp(54px,7vw,92px) 0;color:var(--leaf)}
+.facts-band{position:relative;isolation:isolate;padding:clamp(72px,8vw,116px) 0 clamp(64px,7vw,96px);color:var(--leaf)}
+/* стык с первым экраном: начинаем ровно тем же цветом, что и низ первого экрана,
+   и растворяем его в фоне страницы - иначе на границе видна жёсткая линия */
+.facts-band::before{content:"";position:absolute;left:0;right:0;top:-1px;bottom:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(130% 82% at 50% 0%,rgba(205,177,111,.11),rgba(205,177,111,0) 60%),
+    radial-gradient(90% 70% at 50% 0%,rgba(88,112,214,.10),rgba(88,112,214,0) 70%),
+    linear-gradient(180deg,#080B1E 0%,rgba(8,11,30,.96) 16%,rgba(8,11,30,.78) 40%,
+      rgba(8,11,30,.42) 68%,rgba(8,11,30,.12) 88%,rgba(8,11,30,0) 100%)}
 .facts-in{width:min(var(--shell),calc(100% - 2 * var(--side)));margin:0 auto;padding:0 var(--pad-x);
   display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(20px,2.6vw,40px)}
 .fact{position:relative;text-align:center;padding:0 clamp(6px,1vw,14px)}
