@@ -628,12 +628,8 @@
     var bg = document.querySelector('.era-bg-img');
     var toggles = document.querySelectorAll('.et-btn');
 
-    function wide() { return window.matchMedia('(min-width:900px)').matches; }
-
     var wantPages = 0;                       // 0 - обложка, 1 - раскрытая книга
     var hand = 0;                            // сколько листов перевёрнуто вручную стрелкой
-    var coverSrc = coverImg ? coverImg.getAttribute('src') : '';
-    var pageSrc = coverSrc.replace(/img\/[^/]+$/, 'img/kniga/stranica-06.webp');
     var lastP = -1;
 
     Array.prototype.forEach.call(toggles, function (b) {
@@ -642,24 +638,20 @@
         b.classList.add('is-on');
         wantPages = b.getAttribute('data-book') === 'pages' ? 1 : 0;
         hand = 0;
-        if (wide() && !reduce) {
-          bk.classList.add('is-smooth');     // по кнопке книга открывается плавно
-          draw(lastP < 0 ? 0 : lastP);
-        } else if (coverImg) {
-          coverImg.setAttribute('src', wantPages ? pageSrc : coverSrc);
-        }
+        bk.classList.add('is-smooth');       // по кнопке книга открывается плавно
+        draw(lastP < 0 ? 0 : lastP);
       });
     });
 
     if (next) {
       next.addEventListener('click', function () {
-        hand = hand >= pages.length ? 0 : hand + 1;
+        hand = hand >= active.length ? 0 : hand + 1;
         bk.classList.add('is-smooth');
         draw(lastP < 0 ? 0 : lastP);
       });
     }
 
-    if (!wide() || reduce) return;
+    if (reduce) return;                      // в системе выключено движение - книга лежит закрытой
 
     /* ---- раскадровка по прогрессу секции ---- */
     var TXT1 = 0.18;                 // 0.00-0.18 текст первого экрана уходит вверх
@@ -669,10 +661,9 @@
     var OUT0 = 0.88, OUT1 = 1.00;    // передача следующей секции
 
     // веер с нахлёстом: пока один лист долетает, следующий уже пошёл
-    var N = pages.length;
-    var OVER = 3.6;                                  // сколько листов в воздухе разом
-    var STAG = (RIF1 - RIF0) / (N - 1 + OVER);       // сдвиг старта между листами
-    var DUR = OVER * STAG;                           // длительность одного переворота
+    var OVER = 3.6;                          // сколько листов в воздухе разом
+    var active = pages;                      // на телефоне часть листов скрыта
+    var N = pages.length, STAG = 0, DUR = 0, boost = 0;
 
     function leaf(el, rot, bow) {
       el.style.setProperty('--rot', rot.toFixed(1) + 'deg');
@@ -702,7 +693,7 @@
       for (var i = 0; i < N; i++) {
         var a = RIF0 + i * STAG;
         var pr = byHand ? (i < hand ? 1 : 0) : ease(span(p, a, a + DUR));
-        leaf(pages[i], -180 * pr * live, Math.sin(Math.PI * pr) * live);
+        leaf(active[i], -180 * pr * live, Math.sin(Math.PI * pr) * live);
       }
 
       var openAmt = openP * live;
@@ -715,7 +706,7 @@
 
       // закрытая книга - это правая половина кадра, поэтому ведём её к центру
       var shift = -25 * (1 - openAmt) * Math.cos(rotY * Math.PI / 180);
-      var scale = 1 - 0.10 * grow - 0.09 * outP;
+      var scale = (1 + boost * (1 - openAmt)) * (1 - 0.10 * grow - 0.09 * outP);
       var lift = (1 - grow) * 13;
       wrap.style.transform = 'translate3d(' + (-50 + shift).toFixed(2) + '%,' +
         (-50 + lift).toFixed(2) + '%,0) scale(' + scale.toFixed(3) + ')';
@@ -741,6 +732,11 @@
     var total = 1;
     function measure() {
       total = Math.max(1, stage.offsetHeight - window.innerHeight);
+      boost = parseFloat(getComputedStyle(wrap).getPropertyValue('--closed-boost')) || 0;
+      active = pages.filter(function (el) { return getComputedStyle(el).display !== 'none'; });
+      N = active.length || 1;
+      STAG = (RIF1 - RIF0) / (N - 1 + OVER);
+      DUR = OVER * STAG;
     }
     // положение берём у самой сцены, а не у окна: так работает и внутри
     // рамки предпросмотра, где прокручивается не окно, а вложенный документ

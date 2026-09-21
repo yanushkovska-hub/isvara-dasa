@@ -935,7 +935,7 @@ body.reader-open{overflow:hidden}
   transition:opacity .3s ease,transform .3s ease}
 .bk-next:hover::before,.bk-next:focus-visible::before{opacity:1;transform:scale(1)}
 .bk-next:active{transform:translateY(-50%) scale(.94)}
-@media (max-width:899px){.bk-next{display:none}}
+@media (max-width:899px){.bk-next{left:auto;right:2%;width:42px;height:42px}.bk-next svg{width:19px;height:19px}}
 
 /* ---------- интерфейс первого экрана ---------- */
 .era-view::after{content:"";position:absolute;left:0;right:0;bottom:0;z-index:3;height:27%;pointer-events:none;
@@ -998,29 +998,28 @@ body.reader-open{overflow:hidden}
 .era-corner span:first-child{color:var(--gold)}
 
 @media (max-width:700px){.et-line{flex-direction:column;align-items:center;gap:4px}}
+/* телефон и планшет: та же сцена, только книга и подписи под узкий экран */
 @media (max-width:899px){
-  .era-stage{height:auto}
-  .era-view{position:relative;height:auto;min-height:0;padding:100px 0 60px;overflow:hidden}
-  .era-bg{inset:0}
-  .era-bg img{filter:blur(30px) saturate(.72) brightness(.5)}
-  .era-book-wrap{position:relative;left:auto;top:auto;transform:none;margin:0 auto;height:auto;
-    width:min(78vw,330px);aspect-ratio:570 / 798}
-  .era-book{position:absolute;inset:0;perspective:none}
-  .bk{position:absolute;inset:0;transform:none !important}
-  .bk > span:not(.bk-cover){display:none}
-  .bk-cover{left:0;width:100%;transform:none !important}
-  .bk-cover .pg-v{display:none}
-  .bk-cover .pg-r::after{display:none}
-  .era-ui{position:static;display:grid;justify-items:center;gap:0;text-align:center}
-  .era-seal{position:relative;left:auto;top:auto;margin:0 auto 22px;width:84px;height:84px}
-  .era-eyebrow{position:static;transform:none;margin:0 0 16px;max-width:none;text-align:center;white-space:normal}
-  .era-title{position:static;transform:none;width:auto;margin:0 0 26px;opacity:1 !important}
-  .et-script{position:static;display:block;transform:none;margin-top:6px}
-  .era-split{position:static;flex-direction:column;gap:16px;margin:0 0 28px;opacity:1 !important}
-  .era-cta-hero{position:static;transform:none;margin-bottom:6px}
-  .era-rail,.era-corner{display:none}
+  .era-stage{height:340svh}
+  .era-bg{inset:-4%}
+  .era-bg img{filter:blur(20px) saturate(.72) brightness(.5)}   /* размытие мягче - телефону легче */
+
+  /* раскрытый разворот вписан в ширину экрана, закрытая книга крупнее его */
+  .era-book-wrap{width:min(92vw,420px);height:auto;aspect-ratio:1.4286 / 1;
+    transform:translate(-75%,-34%) scale(1.72);--closed-boost:.72}
+  .era-book{perspective:1200px}
+  .bk{--th:18px}
+  .bk-extra{display:none}                    /* листов меньше - ради плавности хода */
+
+  .era-title{top:9%}
+  /* подписи по краям на телефоне легли бы прямо на обложку - оставляем переключатель */
+  .era-split{top:auto;bottom:100px;justify-content:center}
+  .era-corner{left:50%;right:auto;bottom:56px;transform:translateX(-50%);text-align:center;
+    gap:4px;font-size:9.5px;letter-spacing:.14em;white-space:nowrap}
+  .era-cta-hero{bottom:20px;font-size:11.5px}
+  /* печать ушла бы под заголовок - на телефоне её роль играет строка в шапке */
+  .era-rail,.era-pins,.era-eyebrow,.es-side,.era-seal{display:none}
 }
-@media (max-width:899px){.era-ui{order:2}.era-view{display:flex;flex-direction:column-reverse;gap:34px}}
 
 /* ---------- лист-арка после первого экрана ---------- */
 .era-page .leaf{position:relative;margin:clamp(30px,5vw,64px) auto 0;padding:clamp(56px,7vw,112px) var(--pad-x)}
