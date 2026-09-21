@@ -14,12 +14,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;0,7..72,600;1,7..72,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css?v=1789902710">
+<link rel="stylesheet" href="../style.css?v=1789962153">
 <link rel="alternate" hreflang="en" href="../en/personal-book/">
 </head>
-<body>
+<body class="era-hero">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="fleuron" viewBox="0 0 140 12"><path d="M0 6H56M84 6H140" stroke="currentColor" stroke-width="1" fill="none"/><path d="M70 .5L75.5 6 70 11.5 64.5 6Z" stroke="currentColor" stroke-width="1" fill="none"/><circle cx="70" cy="6" r="1.7" fill="currentColor"/><circle cx="60" cy="6" r="1" fill="currentColor"/><circle cx="80" cy="6" r="1" fill="currentColor"/></symbol>
+  <symbol id="seal-mark" viewBox="0 0 40 40"><g fill="none" stroke="currentColor" stroke-width="1.1"><circle cx="20" cy="20" r="4.6"/><circle cx="20" cy="20" r="9.4" stroke-opacity=".55"/><path d="M20 4.4v6M20 29.6v6M4.4 20h6M29.6 20h6M9 9l4.3 4.3M26.7 26.7L31 31M31 9l-4.3 4.3M13.3 26.7L9 31"/></g><circle cx="20" cy="20" r="1.6" fill="currentColor"/></symbol>
 </svg>
 <a class="skip" href="#main">К содержанию страницы</a>
 
@@ -42,24 +43,80 @@
 <main id="main">
 
 <!-- ============ Первый экран ============ -->
-<section class="cloth hero-cloth" aria-labelledby="book-h">
-  <div class="cloth-in">
-    <a class="crumb" href="../">←&nbsp;Ишвара Дас · Īśvara Dāsa</a>
-    <div class="hero-grid">
-      <figure class="book-object">
-        <div class="book-cover"><img src="../img/personal-book.jpg?v=1789902710" alt="Обложка персональной книги: миниатюра с лотосом и звёздным небом, имя владелицы золотом" width="700" height="994"></div>
-      </figure>
-      <div>
-        <p class="eyebrow">Джйотиш · книга об одной судьбе</p>
-        <h1 class="h1" id="book-h">Персональная книга по астрологии</h1>
-        <p class="lead-text">Я рассчитываю Вашу карту рождения и пишу по ней книгу о Вас: о характере, деле и деньгах, любви, детях, роде, теле и годах, которые впереди.</p>
-        <p class="facts"><span>300&nbsp;000&nbsp;₽ или 3&nbsp;000&nbsp;€</span><span>3-5 месяцев</span><span>один экземпляр</span></p>
-        <blockquote class="pull"><p>«Почти всё, что ты годами объяснял своим характером, объясняется устройством гороскопа»</p></blockquote>
-        <div class="actions actions-left" style="margin-top:34px">
-          <a class="btn btn-gold" href="https://t.me/Ishvaradasa" target="_blank" rel="noopener">Написать о книге</a>
-          <a class="link-arrow" href="#process">Как идёт работа&nbsp;↓</a>
-        </div>
+<section class="era" aria-labelledby="book-h">
+  <div class="era-stage">
+    <div class="era-view">
+
+      <div class="era-bg" aria-hidden="true">
+        <img class="era-bg-img" src="../img/oblozhka.webp?v=1789962153" alt="" width="570" height="798">
       </div>
+
+      <div class="era-book-wrap">
+        <div class="era-book" aria-hidden="true">
+          <div class="bk">
+            <span class="bk-back"><svg class="bk-mark" viewBox="0 0 40 40"><use href="#seal-mark"/></svg></span>
+            <span class="bk-board"><img src="../img/kniga/stranica-09.webp?v=1789962153" alt="" width="1000" height="1419"></span>
+            <span class="bk-spine"></span>
+            <span class="bk-edge"></span>
+            <span class="bk-leaf" style="--i:10"><span class="pg pg-r"><img src="../img/kniga/stranica-07.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-08.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:9"><span class="pg pg-r"><img src="../img/kniga/stranica-12.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-05.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:8"><span class="pg pg-r"><img src="../img/kniga/stranica-10.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-11.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:7"><span class="pg pg-r"><img src="../img/kniga/stranica-08.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-09.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:6"><span class="pg pg-r"><img src="../img/kniga/stranica-06.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-07.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:5"><span class="pg pg-r"><img src="../img/kniga/stranica-03.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-04.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:4"><span class="pg pg-r"><img src="../img/kniga/stranica-11.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-12.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:3"><span class="pg pg-r"><img src="../img/kniga/stranica-09.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-10.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:2"><span class="pg pg-r"><img src="../img/kniga/stranica-07.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-08.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf" style="--i:1"><span class="pg pg-r"><img src="../img/kniga/stranica-05.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span><span class="pg pg-v"><img src="../img/kniga/stranica-06.webp?v=1789962153" alt="" width="1000" height="1419"><span class="page-shadow"></span></span></span>
+            <span class="bk-leaf bk-cover" style="--i:0"><span class="pg pg-r"><img src="../img/oblozhka.webp?v=1789962153" alt="" width="570" height="798"><span class="bk-glare"></span><span class="page-shadow"></span></span><span class="pg pg-v pg-end"><span class="page-shadow"></span></span></span>
+          </div>
+        </div>
+
+        <div class="era-pins">
+          <button class="era-pin" type="button" style="--x:72%;--y:33%"><span class="pin-dot"></span><span class="pin-note">Созвездие, под которым Вы родились</span></button>
+          <button class="era-pin" type="button" style="--x:50%;--y:52%"><span class="pin-dot"></span><span class="pin-note">Ваша карта рождения</span></button>
+        </div>
+
+        <button class="bk-next" type="button" aria-label="Перелистнуть страницу"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M12.5 6.5L18 12l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+
+      <div class="era-ui">
+        <a class="era-seal" href="../" aria-label="Ишвара Дас: на главную">
+          <svg class="seal-ring" viewBox="0 0 120 120" aria-hidden="true">
+            <defs><path id="seal-path" d="M60 60 m-46 0 a46 46 0 1 1 92 0 a46 46 0 1 1 -92 0"/></defs>
+            <text textLength="289" lengthAdjust="spacing"><textPath href="#seal-path" startOffset="0">ĪŚVARA DĀSA · ДЖЙОТИШ · </textPath></text>
+          </svg>
+          <svg class="seal-mid" viewBox="0 0 40 40" aria-hidden="true"><use href="#seal-mark"/></svg>
+        </a>
+
+        <p class="era-eyebrow">Джйотиш&nbsp;· книга об одной судьбе</p>
+
+        <h1 class="era-title" id="book-h">
+          <span class="et-word et-1">Персональная</span>
+          <span class="et-line"><span class="et-word et-2">книга</span><span class="et-script">по астрологии</span></span>
+        </h1>
+
+        <div class="era-split">
+          <span class="es-side es-left">Один человек</span>
+          <span class="era-toggle" role="group" aria-label="Показать книгу">
+            <button class="et-btn is-on" type="button" data-book="cover">Обложка</button>
+            <span class="et-sep" aria-hidden="true"></span>
+            <button class="et-btn" type="button" data-book="pages">Страницы</button>
+          </span>
+          <span class="es-side es-right">Один экземпляр</span>
+        </div>
+
+        <a class="era-cta era-cta-hero" href="https://t.me/Ishvaradasa" target="_blank" rel="noopener"><span>Написать о книге</span></a>
+
+        <div class="era-rail" aria-hidden="true">
+          <span class="rail-num">01</span>
+          <span class="rail-line"><i></i></span>
+          <span class="rail-word">Листать</span>
+        </div>
+
+        <p class="era-corner" aria-hidden="true"><span>3-5 месяцев работы</span><span>один печатный экземпляр</span></p>
+      </div>
+
     </div>
   </div>
 </section>
@@ -72,11 +129,11 @@
       <h2 class="h2" id="inside-h">Что внутри</h2>
       <div class="showcase">
         <figure class="sc-item sc-main">
-          <span class="sc-shot"><img src="../img/kniga-cover.webp?v=1789902710" alt="Персональная книга по астрологии: обложка с лотосом, звёздным небом и картой рождения" width="800" height="1135"></span>
+          <span class="sc-shot"><img src="../img/kniga-cover.webp?v=1789962153" alt="Персональная книга по астрологии: обложка с лотосом, звёздным небом и картой рождения" width="800" height="1135"></span>
           <figcaption>Персональная книга</figcaption>
         </figure>
         <figure class="sc-item sc-extra">
-          <span class="sc-shot"><img src="../img/kniga-900.webp?v=1789902710" alt="Том «900 вопросов, которые стоило бы задать астрологу»" width="900" height="1278"></span>
+          <span class="sc-shot"><img src="../img/kniga-900.webp?v=1789962153" alt="Том «900 вопросов, которые стоило бы задать астрологу»" width="900" height="1278"></span>
           <figcaption>«900 вопросов» · электронный том</figcaption>
         </figure>
       </div>
@@ -151,8 +208,7 @@
     <header class="chapter-head"><span class="chapter-num">IV</span><span class="chapter-name">Стоимость</span></header>
     <div class="chapter-body">
       <h2 class="h2" id="price-h">Стоимость</h2>
-      <div class="price">
-        <p class="price-figure"><span class="price-rub">300&nbsp;000&nbsp;₽</span><span class="price-eur">3&nbsp;000&nbsp;€</span></p>
+      <div class="price price-plain">
         <div class="price-terms">
           <p>Книга всегда полная, короткой версии нет. Главы о супруге, детях и родителях входят в стоимость. Оплата&nbsp;- полностью до начала работы, без скидок и рассрочки.</p>
           <p>Одновременно я веду не больше пяти книг.</p>
@@ -190,11 +246,11 @@
   </div>
   <div class="rv-wall rv-wall-small">
     <figure class="rv rv-video">
-      <video controls playsinline preload="none" poster="../img/reviews/video-poster.jpg?v=1789902710" width="576" height="720" aria-label="Видео: владелица получает персональную книгу"><source src="../media/kniga-yadviga.mp4?v=1789902710" type="video/mp4"></video>
+      <video controls playsinline preload="none" poster="../img/reviews/video-poster.jpg?v=1789962153" width="576" height="720" aria-label="Видео: владелица получает персональную книгу"><source src="../media/kniga-yadviga.mp4?v=1789962153" type="video/mp4"></video>
       <figcaption class="rv-tag">Персональная книга · видео</figcaption>
     </figure>
     <figure class="rv">
-      <button class="rv-shot" type="button" aria-label="Открыть крупно"><img src="../img/reviews/r04-kniga-foto.jpg?v=1789902710" alt="Фото: владелица с персональной книгой" width="720" height="960" loading="lazy"></button>
+      <button class="rv-shot" type="button" aria-label="Открыть крупно"><img src="../img/reviews/r04-kniga-foto.jpg?v=1789962153" alt="Фото: владелица с персональной книгой" width="720" height="960" loading="lazy"></button>
       <figcaption class="rv-tag">Персональная книга</figcaption>
     </figure>
   </div>
@@ -264,6 +320,6 @@
   </div>
 </footer>
 
-<script src="../site.js?v=1789902710"></script>
+<script src="../site.js?v=1789962153"></script>
 </body>
 </html>

@@ -812,3 +812,405 @@ body::after{z-index:-1;background:
 @media (max-width:760px){.reader-stage{height:72svh}.reader-nav{width:44px;height:44px}
   .reader-prev{left:10px}.reader-next{right:10px}}
 body.reader-open{overflow:hidden}
+
+/* ===== v24: первый экран и блоки в духе ERA - НАЧАЛО (откат: удалить до маркера КОНЕЦ) ===== */
+.era-page{--shell:1400px;--hair:rgba(117,89,26,.26);--hair-gold:rgba(205,177,111,.3)}
+
+/* верхняя строка: над первым экраном прозрачная, ниже - как была */
+.era-page .topbar{position:fixed;left:0;right:0;top:0;background:transparent;border-bottom-color:transparent;transition:background-color .35s ease,border-color .35s ease}
+.era-page .topbar.is-solid{background:var(--cloth);border-bottom-color:rgba(205,177,111,.28)}
+
+/* ---------- сцена первого экрана ---------- */
+.era{position:relative}
+.era-stage{height:400svh}
+.era-view{position:sticky;top:0;z-index:1;height:100svh;overflow:hidden;color:var(--leaf)}
+
+/* фон: обложка во весь экран, размыта и уведена в глубину переплёта */
+.era-bg{position:absolute;inset:-6%;z-index:0}
+.era-bg img{width:100%;height:100%;object-fit:cover;filter:blur(38px) saturate(.72) brightness(.52);transform:scale(1.14);will-change:transform}
+.era-bg::after{content:"";position:absolute;inset:0;background:
+  radial-gradient(78% 62% at 50% 44%,rgba(10,14,38,.18),rgba(10,14,38,.72) 78%,rgba(8,11,30,.92) 100%),
+  linear-gradient(180deg,rgba(15,20,54,.86) 0,rgba(15,20,54,.18) 26%,rgba(12,16,44,.34) 68%,rgba(10,13,36,.9) 100%)}
+
+/* ---------- книга: настоящий разворот ---------- */
+@property --rot{syntax:'<angle>';inherits:false;initial-value:0deg}
+@property --lift{syntax:'<length>';inherits:false;initial-value:0px}
+@property --turn{syntax:'<number>';inherits:false;initial-value:0}
+.era-book-wrap{position:absolute;left:50%;top:50%;z-index:2;height:min(84svh,720px);
+  aspect-ratio:1.4286 / 1;                  /* два листа в ширину: 570/798 x 2 */
+  transform:translate(-75%,-36%);will-change:transform}
+.era-book{position:absolute;inset:0;perspective:2600px;perspective-origin:50% 45%}
+.bk{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;--th:34px}
+.bk > span{position:absolute}
+.bk-leaf,.bk-board,.bk-back{left:50%;top:0;width:50%;height:100%}
+.bk-lboard{left:0;top:0;width:50%;height:100%}
+
+/* борта переплёта - бумага под страницами */
+.bk-board{transform:translateZ(-3px);border-radius:0 4px 4px 0;overflow:hidden;
+  background:linear-gradient(105deg,#F7F1E3,#E9E0CC);
+  box-shadow:inset 20px 0 26px -20px rgba(28,28,40,.55)}
+.bk-board img{width:100%;height:100%;object-fit:cover;display:block}
+.bk-lboard{transform:translateZ(-3px);border-radius:4px 0 0 4px;opacity:0;
+  background:linear-gradient(255deg,#F7F1E3,#E9E0CC);
+  box-shadow:inset -20px 0 26px -20px rgba(28,28,40,.55)}
+
+/* корешок и обрез блока */
+.bk-spine{left:50%;top:0;width:var(--th);height:100%;transform-origin:left center;transform:rotateY(90deg);
+  backface-visibility:hidden;border-radius:2px 0 0 2px;
+  background:linear-gradient(90deg,#131A3C,#2B3674 48%,#1A2350 78%,#131A3C)}
+.bk-edge{left:100%;top:7px;bottom:7px;width:var(--th);transform-origin:left center;transform:rotateY(90deg);
+  backface-visibility:hidden;
+  background:repeating-linear-gradient(90deg,#F4EEE1 0 2px,#DBD1BA 2px 3px)}
+
+/* тыльная сторона переплёта */
+.bk-back{transform:translateZ(-19px) rotateY(180deg);backface-visibility:hidden;
+  display:grid;place-items:center;border-radius:4px 2px 2px 4px;
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0 1px,rgba(0,0,0,.03) 1px 2px),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.025) 0 1px,rgba(0,0,0,.025) 1px 2px),
+    linear-gradient(120deg,#233064,#141B3E);
+  box-shadow:inset 0 0 0 1px rgba(205,177,111,.38),inset 0 0 0 9px #161E45,inset 0 0 0 10px rgba(205,177,111,.26),
+    inset 0 0 90px rgba(0,0,0,.45)}
+.bk-mark{width:132px;height:132px;color:rgba(205,177,111,.4)}
+
+/* листы: две стороны, вращаются от корешка */
+.bk-leaf{transform-origin:left center;transform-style:preserve-3d;will-change:transform;
+  transform:rotateY(var(--rot,0deg)) translateZ(calc((13 - var(--i)) * 0.55px + var(--lift,0px)))}
+.bk.is-smooth .bk-leaf{transition:--rot .85s cubic-bezier(.65,.05,.25,1),--lift .85s cubic-bezier(.65,.05,.25,1)}
+
+/* прогиб бумаги: тень набегает на лист в момент переворота и сходит на нет */
+.page-shadow{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:var(--turn,0);
+  background:linear-gradient(90deg,
+    rgba(22,25,44,.52) 0%,rgba(22,25,44,.2) 22%,rgba(22,25,44,.04) 46%,
+    rgba(255,255,255,.1) 72%,rgba(255,255,255,0) 100%)}
+.pg-v .page-shadow{transform:scaleX(-1)}
+.pg{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;
+  background:linear-gradient(105deg,#FBF7EE,#F1EADA)}
+.pg img{display:block;width:100%;height:100%;object-fit:cover}
+.pg-v{transform:rotateY(180deg)}
+.pg::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(28,28,40,.3),rgba(28,28,40,0) 15%)}
+.pg-v::after{background:linear-gradient(270deg,rgba(28,28,40,.3),rgba(28,28,40,0) 15%)}
+.pg-blank,.pg-end{background:linear-gradient(120deg,#F7F1E3,#E9E0CC)}
+.pg-end::before{content:"";position:absolute;inset:16px;box-shadow:inset 0 0 0 1px rgba(117,89,26,.26)}
+
+/* обложка */
+.bk-cover .pg-r{border-radius:2px 6px 6px 2px;
+  box-shadow:0 2px 0 rgba(0,0,0,.4),0 70px 100px -44px rgba(0,0,0,.95),0 0 0 1px rgba(205,177,111,.22)}
+.bk-cover .pg-r::after{background:linear-gradient(90deg,rgba(0,0,0,.45) 0,rgba(255,255,255,.14) 5px,rgba(0,0,0,.12) 11px,rgba(0,0,0,0) 26px)}
+.bk-glare{position:absolute;inset:-20% -30%;pointer-events:none;opacity:.5;
+  background:linear-gradient(102deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.1) 49%,rgba(255,255,255,.14) 51%,rgba(255,255,255,0) 60%)}
+
+/* метки на обложке */
+.era-pins{position:absolute;left:50%;right:0;top:0;bottom:0;z-index:3}
+.era-pin{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);
+  width:34px;height:34px;padding:0;border:0;background:none;cursor:pointer;color:var(--leaf)}
+.pin-dot{position:absolute;inset:0;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(244,238,225,.75);
+  background:rgba(12,16,44,.34);backdrop-filter:blur(2px)}
+.pin-dot::before,.pin-dot::after{content:"";position:absolute;left:50%;top:50%;background:var(--leaf);transform:translate(-50%,-50%)}
+.pin-dot::before{width:11px;height:1px}
+.pin-dot::after{width:1px;height:11px;transition:opacity .25s ease}
+.era-pin::before{content:"";position:absolute;inset:-6px;border-radius:50%;box-shadow:0 0 0 1px rgba(244,238,225,.28);
+  opacity:0;transition:opacity .3s ease,transform .3s ease;transform:scale(.8)}
+.era-pin:hover::before,.era-pin:focus-visible::before{opacity:1;transform:scale(1)}
+.era-pin:hover .pin-dot::after,.era-pin:focus-visible .pin-dot::after{opacity:0}
+.pin-note{position:absolute;left:50%;bottom:calc(100% + 12px);transform:translate(-50%,6px);
+  width:max-content;max-width:14em;padding:9px 14px;border-radius:2px;
+  background:rgba(10,14,38,.9);box-shadow:inset 0 0 0 1px rgba(205,177,111,.4);
+  font-family:var(--f-data);font-size:11.5px;line-height:1.45;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--leaf);opacity:0;pointer-events:none;transition:opacity .28s ease,transform .28s ease}
+.era-pin:hover .pin-note,.era-pin:focus-visible .pin-note{opacity:1;transform:translate(-50%,0)}
+@media (max-width:860px){.era-pins{display:none}}
+
+/* стрелка ручного листания - в том же ключе, что и метки-плюсики */
+.bk-next{position:absolute;left:calc(100% + 24px);top:50%;z-index:4;
+  display:grid;place-items:center;width:46px;height:46px;padding:0;border:0;border-radius:50%;
+  transform:translateY(-50%);cursor:pointer;color:var(--leaf);
+  background:rgba(12,16,44,.34);box-shadow:inset 0 0 0 1px rgba(244,238,225,.75);backdrop-filter:blur(2px);
+  opacity:0;pointer-events:none;transition:opacity .35s ease}
+.bk-next.is-on{opacity:1;pointer-events:auto}
+.bk-next svg{width:21px;height:21px}
+.bk-next::before{content:"";position:absolute;inset:-6px;border-radius:50%;
+  box-shadow:0 0 0 1px rgba(244,238,225,.28);opacity:0;transform:scale(.8);
+  transition:opacity .3s ease,transform .3s ease}
+.bk-next:hover::before,.bk-next:focus-visible::before{opacity:1;transform:scale(1)}
+.bk-next:active{transform:translateY(-50%) scale(.94)}
+@media (max-width:899px){.bk-next{display:none}}
+
+/* ---------- интерфейс первого экрана ---------- */
+.era-view::after{content:"";position:absolute;left:0;right:0;bottom:0;z-index:3;height:27%;pointer-events:none;
+  background:linear-gradient(180deg,rgba(9,12,34,0),rgba(9,12,34,.5) 64%,rgba(8,11,30,.78) 100%)}
+.era-ui{position:absolute;inset:0;z-index:4;pointer-events:none}
+.era-ui a,.era-ui button{pointer-events:auto}
+
+.era-seal{position:absolute;left:var(--side);top:92px;width:106px;height:106px;display:grid;place-items:center;
+  color:var(--gold);text-decoration:none;opacity:1}
+.seal-ring{position:absolute;inset:0;width:100%;height:100%;animation:seal-spin 34s linear infinite}
+.seal-ring text{fill:currentColor;font-family:var(--f-data);font-size:10px;letter-spacing:.08em}
+.seal-mid{position:relative;width:34px;height:34px;color:var(--gold)}
+@keyframes seal-spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.seal-ring{animation:none}}
+
+.era-eyebrow{position:absolute;right:var(--side);bottom:108px;margin:0;max-width:240px;text-align:right;
+  font-family:var(--f-data);font-size:10.5px;line-height:1.8;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,238,225,.62)}
+
+.era-title{position:absolute;left:50%;top:11%;transform:translateX(-50%);width:min(100%,calc(100% - 2 * var(--side)));
+  margin:0;text-align:center;font-family:var(--f-display);font-weight:400;line-height:.86;
+  letter-spacing:-.018em;text-transform:uppercase;color:var(--leaf);will-change:transform,opacity}
+.era-title::before{content:"";position:absolute;left:50%;top:50%;z-index:-1;width:150%;height:340%;transform:translate(-50%,-50%);
+  background:radial-gradient(56% 50% at 50% 50%,rgba(10,14,38,.62),rgba(10,14,38,0) 72%)}
+.et-word{display:block;font-size:min(calc((100vw - 2 * var(--side) - 12px) / 8.8),168px)}
+.et-line{display:flex;align-items:baseline;justify-content:center;gap:.3em}
+.et-script{transform:translateY(.13em);font-style:italic;text-transform:none;letter-spacing:0;font-size:clamp(19px,3.7vw,58px);color:var(--gold);white-space:nowrap}
+
+.era-split{position:absolute;left:0;right:0;top:46%;display:flex;align-items:center;justify-content:space-between;
+  gap:20px;padding:0 var(--side);will-change:opacity}
+.es-side{font-family:var(--f-display);font-size:clamp(13px,1.5vw,20px);letter-spacing:.26em;text-transform:uppercase;color:var(--leaf);white-space:nowrap}
+.era-toggle{display:flex;align-items:center;gap:12px;padding:9px 18px;border-radius:999px;
+  background:rgba(10,14,38,.5);box-shadow:inset 0 0 0 1px rgba(205,177,111,.28);backdrop-filter:blur(4px)}
+.et-btn{padding:0;border:0;background:none;cursor:pointer;color:rgba(244,238,225,.5);
+  font-family:var(--f-data);font-size:11px;letter-spacing:.24em;text-transform:uppercase;transition:color .25s ease}
+.et-btn.is-on{color:var(--gold)}
+.et-btn:hover{color:var(--leaf)}
+.et-sep{width:34px;height:1px;background:rgba(244,238,225,.32)}
+
+.era-cta{display:inline-flex;align-items:center;gap:14px;padding:0;border:0;background:none;cursor:pointer;
+  color:var(--leaf);text-decoration:none;font-family:var(--f-data);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase}
+.era-cta span{position:relative;padding-bottom:7px}
+.era-cta span::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;
+  transform-origin:left;transition:transform .35s cubic-bezier(.65,.05,.25,1)}
+.era-cta:hover span::after{transform:scaleX(0);transform-origin:right}
+.era-cta::after{content:"↗";font-size:13px;line-height:1;transition:transform .3s ease}
+.era-cta:hover::after{transform:translate(3px,-3px)}
+.era-cta-hero{position:absolute;left:50%;bottom:50px;transform:translateX(-50%);font-size:12.5px;color:var(--leaf)}
+.era-cta-hero span::after{background:var(--gold)}
+.era-cta-hero::after{color:var(--gold)}
+.era-cta-dark{color:var(--lapis)}
+
+.era-rail{position:absolute;left:var(--side);bottom:46px;display:flex;flex-direction:column;align-items:center;gap:14px;
+  font-family:var(--f-data);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:rgba(244,238,225,.62)}
+.rail-num{color:var(--gold)}
+.rail-line{position:relative;width:1px;height:74px;background:rgba(244,238,225,.24)}
+.rail-line i{position:absolute;left:0;top:0;width:1px;height:0;background:var(--gold)}
+.rail-word{writing-mode:vertical-rl}
+.era-corner{position:absolute;right:var(--side);bottom:44px;margin:0;display:grid;gap:7px;text-align:right;
+  font-family:var(--f-data);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,238,225,.62)}
+.era-corner span:first-child{color:var(--gold)}
+
+@media (max-width:700px){.et-line{flex-direction:column;align-items:center;gap:4px}}
+@media (max-width:899px){
+  .era-stage{height:auto}
+  .era-view{position:relative;height:auto;min-height:0;padding:100px 0 60px;overflow:hidden}
+  .era-bg{inset:0}
+  .era-bg img{filter:blur(30px) saturate(.72) brightness(.5)}
+  .era-book-wrap{position:relative;left:auto;top:auto;transform:none;margin:0 auto;height:auto;
+    width:min(78vw,330px);aspect-ratio:570 / 798}
+  .era-book{position:absolute;inset:0;perspective:none}
+  .bk{position:absolute;inset:0;transform:none !important}
+  .bk > span:not(.bk-cover){display:none}
+  .bk-cover{left:0;width:100%;transform:none !important}
+  .bk-cover .pg-v{display:none}
+  .bk-cover .pg-r::after{display:none}
+  .era-ui{position:static;display:grid;justify-items:center;gap:0;text-align:center}
+  .era-seal{position:relative;left:auto;top:auto;margin:0 auto 22px;width:84px;height:84px}
+  .era-eyebrow{position:static;transform:none;margin:0 0 16px;max-width:none;text-align:center;white-space:normal}
+  .era-title{position:static;transform:none;width:auto;margin:0 0 26px;opacity:1 !important}
+  .et-script{position:static;display:block;transform:none;margin-top:6px}
+  .era-split{position:static;flex-direction:column;gap:16px;margin:0 0 28px;opacity:1 !important}
+  .era-cta-hero{position:static;transform:none;margin-bottom:6px}
+  .era-rail,.era-corner{display:none}
+}
+@media (max-width:899px){.era-ui{order:2}.era-view{display:flex;flex-direction:column-reverse;gap:34px}}
+
+/* ---------- лист-арка после первого экрана ---------- */
+.era-page .leaf{position:relative;margin:clamp(30px,5vw,64px) auto 0;padding:clamp(56px,7vw,112px) var(--pad-x)}
+.leaf-arch{z-index:4;margin-top:-13svh;padding-top:calc(13svh + clamp(56px,7vw,112px));
+  border-radius:50% 50% 0 0 / 8% 8% 0 0}
+.leaf-arch::before{content:"";position:absolute;left:50%;top:clamp(34px,5svh,66px);transform:translateX(-50%);
+  width:1px;height:clamp(40px,7svh,86px);background:linear-gradient(180deg,rgba(117,89,26,0),var(--hair))}
+@media (max-width:899px){.leaf-arch{margin-top:0;padding-top:clamp(56px,7vw,112px);border-radius:0}.leaf-arch::before{display:none}}
+
+/* ---------- шапки разделов ---------- */
+.era-head{display:grid;grid-template-columns:200px minmax(0,1fr);column-gap:clamp(24px,4vw,72px);align-items:start;
+  padding-bottom:clamp(30px,4vw,54px);border-bottom:1px solid var(--hair)}
+.era-label{grid-column:1;margin:0;display:flex;align-items:baseline;gap:12px;
+  font-family:var(--f-data);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-ink)}
+.el-num{font-family:var(--f-display);font-size:15px;letter-spacing:.1em}
+.era-label-gold{color:var(--gold)}
+.era-h2{grid-column:2;margin:0;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(34px,5.6vw,86px);line-height:.98;letter-spacing:-.016em;text-wrap:balance;color:var(--ink)}
+.era-h2-light{color:var(--leaf)}
+.era-standfirst{grid-column:2;margin:26px 0 0;max-width:46em;font-size:clamp(18px,1.6vw,22px);line-height:1.55}
+@media (max-width:860px){
+  .era-head{grid-template-columns:1fr;gap:16px}
+  .era-label,.era-h2,.era-standfirst{grid-column:1}
+  .era-standfirst{margin-top:18px}
+}
+
+.era-body{max-width:56em;margin:clamp(34px,4vw,56px) 0 0}
+.era-lead{font-size:clamp(19px,1.6vw,23px);line-height:1.55;margin:0 0 20px}
+.era-note{margin:26px 0 0;font-size:17px;font-style:italic;color:rgba(28,28,40,.78)}
+.era-actions{margin-top:30px}
+
+/* ---------- витрина двух книг ---------- */
+.era-showcase{display:grid;grid-template-columns:1.25fr 1fr;gap:clamp(24px,3vw,56px);margin-top:clamp(40px,5vw,72px);align-items:end}
+.era-showcase .sc-item{margin:0}
+.era-showcase .sc-shot{display:block;overflow:hidden;background:#E9E1CF;box-shadow:0 30px 50px -34px rgba(0,0,0,.6)}
+.era-showcase .sc-shot img{width:100%;height:auto;transition:transform .8s cubic-bezier(.2,.7,.3,1)}
+.era-showcase .sc-item:hover .sc-shot img{transform:scale(1.035)}
+.era-showcase figcaption{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:16px;padding-top:13px;
+  border-top:1px solid var(--hair);font-family:var(--f-data);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.sc-t{font-family:var(--f-display);font-size:17px;letter-spacing:.06em;color:var(--ink)}
+.sc-m{margin-left:auto}
+@media (max-width:760px){.era-showcase{grid-template-columns:1fr}.sc-m{margin-left:0;width:100%}}
+
+/* ---------- карточки с номером ---------- */
+.era-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,2.6vw,44px);margin:28px 0 0}
+.era-card{padding-top:16px;border-top:1px solid var(--hair)}
+.ec-n{display:block;margin-bottom:12px;font-family:var(--f-data);font-size:11px;letter-spacing:.2em;color:var(--gold-ink)}
+.ec-h{margin:0 0 8px;font-family:var(--f-display);font-weight:400;font-size:clamp(21px,2vw,26px);line-height:1.15;color:var(--lapis)}
+.era-card p{margin:0}
+@media (max-width:700px){.era-cards{grid-template-columns:1fr}}
+
+/* ---------- оглавление глав ---------- */
+.era-index-head{margin-top:clamp(50px,6vw,84px)}
+.era-index-head .era-label{margin-bottom:16px}
+.era-index{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--hair)}
+.era-index li{display:grid;grid-template-columns:56px 250px minmax(0,1fr);align-items:baseline;gap:0 22px;
+  padding:17px 0;border-bottom:1px solid var(--hair);transition:padding-left .35s cubic-bezier(.65,.05,.25,1),color .3s ease}
+.era-index li:hover{padding-left:16px}
+.ei-n{font-family:var(--f-data);font-size:11px;letter-spacing:.18em;color:var(--gold-ink)}
+.ei-t{font-family:var(--f-display);font-size:clamp(20px,2.1vw,27px);line-height:1.15;color:var(--ink)}
+.era-index li:hover .ei-t{color:var(--lapis)}
+.ei-d{font-size:16.5px;line-height:1.5;color:rgba(28,28,40,.8)}
+@media (max-width:860px){
+  .era-index li{grid-template-columns:44px minmax(0,1fr);gap:4px 16px;padding:15px 0}
+  .ei-t{grid-column:2}
+  .ei-d{grid-column:2}
+}
+
+/* ---------- цитата на переплёте ---------- */
+.era-band{position:relative;margin-top:clamp(30px,5vw,64px);padding:clamp(88px,13vw,190px) var(--side);overflow:hidden;color:var(--leaf)}
+.era-band-art{position:absolute;inset:0;z-index:0}
+.era-band-art img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;filter:blur(28px) saturate(.7) brightness(.46);transform:scale(1.12)}
+.era-band::after{content:"";position:absolute;inset:0;z-index:1;
+  background:radial-gradient(70% 70% at 50% 50%,rgba(10,14,38,.3),rgba(9,12,34,.88) 82%)}
+.era-quote{position:relative;z-index:2;max-width:min(94%,1080px);margin:0 auto;text-align:center}
+.era-quote p{margin:0;font-family:var(--f-display);font-style:italic;font-size:clamp(25px,3.6vw,52px);line-height:1.22;text-wrap:balance}
+.era-quote footer{display:flex;flex-direction:column;gap:6px;margin-top:34px;
+  font-family:var(--f-data);font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+.eq-who{color:var(--gold)}
+.eq-what{color:rgba(244,238,225,.6)}
+
+/* ---------- сетка фактов ---------- */
+.era-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(26px,3.4vw,56px);margin-top:clamp(40px,5vw,68px)}
+.era-fact{padding-top:18px;border-top:1px solid var(--hair)}
+.ef-n{display:block;margin-bottom:14px;font-family:var(--f-data);font-size:11px;letter-spacing:.2em;color:var(--gold-ink)}
+.ef-h{margin:0 0 10px;font-family:var(--f-display);font-weight:400;font-size:clamp(22px,2.2vw,29px);line-height:1.12;color:var(--lapis)}
+.era-fact p{margin:0}
+@media (max-width:760px){.era-facts{grid-template-columns:1fr}}
+
+/* ---------- бегущая строка ---------- */
+.era-strip{position:relative;margin-top:clamp(30px,5vw,64px);padding:clamp(44px,6vw,86px) 0;overflow:hidden;color:var(--leaf)}
+.era-strip-label{margin:0 0 clamp(20px,3vw,40px);padding:0 var(--side);text-align:center;
+  font-family:var(--f-data);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.era-strip-track{display:flex;align-items:center;gap:.55em;white-space:nowrap;will-change:transform;
+  font-family:var(--f-display);font-size:clamp(44px,9vw,138px);line-height:1;letter-spacing:-.01em;text-transform:uppercase}
+.era-strip-track span{color:rgba(244,238,225,.9)}
+.era-strip-track i{font-style:normal;color:var(--gold)}
+
+/* ---------- шаги ---------- */
+.era-steps{list-style:none;margin:clamp(36px,4.5vw,64px) 0 0;padding:0;border-top:1px solid var(--hair);counter-reset:none}
+.era-steps li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:0 clamp(20px,3vw,48px);align-items:start;
+  padding:clamp(22px,2.6vw,34px) 0;border-bottom:1px solid var(--hair)}
+.es-n{font-family:var(--f-display);font-size:clamp(34px,4.4vw,62px);line-height:.9;color:var(--gold-ink);opacity:.55}
+.es-h{margin:0 0 7px;font-family:var(--f-display);font-weight:400;font-size:clamp(21px,2.1vw,28px);line-height:1.15;color:var(--lapis)}
+.es-b p{margin:0;max-width:44em}
+@media (max-width:700px){
+  .era-steps li{grid-template-columns:54px minmax(0,1fr)}
+  .es-n{font-size:30px}
+}
+
+/* ---------- стоимость ---------- */
+.era-price{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(30px,4vw,72px);
+  margin-top:clamp(40px,5vw,68px);padding-top:clamp(28px,3vw,44px);border-top:1px solid var(--hair)}
+.ep-fig{margin:0 0 24px}
+.ep-rub{display:block;font-family:var(--f-display);font-size:clamp(50px,7.4vw,112px);line-height:.94;letter-spacing:-.02em;color:var(--lapis)}
+.ep-eur{display:block;margin-top:10px;font-family:var(--f-display);font-size:clamp(22px,2.4vw,34px);color:var(--gold-ink)}
+.ep-text{margin:0 0 14px;max-width:38em}
+.ep-main .era-cta{margin-top:14px}
+.ep-spec{margin:0;padding:0;align-self:start}
+.ep-spec div{display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+  padding:13px 0;border-bottom:1px solid var(--hair)}
+.ep-spec div:first-child{border-top:1px solid var(--hair)}
+.ep-spec dt{margin:0;font-family:var(--f-data);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-ink)}
+.ep-spec dd{margin:0;text-align:right;font-family:var(--f-display);font-size:18px;color:var(--ink)}
+@media (max-width:860px){.era-price{grid-template-columns:1fr}}
+
+.era-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(26px,3.4vw,56px);margin-top:clamp(44px,5vw,76px)}
+.era-two > div > .era-label{margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--hair)}
+.era-two p{margin:0}
+.era-list{list-style:none;margin:0;padding:0}
+.era-list li{position:relative;padding:0 0 12px 24px}
+.era-list li::before{content:"";position:absolute;left:2px;top:.66em;width:6px;height:6px;background:var(--gold-ink);transform:rotate(45deg)}
+@media (max-width:760px){.era-two{grid-template-columns:1fr}}
+
+/* ---------- вопросы ---------- */
+.era-faq{margin-top:clamp(34px,4vw,56px);border-top:1px solid var(--hair)}
+.era-faq details{border-bottom:1px solid var(--hair)}
+.era-faq summary{display:grid;grid-template-columns:56px minmax(0,1fr) 34px;align-items:baseline;gap:22px;
+  padding:20px 0;cursor:pointer;list-style:none;transition:padding-left .35s cubic-bezier(.65,.05,.25,1)}
+.era-faq summary::-webkit-details-marker{display:none}
+.era-faq summary:hover{padding-left:12px}
+.fq-n{font-family:var(--f-data);font-size:11px;letter-spacing:.18em;color:var(--gold-ink)}
+.fq-t{font-family:var(--f-display);font-size:clamp(20px,2vw,26px);line-height:1.22;color:var(--ink)}
+.era-faq summary::after{content:"+";justify-self:end;font-family:var(--f-display);font-size:26px;line-height:1;color:var(--gold-ink);transition:transform .25s ease}
+.era-faq details[open] summary::after{transform:rotate(45deg)}
+.era-faq .answer{padding:0 34px 24px 78px;max-width:52em}
+.era-faq .answer p{margin:0}
+@media (max-width:700px){
+  .era-faq summary{grid-template-columns:38px minmax(0,1fr) 26px;gap:14px}
+  .era-faq .answer{padding:0 0 22px 52px}
+}
+
+/* ---------- отзывы ---------- */
+.era-page .rv-wall{margin-top:clamp(34px,4vw,56px);columns:auto;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(0,1fr));gap:clamp(20px,2.6vw,40px);max-width:920px}
+.era-page .rv-wall.is-laid{display:grid}
+.era-page .rv-wall .rv{margin:0}
+.era-page .rv-tag{display:flex;align-items:baseline;gap:12px;margin:14px 4px 0;padding-top:12px;
+  border-top:1px solid var(--hair);font-family:var(--f-data);font-size:11px;letter-spacing:.18em}
+
+/* ---------- контакты и подвал ---------- */
+.era-contact .era-label{margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid rgba(205,177,111,.28)}
+.era-contact .era-h2{margin-bottom:18px}
+.era-footer .footer-in{flex-wrap:wrap}
+.era-top{margin-left:auto;font-family:var(--f-data);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none}
+.era-top:hover{text-decoration:underline}
+
+/* ---------- мягкое появление ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .era-page .leaf .era-head,.era-page .leaf .era-showcase,.era-page .leaf .era-body,
+  .era-page .leaf .era-index-head,.era-page .leaf .era-index li,.era-page .leaf .era-facts .era-fact,
+  .era-page .leaf .era-steps li,.era-page .leaf .era-price,.era-page .leaf .era-two,
+  .era-page .leaf .era-faq,.era-page .leaf .rv-wall,.era-quote{
+    opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+  .era-page .is-up{opacity:1 !important;transform:none !important}
+}
+/* лист целиком не гасим: движение несут блоки внутри него */
+.reveal-on .era-page .leaf{opacity:1;transform:none;transition:none}
+/* ===== v24: первый экран и блоки в духе ERA - КОНЕЦ ===== */
+
+/* ===== v25: только первый экран на странице со старыми блоками - НАЧАЛО ===== */
+/* верхняя строка прозрачна над первым экраном и уплотняется ниже;
+   остальную страницу класс era-hero не трогает */
+.era-hero .topbar{position:fixed;left:0;right:0;top:0;background:transparent;
+  border-bottom-color:transparent;transition:background-color .35s ease,border-color .35s ease}
+.era-hero .topbar.is-solid{background:var(--cloth);border-bottom-color:rgba(205,177,111,.28)}
+
+/* «Стоимость» без цифр: колонка одна, условия занимают всю ширину */
+.price-plain{grid-template-columns:minmax(0,1fr)}
+/* ===== v25: только первый экран на странице со старыми блоками - КОНЕЦ ===== */
+
+

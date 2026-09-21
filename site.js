@@ -428,7 +428,7 @@
 (function () {
   var btn = document.querySelector('[data-reader]');
   if (!btn) return;
-  var anchor = document.querySelector('.showcase img') || document.querySelector('.book-cover img');
+  var anchor = document.querySelector('.era-showcase img') || document.querySelector('.showcase img') || document.querySelector('.book-cover img');
   if (!anchor) return;
   var base = anchor.getAttribute('src').replace(/img\/.*$/, '');
   var EN = document.documentElement.lang === 'en';
@@ -521,3 +521,253 @@
 
   btn.addEventListener('click', open);
 })();
+
+/* ===== v24: первый экран и блоки в духе ERA - НАЧАЛО (откат: удалить до маркера КОНЕЦ) ===== */
+(function () {
+  // первый экран может стоять и на странице со старыми блоками
+  if (!document.querySelector('.era-stage')) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+  function span(p, from, to) { return clamp((p - from) / (to - from), 0, 1); }
+  function ease(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+  /* --- верхняя строка: прозрачная над первым экраном, плотная ниже --- */
+  (function () {
+    var bar = document.querySelector('.topbar');
+    var stage = document.querySelector('.era-stage');
+    if (!bar || !stage) return;
+    function tick() {
+      bar.classList.toggle('is-solid', stage.getBoundingClientRect().bottom <= 96);
+    }
+    tick();
+    window.addEventListener('scroll', tick, { passive: true });
+    window.addEventListener('resize', tick);
+  })();
+
+  /* --- блоки поднимаются при подходе к экрану --- */
+  (function () {
+    var sel = '.leaf .era-head, .leaf .era-showcase, .leaf .era-body, .leaf .era-index-head,' +
+              '.leaf .era-index li, .leaf .era-fact, .leaf .era-steps li, .leaf .era-price,' +
+              '.leaf .era-two, .leaf .era-faq, .leaf .rv-wall, .era-quote';
+    var items = Array.prototype.slice.call(document.querySelectorAll(sel));
+    if (!items.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-up'); });
+      return;
+    }
+    // соседи в одном списке всплывают друг за другом, а не разом
+    var seen = {};
+    items.forEach(function (el) {
+      var key = el.parentNode && el.parentNode.className ? String(el.parentNode.className) : '-';
+      seen[key] = (seen[key] || 0) + 1;
+      el.style.transitionDelay = Math.min(seen[key] - 1, 8) * 55 + 'ms';
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('is-up');
+        io.unobserve(en.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    items.forEach(function (el) { io.observe(el); });
+    window.addEventListener('beforeprint', function () {
+      items.forEach(function (el) { el.classList.add('is-up'); });
+    });
+  })();
+
+  /* --- бегущая строка: уезжает вбок по мере прокрутки --- */
+  (function () {
+    var strip = document.querySelector('.era-strip');
+    if (!strip || reduce) return;
+    var track = strip.querySelector('.era-strip-track');
+    if (!track) return;
+    var ticking = false;
+    function frame() {
+      var r = strip.getBoundingClientRect();
+      var t = clamp((window.innerHeight - r.top) / (window.innerHeight + r.height), 0, 1);
+      track.style.transform = 'translate3d(' + (10 - 38 * t).toFixed(2) + '%,0,0)';
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () { frame(); ticking = false; });
+    }
+    frame();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', frame);
+  })();
+
+  /* --- первый экран: книга раскрывается, листается веером и закрывается ---
+     Всё ведёт прокрутка секции .era-stage: 0 - начало секции, 1 - её конец.
+     Прогресс считаем по window.pageYOffset, а размеры меряем отдельно -
+     чтобы в кадре не было ни одного принудительного пересчёта раскладки. */
+  (function () {
+    var stage = document.querySelector('.era-stage');
+    var wrap = document.querySelector('.era-book-wrap');
+    var bk = document.querySelector('.bk');
+    if (!stage || !wrap || !bk) return;
+
+    var leafByI = [];
+    Array.prototype.forEach.call(bk.querySelectorAll('.bk-leaf'), function (el) {
+      leafByI[parseInt(el.style.getPropertyValue('--i'), 10) || 0] = el;
+    });
+    var cover = leafByI[0];
+    var pages = leafByI.slice(1).filter(Boolean);
+    if (!cover || !pages.length) return;
+
+    var edge = bk.querySelector('.bk-edge');
+    var next = document.querySelector('.bk-next');
+    var coverImg = cover.querySelector('.pg-r img');
+    var title = document.querySelector('.era-title');
+    var eyebrow = document.querySelector('.era-eyebrow');
+    var split = document.querySelector('.era-split');
+    var cta = document.querySelector('.era-cta-hero');
+    var pins = document.querySelector('.era-pins');
+    var fill = document.querySelector('.rail-line i');
+    var bg = document.querySelector('.era-bg-img');
+    var toggles = document.querySelectorAll('.et-btn');
+
+    function wide() { return window.matchMedia('(min-width:900px)').matches; }
+
+    var wantPages = 0;                       // 0 - обложка, 1 - раскрытая книга
+    var hand = 0;                            // сколько листов перевёрнуто вручную стрелкой
+    var coverSrc = coverImg ? coverImg.getAttribute('src') : '';
+    var pageSrc = coverSrc.replace(/img\/[^/]+$/, 'img/kniga/stranica-06.webp');
+    var lastP = -1;
+
+    Array.prototype.forEach.call(toggles, function (b) {
+      b.addEventListener('click', function () {
+        Array.prototype.forEach.call(toggles, function (o) { o.classList.remove('is-on'); });
+        b.classList.add('is-on');
+        wantPages = b.getAttribute('data-book') === 'pages' ? 1 : 0;
+        hand = 0;
+        if (wide() && !reduce) {
+          bk.classList.add('is-smooth');     // по кнопке книга открывается плавно
+          draw(lastP < 0 ? 0 : lastP);
+        } else if (coverImg) {
+          coverImg.setAttribute('src', wantPages ? pageSrc : coverSrc);
+        }
+      });
+    });
+
+    if (next) {
+      next.addEventListener('click', function () {
+        hand = hand >= pages.length ? 0 : hand + 1;
+        bk.classList.add('is-smooth');
+        draw(lastP < 0 ? 0 : lastP);
+      });
+    }
+
+    if (!wide() || reduce) return;
+
+    /* ---- раскадровка по прогрессу секции ---- */
+    var TXT1 = 0.18;                 // 0.00-0.18 текст первого экрана уходит вверх
+    var OPN0 = 0.18, OPN1 = 0.36;    // обложка распахивается влево
+    var RIF0 = 0.36, RIF1 = 0.74;    // веер страниц
+    var SHT0 = 0.74, SHT1 = 0.88;    // книга закрывается, снова видна обложка
+    var OUT0 = 0.88, OUT1 = 1.00;    // передача следующей секции
+
+    // веер с нахлёстом: пока один лист долетает, следующий уже пошёл
+    var N = pages.length;
+    var OVER = 3.6;                                  // сколько листов в воздухе разом
+    var STAG = (RIF1 - RIF0) / (N - 1 + OVER);       // сдвиг старта между листами
+    var DUR = OVER * STAG;                           // длительность одного переворота
+
+    function leaf(el, rot, bow) {
+      el.style.setProperty('--rot', rot.toFixed(1) + 'deg');
+      el.style.setProperty('--lift', (17 * bow).toFixed(1) + 'px');
+      el.style.setProperty('--turn', bow.toFixed(3));
+    }
+
+    function draw(p) {
+      lastP = p;
+      var textOut = ease(span(p, 0.02, TXT1));
+      var early = ease(span(p, 0.01, TXT1 - 0.04));
+      var openP = ease(span(p, OPN0, OPN1));
+      var shutP = ease(span(p, SHT0, SHT1));
+      var outP = ease(span(p, OUT0, OUT1));
+      var grow = ease(span(p, 0, OPN1));
+      // у верха страницы книгой управляет кнопка, ниже - прокрутка
+      var byHand = wantPages && p < OPN0;
+      if (byHand) openP = 1;
+      if (next) next.classList.toggle('is-on', !!byHand);
+
+      var live = 1 - shutP;                          // 1 - раскрыта, 0 - захлопнулась
+
+      // обложка: распахивается влево и остаётся лежать слева
+      leaf(cover, -180 * openP * live, Math.sin(Math.PI * openP) * live);
+
+      // страницы: одна за другой, с нахлёстом
+      for (var i = 0; i < N; i++) {
+        var a = RIF0 + i * STAG;
+        var pr = byHand ? (i < hand ? 1 : 0) : ease(span(p, a, a + DUR));
+        leaf(pages[i], -180 * pr * live, Math.sin(Math.PI * pr) * live);
+      }
+
+      var openAmt = openP * live;
+      if (edge) edge.style.opacity = (1 - Math.min(1, openP * 1.6) * live).toFixed(2);
+
+      // закрытая книга стоит вполоборота, раскрытая - почти прямо
+      var rotY = -(14 - 9 * openAmt);
+      var rotX = 4 - 7 * ease(span(p, 0.02, OPN1));
+      bk.style.transform = 'rotateX(' + rotX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg)';
+
+      // закрытая книга - это правая половина кадра, поэтому ведём её к центру
+      var shift = -25 * (1 - openAmt) * Math.cos(rotY * Math.PI / 180);
+      var scale = 1 - 0.10 * grow - 0.09 * outP;
+      var lift = (1 - grow) * 13;
+      wrap.style.transform = 'translate3d(' + (-50 + shift).toFixed(2) + '%,' +
+        (-50 + lift).toFixed(2) + '%,0) scale(' + scale.toFixed(3) + ')';
+
+      if (pins) {
+        pins.style.opacity = (1 - Math.min(1, openP * 3)).toFixed(2);
+        pins.style.pointerEvents = openP > 0.12 ? 'none' : 'auto';
+      }
+      if (bg) bg.style.transform = 'scale(' + (1.14 + 0.12 * grow).toFixed(3) + ')';
+
+      // текст первого экрана: уходит вверх и растворяется - как и было
+      if (title) {
+        title.style.transform = 'translate3d(-50%,' + (-88 * textOut).toFixed(1) + 'px,0)';
+        title.style.opacity = (1 - textOut).toFixed(3);
+      }
+      if (eyebrow) eyebrow.style.opacity = (1 - early).toFixed(3);
+      if (split) split.style.opacity = (1 - early).toFixed(3);
+      if (cta) cta.style.opacity = (1 - early).toFixed(3);
+      if (fill) fill.style.height = (p * 100).toFixed(1) + '%';
+    }
+
+    /* ---- размеры меряем отдельно от отрисовки ---- */
+    var total = 1;
+    function measure() {
+      total = Math.max(1, stage.offsetHeight - window.innerHeight);
+    }
+    // положение берём у самой сцены, а не у окна: так работает и внутри
+    // рамки предпросмотра, где прокручивается не окно, а вложенный документ
+    function progress() {
+      return clamp(-stage.getBoundingClientRect().top / total, 0, 1);
+    }
+
+    var ticking = false;
+    function tick() {
+      ticking = false;
+      var p = progress();
+      if (Math.abs(p - lastP) < 0.0004) return;      // лишние кадры не рисуем
+      draw(p);
+    }
+    function onScroll() {
+      bk.classList.remove('is-smooth');              // при прокрутке ведём кадр за кадром
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(tick);
+    }
+    function refresh() { measure(); lastP = -1; tick(); }
+
+    measure();
+    draw(progress());
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', refresh);
+    window.addEventListener('load', refresh);
+  })();
+})();
+/* ===== v24: первый экран и блоки в духе ERA - КОНЕЦ ===== */
