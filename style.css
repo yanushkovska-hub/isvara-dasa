@@ -1292,3 +1292,90 @@ body.reader-open{overflow:hidden}
   .reader-hint{display:none}
 }
 /* ===== v26: блок «Что внутри» - два тома в объёме и читалка - КОНЕЦ ===== */
+
+/* ===== v27: строка цифр и блок «Что внутри» обычной вёрсткой - НАЧАЛО ===== */
+
+/* ---------- строка важных цифр сразу после первого экрана ---------- */
+.facts-band{padding:clamp(54px,7vw,92px) 0;color:var(--leaf)}
+.facts-in{width:min(var(--shell),calc(100% - 2 * var(--side)));margin:0 auto;padding:0 var(--pad-x);
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(20px,2.6vw,40px)}
+.fact{position:relative;text-align:center;padding:0 clamp(6px,1vw,14px)}
+.fact + .fact::before{content:"";position:absolute;left:calc(-1 * clamp(10px,1.3vw,20px));top:8px;bottom:8px;
+  width:1px;background:rgba(205,177,111,.26)}
+.fact-n{display:block;font-family:var(--f-display);font-size:clamp(44px,5vw,72px);line-height:1;
+  letter-spacing:-.01em;color:var(--gold)}
+.fact-c{display:block;margin-top:14px;font-size:17px;line-height:1.5;color:var(--leaf)}
+@media (max-width:1000px){
+  .facts-in{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 20px}
+  .fact + .fact::before{display:none}
+  .fact:last-child{grid-column:1 / -1}
+}
+@media (max-width:480px){.fact-n{font-size:40px}.fact-c{font-size:16px}}
+
+/* ---------- «Что внутри»: обычная шкала сайта, без мелких надписей ---------- */
+.in-sec{--in-gap:clamp(44px,5vw,76px)}
+.in-top{max-width:46em;margin:0 auto;text-align:center}
+.in-top .h2{margin-bottom:18px}
+.in-top .lead-text{margin:0}
+
+/* два тома */
+.in-vols{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(28px,4vw,64px);align-items:end;margin-top:var(--in-gap);perspective:1700px}
+.in-vol{margin:0}
+.in-vol figcaption{margin-top:clamp(20px,2.4vw,30px)}
+.in-vol-t{margin:0 0 8px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(25px,2.6vw,31px);line-height:1.15;color:var(--lapis)}
+.in-vol-m{margin:0;font-size:18px;line-height:1.55}
+@media (max-width:760px){
+  .in-vols{grid-template-columns:1fr;gap:40px}
+  .in-vol-extra{max-width:66%;margin:0 auto}
+}
+
+/* кнопка фрагмента */
+.in-cta{display:flex;align-items:center;gap:clamp(16px,2.4vw,30px);flex-wrap:wrap;
+  margin-top:clamp(30px,3.4vw,44px)}
+.in-cta .btn{min-height:58px;padding:14px 34px;font-size:18px}
+.in-cta-note{margin:0;font-size:17px;font-style:italic;color:var(--ink)}
+
+/* подводки внутри блока */
+.in-lead{margin:var(--in-gap) 0 0;max-width:40em}
+.in-note{margin:26px 0 0;font-size:18px;font-style:italic;color:var(--ink)}
+.in-tail{margin:var(--in-gap) 0 0;font-size:19px;line-height:1.6;max-width:44em}
+
+/* две карточки */
+.in-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(18px,2.2vw,30px);margin-top:26px}
+.in-card{padding:clamp(24px,2.6vw,34px);border-radius:var(--r-md);
+  background:var(--surface);box-shadow:var(--shadow-card)}
+.in-card-t{margin:0 0 12px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(23px,2.2vw,27px);line-height:1.2;color:var(--lapis)}
+.in-card p{margin:0;font-size:19px;line-height:1.6}
+@media (max-width:760px){.in-cards{grid-template-columns:1fr}}
+
+/* что входит в книгу - карточки с номером */
+.in-list{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(16px,2vw,26px);margin:26px 0 0;padding:0}
+.in-item{display:grid;grid-template-columns:52px minmax(0,1fr);gap:18px;align-items:start;
+  padding:clamp(20px,2.2vw,26px);border-radius:var(--r-md);background:var(--surface);
+  box-shadow:0 0 0 1px rgba(117,89,26,.14)}
+.in-n{display:grid;place-items:center;width:52px;height:52px;border-radius:50%;
+  font-family:var(--f-display);font-size:24px;line-height:1;color:var(--gold-ink);
+  background:rgba(205,177,111,.16)}
+.in-t{margin:0 0 7px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(22px,2vw,25px);line-height:1.2;color:var(--ink)}
+.in-item p{margin:0;font-size:18px;line-height:1.55;color:var(--ink)}
+@media (max-width:820px){
+  .in-list{grid-template-columns:1fr}
+  .in-item{grid-template-columns:46px minmax(0,1fr);gap:15px}
+  .in-n{width:46px;height:46px;font-size:21px}
+}
+
+/* мягкое появление - как на обычных лендингах */
+@media (prefers-reduced-motion:no-preference){
+  .reveal-on .in-sec .in-top,.reveal-on .in-sec .in-vols,.reveal-on .in-sec .in-cta,
+  .reveal-on .in-sec .in-lead,.reveal-on .in-sec .in-cards,.reveal-on .in-sec .in-list li,
+  .reveal-on .in-sec .in-tail,.reveal-on .facts-band .fact{
+    opacity:0;transform:translateY(20px);
+    transition:opacity .65s cubic-bezier(.2,.7,.3,1),transform .65s cubic-bezier(.2,.7,.3,1)}
+  .reveal-on .is-up{opacity:1 !important;transform:none !important}
+}
+/* ===== v27: строка цифр и блок «Что внутри» обычной вёрсткой - КОНЕЦ ===== */

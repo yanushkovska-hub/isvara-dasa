@@ -547,8 +547,9 @@
 
   /* --- блоки поднимаются при подходе к экрану --- */
   (function () {
-    var sel = '.leaf .era-head, .leaf .era-showcase, .leaf .vols, .leaf .vols-cta,' +
-              '.leaf .era-body, .leaf .era-index-head,' +
+    var sel = '.in-sec .in-top, .in-sec .in-vols, .in-sec .in-cta, .in-sec .in-lead,' +
+              '.in-sec .in-cards, .in-sec .in-list li, .in-sec .in-tail, .facts-band .fact,' +
+              '.leaf .era-head, .leaf .era-showcase, .leaf .era-body, .leaf .era-index-head,' +
               '.leaf .era-index li, .leaf .era-fact, .leaf .era-steps li, .leaf .era-price,' +
               '.leaf .era-two, .leaf .era-faq, .leaf .rv-wall, .era-quote';
     var items = Array.prototype.slice.call(document.querySelectorAll(sel));
