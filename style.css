@@ -1387,3 +1387,181 @@ body.reader-open{overflow:hidden}
   .reveal-on .is-up{opacity:1 !important;transform:none !important}
 }
 /* ===== v27: строка цифр и блок «Что внутри» обычной вёрсткой - КОНЕЦ ===== */
+
+/* ===== v28: страница книги обычными секциями лендинга - НАЧАЛО ===== */
+
+/* ---------- каркас ---------- */
+.n-sec{position:relative;padding:clamp(76px,8.5vw,136px) 0}
+.n-sec-light{background:var(--leaf);color:var(--ink)}
+.n-sec-dark{color:var(--leaf)}
+.n-wrap{width:min(1240px,calc(100% - 2 * var(--side)));margin:0 auto}
+
+.n-head{max-width:46em;margin:0 auto clamp(40px,4.6vw,66px);text-align:center}
+.n-h{margin:0 0 18px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(34px,4.4vw,58px);line-height:1.06;letter-spacing:-.008em;text-wrap:balance}
+.n-lead{margin:0;font-size:clamp(19px,1.7vw,22px);line-height:1.55}
+.n-sec-dark .n-lead{color:rgba(244,238,225,.9)}
+
+/* ---------- кнопки ---------- */
+.n-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:58px;padding:15px 34px;border:0;border-radius:var(--r-sm);cursor:pointer;
+  font-family:var(--f-text);font-size:18px;font-weight:500;line-height:1.2;text-decoration:none;
+  transition:background-color .2s ease,box-shadow .2s ease,transform .2s ease}
+.n-btn:hover{transform:translateY(-1px)}
+.n-btn-gold{background:var(--gold);color:var(--cloth-deep)}
+.n-btn-gold:hover{background:#DCC48C}
+.n-btn-dark{background:var(--lapis);color:var(--leaf);
+  box-shadow:inset 0 0 0 1px rgba(205,177,111,.55),inset 0 0 0 4px var(--lapis),inset 0 0 0 5px rgba(205,177,111,.3)}
+.n-btn-dark:hover{background:#18214A}
+
+/* ---------- два тома ---------- */
+.n-books{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:clamp(30px,4.5vw,74px);align-items:end;perspective:1700px}
+.n-book{margin:0}
+.n-book figcaption{margin-top:clamp(20px,2.4vw,30px)}
+.n-book-t{margin:0 0 9px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(25px,2.6vw,31px);line-height:1.15;color:var(--gold)}
+.n-book p{margin:0;font-size:18px;line-height:1.55;color:rgba(244,238,225,.86)}
+.bk3-thin{--th3:13px}
+.bk3-thin.bk3{aspect-ratio:900 / 1278}
+@media (max-width:760px){
+  .n-books{grid-template-columns:1fr;gap:44px}
+  .n-book-sm{max-width:66%;margin:0 auto}
+}
+
+.n-cta-row{display:flex;align-items:center;gap:clamp(16px,2.4vw,30px);flex-wrap:wrap;
+  margin-top:clamp(34px,4vw,54px)}
+.n-cta-note{margin:0;font-size:17px;font-style:italic;color:rgba(244,238,225,.8)}
+
+/* карточки на тёмном */
+.n-two-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(18px,2.2vw,28px);margin-top:clamp(40px,4.6vw,64px)}
+.n-card{padding:clamp(24px,2.6vw,34px);border-radius:var(--r-md);
+  background:rgba(255,255,255,.045);box-shadow:inset 0 0 0 1px rgba(205,177,111,.2)}
+.n-card-t{margin:0 0 12px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(23px,2.2vw,27px);line-height:1.2;color:var(--gold)}
+.n-card p{margin:0;font-size:19px;line-height:1.6;color:rgba(244,238,225,.92)}
+.n-card-note{margin:24px 0 0;font-size:18px;font-style:italic;color:rgba(244,238,225,.78)}
+@media (max-width:760px){.n-two-cards{grid-template-columns:1fr}}
+
+/* ---------- главы книги ---------- */
+.n-chaps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,26px)}
+.n-chap{padding:clamp(24px,2.4vw,32px);border-radius:var(--r-md);
+  background:#fff;box-shadow:var(--shadow-card)}
+.n-chap-n{display:block;margin-bottom:12px;font-family:var(--f-display);font-size:20px;color:var(--gold-ink)}
+.n-chap-t{margin:0 0 9px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(22px,2vw,25px);line-height:1.2;color:var(--ink)}
+.n-chap p{margin:0;font-size:18px;line-height:1.55}
+.n-tail{max-width:44em;margin:clamp(36px,4vw,54px) auto 0;text-align:center;font-size:19px;line-height:1.6}
+@media (max-width:1000px){.n-chaps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.n-chaps{grid-template-columns:1fr}}
+
+/* ---------- точность ---------- */
+.n-proofs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(26px,3.4vw,52px)}
+.n-proof{padding-top:22px;border-top:1px solid rgba(205,177,111,.34)}
+.n-proof-n{display:block;margin-bottom:14px;font-family:var(--f-display);font-size:34px;
+  line-height:1;color:var(--gold)}
+.n-proof-t{margin:0 0 12px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(23px,2.2vw,28px);line-height:1.18;color:var(--leaf)}
+.n-proof p{margin:0;font-size:18px;line-height:1.6;color:rgba(244,238,225,.88)}
+@media (max-width:760px){.n-proofs{grid-template-columns:1fr;gap:34px}}
+
+/* ---------- шаги ---------- */
+.n-steps{list-style:none;position:relative;max-width:900px;margin:0 auto;padding:0}
+.n-steps::before{content:"";position:absolute;left:27px;top:14px;bottom:14px;width:1px;
+  background:linear-gradient(180deg,rgba(117,89,26,.35),rgba(117,89,26,.12))}
+.n-step{position:relative;display:grid;grid-template-columns:56px minmax(0,1fr);
+  gap:clamp(18px,2.4vw,30px);padding:0 0 clamp(26px,3vw,38px)}
+.n-step:last-child{padding-bottom:0}
+.n-step-n{position:relative;z-index:1;display:grid;place-items:center;width:56px;height:56px;
+  border-radius:50%;background:var(--leaf);box-shadow:inset 0 0 0 1px rgba(117,89,26,.4);
+  font-family:var(--f-display);font-size:24px;line-height:1;color:var(--gold-ink)}
+.n-step-t{margin:11px 0 8px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(22px,2.1vw,26px);line-height:1.2;color:var(--lapis)}
+.n-step p{margin:0;font-size:18px;line-height:1.6}
+.n-note{max-width:44em;margin:clamp(34px,4vw,50px) auto 0;text-align:center;
+  font-size:18px;font-style:italic;line-height:1.6}
+@media (max-width:640px){
+  .n-steps::before{left:22px}
+  .n-step{grid-template-columns:46px minmax(0,1fr);gap:16px}
+  .n-step-n{width:46px;height:46px;font-size:21px}
+  .n-step-t{margin-top:7px}
+}
+
+/* ---------- цитата ---------- */
+.n-quote-sec{position:relative;overflow:hidden;padding:clamp(88px,12vw,170px) var(--side);color:var(--leaf)}
+.n-quote-art{position:absolute;inset:0;z-index:0}
+.n-quote-art img{width:100%;height:100%;object-fit:cover;object-position:50% 26%;
+  filter:blur(30px) saturate(.7) brightness(.44);transform:scale(1.12)}
+.n-quote-sec::after{content:"";position:absolute;inset:0;z-index:1;
+  background:radial-gradient(74% 74% at 50% 50%,rgba(10,14,38,.32),rgba(9,12,34,.9) 84%)}
+.n-quote{position:relative;z-index:2;max-width:min(94%,1040px);margin:0 auto;text-align:center}
+.n-quote p{margin:0;font-family:var(--f-display);font-style:italic;
+  font-size:clamp(25px,3.5vw,50px);line-height:1.22;text-wrap:balance}
+.n-quote footer{margin-top:30px}
+.n-quote-who{font-family:var(--f-display);font-size:19px;letter-spacing:.14em;color:var(--gold)}
+
+/* ---------- отзывы ---------- */
+.n-revs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,2.6vw,36px);
+  max-width:860px;margin:0 auto}
+.n-rev{margin:0}
+.n-rev video,.n-rev-shot{display:block;width:100%;border:0;padding:0;border-radius:var(--r-md);
+  overflow:hidden;background:#10163A;cursor:pointer}
+.n-rev video{aspect-ratio:576/720;object-fit:cover}
+.n-rev-shot img{display:block;width:100%;height:auto}
+.n-rev figcaption{margin-top:14px;font-size:17px;color:rgba(244,238,225,.8)}
+@media (max-width:640px){.n-revs{grid-template-columns:1fr}}
+
+/* ---------- стоимость ---------- */
+.n-offer{max-width:760px;margin:0 auto;padding:clamp(30px,3.4vw,46px);text-align:center;
+  border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow-card)}
+.n-offer-p{margin:0 0 16px;font-size:19px;line-height:1.6}
+.n-offer .n-btn{margin-top:12px}
+.n-offer-cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(26px,3.4vw,52px);margin-top:clamp(40px,4.6vw,64px)}
+.n-col-t{margin:0 0 14px;font-family:var(--f-display);font-weight:400;
+  font-size:clamp(23px,2.2vw,28px);line-height:1.2;color:var(--lapis)}
+.n-offer-cols p{margin:0;font-size:19px;line-height:1.6}
+.n-list{list-style:none;margin:0;padding:0}
+.n-list li{position:relative;padding:0 0 13px 26px;font-size:18px;line-height:1.55}
+.n-list li::before{content:"";position:absolute;left:3px;top:.62em;width:7px;height:7px;
+  background:var(--gold-ink);transform:rotate(45deg)}
+@media (max-width:760px){.n-offer-cols{grid-template-columns:1fr}}
+
+/* ---------- вопросы ---------- */
+.n-faq-sec{padding-top:0}
+.n-faq{max-width:900px;margin:0 auto;display:grid;gap:12px}
+.n-q{border-radius:var(--r-md);background:var(--surface);box-shadow:0 0 0 1px rgba(117,89,26,.18);
+  transition:box-shadow .2s ease}
+.n-q[open]{box-shadow:0 0 0 1px rgba(36,49,101,.28),var(--shadow-card)}
+.n-q summary{display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:22px clamp(20px,2.4vw,30px);cursor:pointer;list-style:none}
+.n-q summary::-webkit-details-marker{display:none}
+.n-q-t{font-family:var(--f-display);font-size:clamp(21px,2vw,25px);line-height:1.25;color:var(--ink)}
+.n-q summary::after{content:"+";flex:none;display:grid;place-items:center;width:36px;height:36px;
+  border-radius:50%;background:rgba(117,89,26,.1);font-family:var(--f-display);font-size:25px;
+  line-height:1;color:var(--gold-ink);transition:transform .25s ease}
+.n-q[open] summary::after{transform:rotate(45deg)}
+.n-a{padding:0 clamp(20px,2.4vw,30px) 24px}
+.n-a p{margin:0;font-size:18px;line-height:1.65;max-width:52em}
+
+/* ---------- контакты ---------- */
+.n-contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(30px,4vw,64px);align-items:start}
+.n-contact-in .n-h{margin-bottom:16px}
+.n-contact-in .btn-tg{margin-top:26px}
+.n-back{margin:26px 0 0}
+@media (max-width:860px){.n-contact{grid-template-columns:1fr}}
+
+/* ---------- мягкое появление ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .reveal-on .n-sec .n-head,.reveal-on .n-sec .n-books,.reveal-on .n-sec .n-cta-row,
+  .reveal-on .n-sec .n-two-cards,.reveal-on .n-sec .n-card-note,.reveal-on .n-chap,
+  .reveal-on .n-proof,.reveal-on .n-step,.reveal-on .n-sec .n-tail,.reveal-on .n-sec .n-note,
+  .reveal-on .n-sec .n-offer,.reveal-on .n-sec .n-offer-cols,.reveal-on .n-q,
+  .reveal-on .n-sec .n-revs,.reveal-on .n-sec .n-contact,.reveal-on .n-quote{
+    opacity:0;transform:translateY(20px);
+    transition:opacity .65s cubic-bezier(.2,.7,.3,1),transform .65s cubic-bezier(.2,.7,.3,1)}
+  .reveal-on .is-up{opacity:1 !important;transform:none !important}
+}
+/* ===== v28: страница книги обычными секциями лендинга - КОНЕЦ ===== */

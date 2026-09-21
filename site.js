@@ -547,11 +547,10 @@
 
   /* --- блоки поднимаются при подходе к экрану --- */
   (function () {
-    var sel = '.in-sec .in-top, .in-sec .in-vols, .in-sec .in-cta, .in-sec .in-lead,' +
-              '.in-sec .in-cards, .in-sec .in-list li, .in-sec .in-tail, .facts-band .fact,' +
-              '.leaf .era-head, .leaf .era-showcase, .leaf .era-body, .leaf .era-index-head,' +
-              '.leaf .era-index li, .leaf .era-fact, .leaf .era-steps li, .leaf .era-price,' +
-              '.leaf .era-two, .leaf .era-faq, .leaf .rv-wall, .era-quote';
+    var sel = '.n-sec .n-head, .n-sec .n-books, .n-sec .n-cta-row, .n-sec .n-two-cards,' +
+              '.n-sec .n-card-note, .n-chap, .n-proof, .n-step, .n-sec .n-tail,' +
+              '.n-sec .n-note, .n-sec .n-offer, .n-sec .n-offer-cols, .n-q,' +
+              '.n-sec .n-revs, .n-sec .n-contact, .n-quote, .facts-band .fact';
     var items = Array.prototype.slice.call(document.querySelectorAll(sel));
     if (!items.length) return;
     if (reduce || !('IntersectionObserver' in window)) {
