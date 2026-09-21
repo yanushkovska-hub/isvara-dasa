@@ -428,14 +428,14 @@
 (function () {
   var btn = document.querySelector('[data-reader]');
   if (!btn) return;
-  var anchor = document.querySelector('.era-showcase img') || document.querySelector('.showcase img') || document.querySelector('.book-cover img');
+  var anchor = document.querySelector('.bk3 img') || document.querySelector('.era-showcase img') || document.querySelector('.showcase img') || document.querySelector('.book-cover img');
   if (!anchor) return;
   var base = anchor.getAttribute('src').replace(/img\/.*$/, '');
   var EN = document.documentElement.lang === 'en';
   var T = EN ? { close: 'Close', prev: 'Previous page', next: 'Next page',
-                 hint: 'Arrow keys or click the arrows · Esc to close' }
+                 hint: 'Arrows or keyboard · Esc to close' }
              : { close: 'Закрыть', prev: 'Предыдущая страница', next: 'Следующая страница',
-                 hint: 'Стрелки на клавиатуре или кнопки по краям · Esc закрывает' };
+                 hint: 'Стрелки по краям или на клавиатуре · Esc закрывает' };
 
   var pages = [];
   for (var i = 1; i <= 12; i++) {
@@ -547,7 +547,8 @@
 
   /* --- блоки поднимаются при подходе к экрану --- */
   (function () {
-    var sel = '.leaf .era-head, .leaf .era-showcase, .leaf .era-body, .leaf .era-index-head,' +
+    var sel = '.leaf .era-head, .leaf .era-showcase, .leaf .vols, .leaf .vols-cta,' +
+              '.leaf .era-body, .leaf .era-index-head,' +
               '.leaf .era-index li, .leaf .era-fact, .leaf .era-steps li, .leaf .era-price,' +
               '.leaf .era-two, .leaf .era-faq, .leaf .rv-wall, .era-quote';
     var items = Array.prototype.slice.call(document.querySelectorAll(sel));

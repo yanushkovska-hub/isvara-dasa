@@ -1190,10 +1190,10 @@ body.reader-open{overflow:hidden}
 
 /* ---------- мягкое появление ---------- */
 @media (prefers-reduced-motion:no-preference){
-  .era-page .leaf .era-head,.era-page .leaf .era-showcase,.era-page .leaf .era-body,
-  .era-page .leaf .era-index-head,.era-page .leaf .era-index li,.era-page .leaf .era-facts .era-fact,
-  .era-page .leaf .era-steps li,.era-page .leaf .era-price,.era-page .leaf .era-two,
-  .era-page .leaf .era-faq,.era-page .leaf .rv-wall,.era-quote{
+  .reveal-on .era-page .leaf .era-head,.reveal-on .era-page .leaf .era-showcase,.reveal-on .era-page .leaf .era-body,
+  .reveal-on .era-page .leaf .era-index-head,.reveal-on .era-page .leaf .era-index li,.reveal-on .era-page .leaf .era-facts .era-fact,
+  .reveal-on .era-page .leaf .era-steps li,.reveal-on .era-page .leaf .era-price,.reveal-on .era-page .leaf .era-two,
+  .reveal-on .era-page .leaf .era-faq,.reveal-on .era-page .leaf .rv-wall,.reveal-on .era-quote{
     opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
   .era-page .is-up{opacity:1 !important;transform:none !important}
 }
@@ -1204,6 +1204,7 @@ body.reader-open{overflow:hidden}
 /* ===== v25: только первый экран на странице со старыми блоками - НАЧАЛО ===== */
 /* верхняя строка прозрачна над первым экраном и уплотняется ниже;
    остальную страницу класс era-hero не трогает */
+.era-hero{--hair:rgba(117,89,26,.26);--hair-gold:rgba(205,177,111,.3)}
 .era-hero .topbar{position:fixed;left:0;right:0;top:0;background:transparent;
   border-bottom-color:transparent;transition:background-color .35s ease,border-color .35s ease}
 .era-hero .topbar.is-solid{background:var(--cloth);border-bottom-color:rgba(205,177,111,.28)}
@@ -1213,3 +1214,81 @@ body.reader-open{overflow:hidden}
 /* ===== v25: только первый экран на странице со старыми блоками - КОНЕЦ ===== */
 
 
+
+/* ===== v26: блок «Что внутри» - два тома в объёме и читалка - НАЧАЛО ===== */
+
+/* два тома рядом, каждый - настоящий объёмный предмет */
+.vols{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);
+  gap:clamp(26px,5vw,76px);align-items:end;margin-top:clamp(40px,5vw,72px);perspective:1700px}
+.vol{margin:0}
+.bk3{position:relative;display:block;width:100%;aspect-ratio:800 / 1135;transform-style:preserve-3d;
+  transform:rotateY(-21deg) rotateX(4deg);
+  transition:transform .75s cubic-bezier(.2,.7,.3,1);--th3:26px}
+.vol:hover .bk3,.vol:focus-within .bk3{transform:rotateY(-10deg) rotateX(2deg) translateY(-8px)}
+.bk3-face{position:absolute;inset:0;overflow:hidden;border-radius:2px 7px 7px 2px;
+  box-shadow:0 2px 0 rgba(0,0,0,.35),0 46px 66px -32px rgba(0,0,0,.85),0 0 0 1px rgba(205,177,111,.2)}
+.bk3-face img{display:block;width:100%;height:100%;object-fit:cover}
+/* желобок у корешка - по нему книга читается как переплёт, а не картинка */
+.bk3-face::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(0,0,0,.45) 0,rgba(255,255,255,.14) 6px,
+    rgba(0,0,0,.12) 13px,rgba(0,0,0,0) 32px)}
+.bk3-gloss{position:absolute;inset:-20% -30%;pointer-events:none;opacity:.4;
+  background:linear-gradient(102deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.13) 50%,rgba(255,255,255,0) 60%)}
+.bk3-spine{position:absolute;left:0;top:0;width:var(--th3);height:100%;
+  transform-origin:left center;transform:rotateY(90deg);backface-visibility:hidden;border-radius:2px 0 0 2px;
+  background:linear-gradient(90deg,#131A3C,#2B3674 50%,#1A2350 80%,#131A3C)}
+.bk3-edge{position:absolute;right:0;top:7px;bottom:7px;width:var(--th3);
+  transform-origin:right center;transform:rotateY(-90deg);backface-visibility:hidden;
+  background:repeating-linear-gradient(90deg,#F4EEE1 0 2px,#DBD1BA 2px 3px)}
+.vol-extra .bk3{aspect-ratio:900 / 1278;--th3:13px}
+
+.vol figcaption{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  margin-top:clamp(18px,2vw,26px);padding-top:13px;border-top:1px solid var(--hair);
+  font-family:var(--f-data);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-ink)}
+.vol-t{font-family:var(--f-display);font-size:17px;letter-spacing:.06em;text-transform:none;color:var(--ink)}
+.vol-m{margin-left:auto}
+@media (max-width:760px){
+  .vols{grid-template-columns:1fr;gap:44px}
+  .vol-extra{max-width:62%;margin:0 auto}
+  .vol-m{margin-left:0;width:100%}
+}
+
+/* кнопка под томами */
+.vols-cta{display:flex;align-items:center;gap:clamp(16px,2.4vw,32px);flex-wrap:wrap;
+  margin-top:clamp(30px,3.6vw,48px);padding-top:clamp(24px,3vw,36px);border-top:1px solid var(--hair)}
+.vols-hint{margin:0;font-family:var(--f-data);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-ink)}
+
+/* блоки этого раздела всплывают и на странице со старым низом */
+@media (prefers-reduced-motion:no-preference){
+  .reveal-on .era-hero .leaf .era-head,.reveal-on .era-hero .leaf .vols,.reveal-on .era-hero .leaf .vols-cta,
+  .reveal-on .era-hero .leaf .era-body,.reveal-on .era-hero .leaf .era-index-head,
+  .reveal-on .era-hero .leaf .era-index li{
+    opacity:0;transform:translateY(22px);
+    transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
+  .era-hero .is-up{opacity:1 !important;transform:none !important}
+}
+
+/* ---------- читалка фрагмента ---------- */
+.reader{background:rgba(7,10,28,.94)}
+.reader-stage{border-radius:3px}
+.reader-nav{width:52px;height:52px;border:0;border-radius:50%;color:var(--leaf);
+  background:rgba(12,16,44,.42);box-shadow:inset 0 0 0 1px rgba(244,238,225,.7);backdrop-filter:blur(3px);
+  display:grid;place-items:center;font-size:0;transition:box-shadow .25s ease,opacity .25s ease}
+.reader-nav::before{content:"";width:11px;height:11px;border-right:1.4px solid currentColor;
+  border-top:1.4px solid currentColor}
+.reader-prev::before{transform:rotate(-135deg) translate(-2px,-2px)}
+.reader-next::before{transform:rotate(45deg) translate(-2px,-2px)}
+.reader-nav:hover{box-shadow:inset 0 0 0 1px rgba(244,238,225,1),0 0 0 1px rgba(244,238,225,.26)}
+.reader-nav[disabled]{opacity:.2}
+.reader-close{width:46px;height:46px;border:0;border-radius:50%;color:var(--leaf);
+  background:rgba(12,16,44,.42);box-shadow:inset 0 0 0 1px rgba(244,238,225,.55);backdrop-filter:blur(3px)}
+.reader-close:hover{box-shadow:inset 0 0 0 1px rgba(244,238,225,.95);background:rgba(12,16,44,.6)}
+.reader-count{font-family:var(--f-data);font-size:11.5px;letter-spacing:.3em;color:var(--gold)}
+.reader-hint{font-family:var(--f-data);font-style:normal;font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:rgba(244,238,225,.4)}
+@media (max-width:760px){
+  .reader-nav{width:44px;height:44px}
+  .reader-hint{display:none}
+}
+/* ===== v26: блок «Что внутри» - два тома в объёме и читалка - КОНЕЦ ===== */
