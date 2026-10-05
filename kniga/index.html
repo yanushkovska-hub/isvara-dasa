@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kniga.css?v=20261069">
+<link rel="stylesheet" href="kniga.css?v=20261072">
 <link rel="alternate" hreflang="ru" href="https://isvaradasa.com/kniga/">
 <link rel="alternate" hreflang="en" href="https://isvaradasa.com/en/personal-book/">
 <link rel="alternate" type="text/plain" title="Справка для нейросетей" href="https://isvaradasa.com/llms.txt">
@@ -622,54 +622,55 @@
 
 <!-- 9. Один пакет -->
 <section class="sec night" id="package" data-theme="night" data-ch="price" aria-labelledby="package-h">
-  <div class="shell">
-    <div class="head">
+  <div class="shell pkg">
+      <ul class="pack pack-list">
+        <li>
+          <div class="pk-vis" aria-hidden="true">
+            <div class="pk-book">
+              <div class="pkb pkb-front"><img src="../img/kniga-cover.webp" alt="" loading="lazy"></div>
+              <div class="pkb pkb-pages"></div>
+              <div class="pkb pkb-spine"></div>
+            </div>
+          </div>
+          <div class="pk-txt"><b>Полная книга в печатном экземпляре</b><span>200–550 страниц о вас</span></div>
+        </li>
+        <li>
+          <button class="pk-vis pk-fan" type="button" data-reader="4" aria-label="Открыть страницы книги">
+            <img src="../img/kniga/stranica-05.webp" width="1000" height="1419" loading="lazy" alt="">
+            <img src="../img/kniga/stranica-10.webp" width="1000" height="1419" loading="lazy" alt="">
+            <img src="../img/kniga/stranica-06.webp" width="1000" height="1419" loading="lazy" alt="">
+          </button>
+          <div class="pk-txt"><b>Главы о супруге, детях, родителях</b><span>Карты близких в той же книге, без доплат</span></div>
+        </li>
+        <li>
+          <div class="pk-vis"><div class="pk-tablet"><img src="../img/kniga-900.webp" width="900" height="1278" loading="lazy" alt="Титульная страница тома «Девятьсот вопросов»"></div></div>
+          <div class="pk-txt"><b>Том «900 вопросов» в PDF</b><span>С ответами по вашей карте, в подарок</span></div>
+        </li>
+        <li>
+          <div class="pk-vis"><div class="pk-photo"><img src="../img/reviews/r07-kniga-foto.jpg" width="700" height="810" loading="lazy" alt="Книгу «Ядвига» только что передали владелице в руки"></div></div>
+          <div class="pk-txt"><b>Доставка в любую страну</b><span>Курьер привозит книгу в руки</span></div>
+        </li>
+        <li>
+          <div class="pk-vis" role="img" aria-label="Итоговая встреча в Zoom: на экране разворот книги и два участника">
+            <div class="zm">
+              <div class="zm-bar"><i></i><i></i><i></i><span>Итоговая встреча</span></div>
+              <div class="zm-body">
+                <div class="zm-main"><img src="../img/kniga/stranica-05.webp" alt="" loading="lazy"><img src="../img/kniga/stranica-06.webp" alt="" loading="lazy"></div>
+                <div class="zm-side"><span class="on">ИД</span><span>Вы</span></div>
+              </div>
+              <div class="zm-tools"><i></i><i></i><i></i><i class="end"></i></div>
+            </div>
+          </div>
+          <div class="pk-txt"><b>Встреча после прочтения</b><span>До двух часов в Zoom: выводы и первые шаги</span></div>
+        </li>
+      </ul>
+    <aside class="pkg-cta">
       <p class="eyebrow">Стоимость</p>
       <h2 class="h2" id="package-h">Один пакет. Всё включено</h2>
-      <p class="lead">Коротких и демо-версий нет.</p>
-    </div>
-    <ul class="pack">
-      <li>
-        <div class="pk-vis" aria-hidden="true">
-          <div class="pk-book">
-            <div class="pkb pkb-front"><img src="../img/kniga-cover.webp" alt="" loading="lazy"></div>
-            <div class="pkb pkb-pages"></div>
-            <div class="pkb pkb-spine"></div>
-          </div>
-        </div>
-        <b>Полная книга в печатном экземпляре</b><span>200–550 страниц о вас</span>
-      </li>
-      <li>
-        <button class="pk-vis pk-fan" type="button" data-reader="4" aria-label="Открыть страницы книги">
-          <img src="../img/kniga/stranica-05.webp" width="1000" height="1419" loading="lazy" alt="">
-          <img src="../img/kniga/stranica-10.webp" width="1000" height="1419" loading="lazy" alt="">
-          <img src="../img/kniga/stranica-06.webp" width="1000" height="1419" loading="lazy" alt="">
-        </button>
-        <b>Главы о супруге, детях, родителях</b><span>Карты близких в той же книге, без доплат</span>
-      </li>
-      <li>
-        <div class="pk-vis"><div class="pk-tablet"><img src="../img/kniga-900.webp" width="900" height="1278" loading="lazy" alt="Титульная страница тома «Девятьсот вопросов»"></div></div>
-        <b>Том «900 вопросов» в PDF</b><span>С ответами по вашей карте, в подарок</span>
-      </li>
-      <li>
-        <div class="pk-vis"><div class="pk-photo"><img src="../img/reviews/r07-kniga-foto.jpg" width="700" height="810" loading="lazy" alt="Книгу «Ядвига» только что передали владелице в руки"></div></div>
-        <b>Доставка в любую страну</b><span>Курьер привозит книгу в руки</span>
-      </li>
-      <li>
-        <div class="pk-vis" role="img" aria-label="Итоговая встреча в Zoom: на экране разворот книги и два участника">
-          <div class="zm">
-            <div class="zm-bar"><i></i><i></i><i></i><span>Итоговая встреча</span></div>
-            <div class="zm-body">
-              <div class="zm-main"><img src="../img/kniga/stranica-05.webp" alt="" loading="lazy"><img src="../img/kniga/stranica-06.webp" alt="" loading="lazy"></div>
-              <div class="zm-side"><span class="on">ИД</span><span>Вы</span></div>
-            </div>
-            <div class="zm-tools"><i></i><i></i><i></i><i class="end"></i></div>
-          </div>
-        </div>
-        <b>Встреча после прочтения</b><span>До двух часов в Zoom: выводы и первые шаги</span>
-      </li>
-    </ul>
-    <div class="cta-row"><a class="btn btn-gold" href="#contact">Узнать стоимость</a></div>
+      <p class="lead">Коротких и демо-версий нет. Одна фиксированная цена — без доплат за главы о близких.</p>
+      <a class="btn btn-gold" href="#contact">Узнать стоимость</a>
+      <p class="cta-note">Первый шаг — знакомство в Zoom: 20 минут, бесплатно.</p>
+    </aside>
   </div>
 </section>
 
@@ -769,6 +770,6 @@
   <p class="flip-hint">Нажмите на страницу, смахните или листайте стрелками</p>
 </div>
 
-<script src="kniga.js?v=20261061"></script>
+<script src="kniga.js?v=20261070"></script>
 </body>
 </html>
