@@ -175,7 +175,7 @@ button{font:inherit;color:inherit}
 }
 
 /* 4. что внутри */
-.inside-top{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:clamp(20px,3vw,32px);align-items:stretch}
+.inside-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(20px,3vw,32px);align-items:stretch}
 .tile{border-radius:24px;background:var(--cloth);border:1px solid var(--line-night);padding:clamp(24px,3.2vw,40px);display:grid;gap:14px;align-content:start}
 .tile h3{font-family:var(--f-display);font-weight:400;font-size:clamp(26px,2.8vw,34px);line-height:1.12}
 .tile>p{color:var(--on-night-soft)}
