@@ -1092,3 +1092,4 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 }
 @media (max-width:400px){.hero-cta{display:grid;justify-items:stretch}.hero-cta .btn{width:auto}.play{justify-self:start}}
 @media (max-width:900px){.hero .shell{grid-template-columns:minmax(0,1fr)}}
+.fan3 .s-cover{aspect-ratio:497/708;border-radius:2px}
