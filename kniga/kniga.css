@@ -708,3 +708,6 @@ body.modal-open{overflow:hidden}
 .cover-name{left:31.3%;right:31.9%}
 .book{--rx:0deg}
 .bf-top,.bf-bottom{left:8px;right:5px}
+/* доставка: фото в аккуратной плашке */
+.pk-photo{width:150px;padding:6px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(212,180,106,.35);box-shadow:0 20px 34px -18px rgba(0,0,0,.85)}
+.pk-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%;border-radius:11px}
