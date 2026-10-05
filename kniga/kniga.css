@@ -663,3 +663,10 @@ body.modal-open{overflow:hidden}
 /* расчёт: подводка мельче, итог крупнее */
 .calc-mult{font-size:clamp(18px,1.9vw,23px)}
 .calc-sum{max-width:24em;font-weight:300;font-size:clamp(28px,3.6vw,44px);line-height:1.25}
+/* метод: четыре карточки; автор: три цифры */
+#method .proof{grid-template-columns:repeat(2,minmax(0,1fr))}
+#method .proof b{white-space:nowrap;font-size:clamp(40px,4vw,56px)}
+@media (max-width:1100px){#method .proof{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:600px){#method .proof{grid-template-columns:1fr}}
+#author .author{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:700px){#author .author{grid-template-columns:1fr}}
