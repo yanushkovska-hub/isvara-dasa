@@ -811,3 +811,14 @@ body.modal-open{overflow:hidden}
 .tile-first .fan img{width:52%;top:4%}
 .tile-gift .tv-art{width:min(210px,70%)!important;justify-self:center;margin:0 0 14px}
 .tile-vis .asks{margin-top:4px}
+/* Книга помогает: пункты слева, отзыв справа */
+.helps{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(32px,6vw,88px);align-items:center;margin-top:clamp(48px,6vw,72px)}
+.helps .why-h{margin-top:0;text-align:left}
+.helps .why{grid-template-columns:1fr;gap:22px;margin-top:22px;border-top:0;padding-top:0}
+.helps .why > div{padding-left:18px;border-left:1px solid var(--line-paper)}
+.helps .why h3{font-size:24px;margin-bottom:6px}
+.helps .voice{margin:0;max-width:none;text-align:left;justify-items:start;padding:clamp(24px,3vw,36px);border-radius:22px;background:#fff;box-shadow:0 20px 40px -30px rgba(28,28,40,.4)}
+.helps .voice blockquote{font-size:clamp(20px,2.1vw,25px)}
+.thesis .facts-cta{margin-top:clamp(40px,5vw,60px);padding-inline:0}
+.thesis .cta-note{color:var(--ink-soft)}
+@media (max-width:820px){.helps{grid-template-columns:1fr}}
