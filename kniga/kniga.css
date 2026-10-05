@@ -155,8 +155,9 @@ button{font:inherit;color:inherit}
 .before li b{display:block;font-weight:600;color:#C8C9D2;margin-bottom:4px}
 .before li span{font-size:15px;line-height:1.5}
 .after{background:linear-gradient(160deg,rgba(212,180,106,.14),rgba(31,42,90,.9) 40%);border:1px solid rgba(212,180,106,.4);box-shadow:0 30px 80px -40px rgba(212,180,106,.45);color:var(--on-night)}
-.after li{border-color:var(--line-night);font-size:16.5px;line-height:1.5}
-.after li b{font-weight:600;color:var(--gold)}
+.after li{border-color:var(--line-night)}
+.after li b{display:block;font-weight:600;color:var(--gold);margin-bottom:4px}
+.after li span{font-size:15px;line-height:1.5;color:#D3D6E6}
 .bridge{display:grid;place-items:center;position:relative}
 .bridge::before{content:"";position:absolute;top:8%;bottom:8%;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(164,166,180,.5) 30%,var(--gold) 70%,transparent)}
 .bridge i{position:relative;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--night);border:1px solid var(--gold);box-shadow:0 0 30px rgba(212,180,106,.45)}
