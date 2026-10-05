@@ -445,3 +445,9 @@ body.modal-open{overflow:hidden}
   .rv{opacity:1;transform:none;transition:none}
   .js .hero .shell > div:first-child > *,.js .hero .try,.slot.free i{animation:none}
 }
+
+/* надзаголовки разделов крупно */
+.head .eyebrow,.answers > .shell > .eyebrow{font-size:clamp(17px,1.9vw,23px);letter-spacing:.16em}
+.head{gap:22px}
+.state .eyebrow,.tile .eyebrow,.voices-h{font-size:clamp(14px,1.4vw,16px);letter-spacing:.16em}
+.hero-eyebrow{font-size:14px}
