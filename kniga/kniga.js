@@ -283,6 +283,41 @@
   });
 })();
 
+/* Том в телефоне: вопросы прокручиваются сами, их можно листать и вручную */
+(function () {
+  var list = document.querySelector('.ph-list');
+  var roll = document.querySelector('.ph-roll');
+  if (!list || !roll) return;
+  var SPEED = 26, last = 0, hold = 0, visible = false, raf = 0, pos = 0;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) SPEED = 0;
+  function half() { return roll.scrollHeight / 2; }
+  function loop(t) {
+    raf = 0;
+    if (!visible) return;
+    var dt = last ? Math.min(0.05, (t - last) / 1000) : 0;
+    last = t;
+    if (t > hold && SPEED) {
+      if (Math.abs(list.scrollTop - pos) > 2) pos = list.scrollTop;
+      pos += SPEED * dt;
+      if (pos >= half()) pos -= half();
+      list.scrollTop = pos;
+    } else {
+      if (list.scrollTop >= half()) list.scrollTop -= half();
+      if (list.scrollTop <= 0) list.scrollTop += half();
+      pos = list.scrollTop;
+    }
+    raf = requestAnimationFrame(loop);
+  }
+  function pause() { hold = performance.now() + 2500; }
+  ['wheel', 'touchstart', 'pointerdown', 'mouseenter'].forEach(function (ev) { list.addEventListener(ev, pause, { passive: true }); });
+  list.addEventListener('mousemove', pause, { passive: true });
+  new IntersectionObserver(function (es) {
+    visible = es[0].isIntersecting;
+    last = 0;
+    if (visible && !raf) raf = requestAnimationFrame(loop);
+  }).observe(list);
+})();
+
 /* Лента страниц: стрелки листают вбок */
 (function () {
   var strip = document.querySelector('.pages');
