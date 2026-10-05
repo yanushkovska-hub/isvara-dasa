@@ -652,3 +652,4 @@ body.modal-open{overflow:hidden}
 .final-grid .consent{font-size:12.5px}
 @media (max-width:860px){.final-grid{grid-template-columns:1fr}.final-grid .final-head{text-align:center;justify-items:center}.final-grid .tg-row{justify-items:center}}
 .call-rec{top:auto;bottom:3px;left:4px;font-size:7px;padding:1px 4px;border-radius:3px;background:rgba(0,0,0,.55)}
+.no-photo{padding-left:16px;border-left:1px solid var(--gold);font-family:var(--f-display);font-style:italic;font-size:clamp(17px,1.6vw,19px);line-height:1.45;color:var(--ink)}
