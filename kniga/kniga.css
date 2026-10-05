@@ -897,3 +897,7 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .book-stage{isolation:isolate}
 @media (max-width:900px){.halo{width:160%}}
 @media (prefers-reduced-motion:reduce){.halo-out,.halo-in{animation:none}}
+.before{display:flex;flex-direction:column}
+.before > * + *{margin-top:18px}
+.before-note{margin-top:auto!important;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-family:var(--f-display);font-style:italic;font-size:clamp(17px,1.7vw,20px);line-height:1.4;color:#D3D5E0}
+.before ul{margin-bottom:22px}

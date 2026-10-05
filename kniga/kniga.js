@@ -414,7 +414,7 @@
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var SEL = [
     '.head > *', '.thesis q', '.thesis .by', '.why-h', '.why > div', '.facts .voice', '.facts li', '.facts-cta', '#change .cta-row',
-    '.state', '.bridge', '.change-end', '.inside-top .tile', '.fan', '.sph-head > *', '.spheres li', '.relic > div',
+    '.state', '.bridge', '.inside-top .tile', '.fan', '.sph-head > *', '.spheres li', '.relic > div',
     '.answers > .shell > .eyebrow', '.answers .h2', '.answers .lead', '.ph-stats > div', '.phone',
     '.calc > *', '.method-head .mh-text > *', '.kundali', '.part-h', '.author > div', '.bio p', '.no-photo', '.abook', '.vcard', '.proof article', '.proof-note', '.path li', '.path-note',
     '.revs figure', '.voices-h', '.voices figure', '.cta-row', '.moments figure', '.moments dl > div',
