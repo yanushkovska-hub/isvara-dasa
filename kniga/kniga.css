@@ -701,3 +701,10 @@ body.modal-open{overflow:hidden}
 .shelf .slot small{margin-top:26px;font-size:10.5px}
 .shelf{gap:16px}
 .shelf .slot small{margin-top:26px;font-size:9.5px;letter-spacing:.1em;white-space:nowrap}
+/* обложка без тёмной каймы по краям картинки: она читалась как полоска */
+.book-stage{--bh:calc(var(--bw) * 1.4915)}
+.bf-front img{width:105.12%;max-width:none;height:100%;margin-left:-2.89%;object-fit:fill}
+.bf-front::before{background:linear-gradient(90deg,rgba(255,255,255,.07),transparent 3%)}
+.cover-name{left:31.3%;right:31.9%}
+.book{--rx:0deg}
+.bf-top,.bf-bottom{left:8px;right:5px}
