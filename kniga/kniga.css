@@ -1001,3 +1001,94 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .zm-main img{height:68px}
 .zm-side{min-width:0}
 .zm span{padding-inline:0!important}
+/* веер: слева текст (сзади), в центре карта (чуть выше), справа сверху обложка */
+.fan3 .s-text{left:4%!important;top:9%!important;z-index:1!important;transform:rotate(-9deg)}
+.fan3 .s-chart{left:27%!important;top:2%!important;z-index:2!important;transform:rotate(-1deg)}
+.fan3 .s-cover{left:50%!important;top:9%!important;z-index:3!important;transform:rotate(9deg)}
+.js .fan3.rv:not(.in) .s-text{transform:translateX(45%) rotate(0)}
+.js .fan3.rv:not(.in) .s-chart{transform:rotate(0)}
+.js .fan3.rv:not(.in) .s-cover{transform:translateX(-45%) rotate(0)}
+.fan3:hover .s-text{transform:rotate(-12deg) translateX(-3%)}
+.fan3:hover .s-chart{transform:rotate(-1deg) translateY(-4%)}
+.fan3:hover .s-cover{transform:rotate(12deg) translateX(3%)}
+@media (prefers-reduced-motion:reduce){.js .fan3.rv:not(.in) .s-text{transform:rotate(-9deg)}.js .fan3.rv:not(.in) .s-chart{transform:rotate(-1deg)}.js .fan3.rv:not(.in) .s-cover{transform:rotate(9deg)}}
+
+/* ===== Стоимость: картинки крупнее ===== */
+.pack-list li{grid-template-columns:184px minmax(0,1fr)}
+.pack-list .pk-vis{width:184px;height:146px}
+.pack-list .pk-book{--w:74px;--h:104px;--d:11px}
+.pack-list .pk-fan img{width:66px;margin:-48px 0 0 -33px}
+.pack-list .pk-fan img:nth-child(1){transform:rotate(-15deg) translateX(-10px)}
+.pack-list .pk-fan img:nth-child(2){transform:rotate(15deg) translateX(10px)}
+.pack-list .pk-tablet{width:86px}
+.pack-list .pk-photo{width:98px}
+.pack-list .zm{transform:translate(-50%,-50%) scale(.84)}
+
+/* ===== Адаптив: телефоны и планшеты ===== */
+/* удобные области нажатия */
+.lang{display:inline-flex;align-items:center;min-height:40px;padding:0 6px}
+.orig{display:inline-flex;align-items:center;min-height:36px}
+.pages-open{min-height:44px}
+.faq summary{min-height:44px}
+.slot small{font-size:10px}
+
+/* планшеты */
+@media (max-width:1024px){
+  .pkg{gap:40px}
+  .pack-list li{grid-template-columns:150px minmax(0,1fr)}
+  .pack-list .pk-vis{width:150px;height:124px}
+  .pack-list .pk-book{--w:62px;--h:87px;--d:9px}
+  .pack-list .pk-fan img{width:56px;margin:-40px 0 0 -28px}
+  .pack-list .pk-tablet{width:72px}
+  .pack-list .pk-photo{width:84px}
+  .pack-list .zm{transform:translate(-50%,-50%) scale(.7)}
+}
+/* телефоны */
+@media (max-width:600px){
+  .sec{padding-block:clamp(56px,14vw,80px)}
+  .head{margin-bottom:32px}
+  .h2{font-size:clamp(30px,8.4vw,40px)}
+  .tile{padding:22px}
+  .pack-list li{grid-template-columns:112px minmax(0,1fr);gap:16px}
+  .pack-list .pk-vis{width:112px;height:104px}
+  .pack-list .pk-book{--w:50px;--h:70px;--d:8px}
+  .pack-list .pk-fan img{width:44px;margin:-32px 0 0 -22px}
+  .pack-list .pk-tablet{width:58px}
+  .pack-list .pk-photo{width:68px}
+  .pack-list .zm{transform:translate(-50%,-50%) scale(.52)}
+  .pack-list .pk-txt b{font-size:20px}
+  .steps,.path{gap:28px}
+  .final-grid .form{padding:18px}
+}
+/* узкие телефоны 320–400 */
+@media (max-width:400px){
+  :root{--gutter:16px}
+  .hero h1{font-size:clamp(34px,10vw,40px)}
+  .hero-sub{font-size:20px}
+  .hero-cta{gap:14px}
+  .hero-cta .btn{width:100%}
+  .book-stage{--bw:min(220px,60vw)}
+  .shelf{--sh:128px;gap:7px}
+  .shelf .slot:nth-child(1) i{width:36px}
+  .shelf .slot:nth-child(2) i{width:42px}
+  .shelf .slot:nth-child(3) i{width:38px}
+  .shelf .slot.free i{width:38px}
+  .shelf .slot small{font-size:9px;letter-spacing:.04em}
+  .shelf::after{width:96%}
+  .dock{left:8px;right:8px;padding-left:14px}
+  .dock-s{font-size:12px}
+  .dock .btn{padding:0 16px}
+  .pack-list li{grid-template-columns:92px minmax(0,1fr);gap:14px}
+  .pack-list .pk-vis{width:92px;height:92px}
+  .pack-list .pk-book{--w:42px;--h:59px;--d:7px}
+  .pack-list .pk-fan img{width:36px;margin:-26px 0 0 -18px}
+  .pack-list .pk-tablet{width:48px}
+  .pack-list .pk-photo{width:58px}
+  .pack-list .zm{transform:translate(-50%,-50%) scale(.43)}
+  .spheres li{padding:18px}
+  .tile-first .fan3{width:100%}
+  .proof article{padding:22px}
+  .phone{width:180px;height:360px}
+}
+@media (max-width:400px){.hero-cta{display:grid;justify-items:stretch}.hero-cta .btn{width:auto}.play{justify-self:start}}
+@media (max-width:900px){.hero .shell{grid-template-columns:minmax(0,1fr)}}
