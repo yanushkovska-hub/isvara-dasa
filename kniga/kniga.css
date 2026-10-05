@@ -901,3 +901,37 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .before > * + *{margin-top:18px}
 .before-note{margin-top:auto!important;padding:16px 18px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-family:var(--f-display);font-style:italic;font-size:clamp(17px,1.7vw,20px);line-height:1.4;color:#D3D5E0}
 .before ul{margin-bottom:22px}
+
+/* веер по скриншоту: страницы лежат друг на друге — слева сверху обложка, за ней выглядывает карта, справа текст */
+.tile-first .fan3{position:relative;display:block;width:min(380px,100%);aspect-ratio:527/448;justify-self:center;margin:0 0 10px;padding:0;border:0;background:none;cursor:pointer}
+.fan3 img{position:absolute;height:auto;aspect-ratio:1000/1419;object-fit:cover;object-position:top;background:#fff;border-radius:2px;box-shadow:0 22px 40px -18px rgba(0,0,0,.55),0 1px 4px rgba(0,0,0,.12);transform-origin:50% 100%;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.fan3 .s-chart{left:29%;top:6%;width:42%;z-index:1;transform:rotate(-3deg)}
+.fan3 .s-text{left:47%;top:13%;width:45%;z-index:2;transform:rotate(8deg)}
+.fan3 .s-cover{left:9%;top:16%;width:45%;z-index:3;aspect-ratio:800/1123;border-radius:2px 5px 5px 2px;transform:rotate(-8deg)}
+.js .fan3.rv:not(.in) .s-chart{transform:rotate(0)}
+.js .fan3.rv:not(.in) .s-text{transform:translateX(-30%) rotate(0)}
+.js .fan3.rv:not(.in) .s-cover{transform:translateX(30%) rotate(0)}
+.fan3.rv{transform:none}
+.fan3 .s-text{transition-delay:.08s}.fan3 .s-cover{transition-delay:.16s}
+.fan3:hover .s-chart{transform:rotate(-3deg) translateY(-5%)}
+.fan3:hover .s-text{transform:rotate(10deg) translateX(4%)}
+.fan3:hover .s-cover{transform:rotate(-10deg) translateX(-4%)}
+.fan3:hover img{transition-delay:0s;transition-duration:.55s}
+@media (prefers-reduced-motion:reduce){.fan3 img{transition:none}.js .fan3.rv:not(.in) .s-chart{transform:rotate(-3deg)}.js .fan3.rv:not(.in) .s-text{transform:rotate(8deg)}.js .fan3.rv:not(.in) .s-cover{transform:rotate(-8deg)}}
+/* планшет в «В подарок»: стоит ровно, при наведении наклоняется */
+.tile-gift .tab{transform:none!important;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.tile-gift:hover .tab{transform:rotate(-5deg) translateY(-4px)!important}
+@media (prefers-reduced-motion:reduce){.tile-gift .tab{transition:none}}
+.fan3 .s-chart{left:28%;top:0%;width:42%;transform:rotate(-2deg)}
+.fan3 .s-text{left:54%;top:16%;width:42%;transform:rotate(9deg)}
+.fan3 .s-cover{left:4%;top:16%;width:44%}
+.fan3:hover .s-chart{transform:rotate(-2deg) translateY(-5%)}
+@media (prefers-reduced-motion:reduce){.js .fan3.rv:not(.in) .s-chart{transform:rotate(-2deg)}.js .fan3.rv:not(.in) .s-text{transform:rotate(9deg)}}
+.tile-first{overflow:hidden}
+@media (max-width:520px){.tile-first .fan3{width:min(290px,100%)}}
+/* книга на первом экране: заметное, но мягкое покачивание */
+.book{animation:bookSway 6s ease-in-out .6s infinite}
+@keyframes bookSway{0%,100%{transform:rotateX(2deg) rotateY(-24deg)}50%{transform:rotateX(-1deg) rotateY(-10deg)}}
+.book-float{animation:bookFloat 6s ease-in-out .6s infinite}
+@keyframes bookFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@media (prefers-reduced-motion:reduce){.book,.book-float{animation:none}}
