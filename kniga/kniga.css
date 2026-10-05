@@ -1127,3 +1127,5 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
   .pack-list .pk-photo{width:48px}
   .pack-list .zm{transform:translate(-50%,-50%) scale(.38)}
 }
+/* блок с формой: свечение из середины, без резкого края сверху */
+.final{background:radial-gradient(60% 55% at 50% 50%,rgba(212,180,106,.09),transparent 72%),var(--night)!important}
