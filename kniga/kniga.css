@@ -1197,3 +1197,9 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .pkg-cta .eyebrow{font-size:clamp(14px,1.4vw,16px)}
 .consent span{font-size:14px}
 .abook span{font-size:var(--t-note)}
+/* Истории: четыре колонки */
+#stories .revs{grid-template-columns:repeat(4,minmax(0,1fr))}
+#stories .revs blockquote{font-size:clamp(19px,1.6vw,22px)}
+#stories .revs .case{grid-column:auto}
+@media (max-width:1000px){#stories .revs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){#stories .revs{grid-template-columns:1fr}}
