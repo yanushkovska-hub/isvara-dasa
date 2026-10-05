@@ -82,6 +82,12 @@
     });
   });
 
+  // видео автора: пока «скоро»
+  var mso = document.getElementById('m-soon');
+  document.querySelectorAll('[data-soon]').forEach(function (b) {
+    b.addEventListener('click', function () { open(mso); });
+  });
+
   // книга: обложка открывается, страницы переворачиваются вокруг корешка
   var mr = document.getElementById('m-reader');
   var book = document.getElementById('flip-book');
@@ -411,7 +417,7 @@
     '.head > *', '.thesis q', '.thesis .by', '.why > div', '.facts .voice', '.facts li',
     '.state', '.bridge', '.change-end', '.inside-top .tile', '.spheres li', '.relic > div',
     '.answers > .shell > .eyebrow', '.answers .h2', '.answers .lead', '.ph-stats > div', '.phone',
-    '.calc > *', '.author > div', '.proof article', '.proof-note', '.path li', '.path-note',
+    '.calc > *', '.method-head .mh-text > *', '.kundali', '.part-h', '.author > div', '.bio p', '.abook', '.vcard', '.proof article', '.proof-note', '.path li', '.path-note',
     '.revs figure', '.voices-h', '.voices figure', '.cta-row', '.moments figure', '.moments dl > div',
     '.pack li', '.now .h2', '.slot', '.now .lead', '.eta', '.faq details', '.final-head > *', '.form'
   ].join(',');
