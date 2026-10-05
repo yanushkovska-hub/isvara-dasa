@@ -1173,3 +1173,4 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .relic-open,.leaf-btn{position:relative;overflow:hidden;isolation:isolate}
 .relic-open::after,.leaf-btn::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 0%,rgba(242,205,114,.06) 35%,rgba(242,205,114,.38) 50%,rgba(242,205,114,.06) 65%,transparent 100%);transform:skewX(-18deg);animation:btnShine 4.8s ease-in-out .6s infinite}
 @media (prefers-reduced-motion:reduce){.relic-open::after,.leaf-btn::after{display:none}}
+.ph-stats span{max-width:17em;line-height:1.45}.ph-stats.l span{margin-left:auto}
