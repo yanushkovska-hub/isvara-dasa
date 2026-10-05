@@ -18,7 +18,6 @@
   var eta = new Date(now.getFullYear(), m + 2, 1);
   var etaEl = document.querySelector('[data-eta]');
   if (etaEl) etaEl.textContent = 'в ' + MONTHS[eta.getMonth()] + ' ' + eta.getFullYear() + ' года';
-  if (etaEl && eta.getMonth() === 11) etaEl.insertAdjacentText('afterend', ' — как раз к Новому году');
 })();
 
 /* Примерка обложки: имя появляется на плашке вместо названия */
