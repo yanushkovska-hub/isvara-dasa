@@ -794,3 +794,20 @@ body.modal-open{overflow:hidden}
 .why-h + .why{margin-top:clamp(24px,3vw,36px)}
 .why-h + .why{border-top:0;padding-top:0}
 .tile-first .fan .f-cv{z-index:3}.tile-first .fan .f-ch{z-index:2}.tile-first .fan .f-tx{z-index:1}
+/* крупнее картинки в карточках «Печатная книга» и «В подарок» */
+.tile-first{grid-template-columns:minmax(0,1fr) clamp(200px,21vw,270px)}
+.tile-first .fan img{width:56%}
+.tile-first .fan .f-cv{transform:translateX(-80%) rotate(-10deg)}
+.tile-first .fan .f-ch{transform:translateX(-20%) rotate(8deg) translateY(4%)}
+.tile-first .fan:hover .f-cv{transform:translateX(-86%) rotate(-13deg)}
+.tile-first .fan:hover .f-ch{transform:translateX(-14%) rotate(11deg) translateY(4%)}
+.tile-gift{grid-template-columns:minmax(0,1fr) clamp(160px,17vw,215px)}
+@media (max-width:1000px) and (min-width:821px){.tile-first,.tile-gift{grid-template-columns:1fr}.tile-first .fan{width:260px;justify-self:center}.tile-gift .tv-art{width:190px;justify-self:center}}
+@media (max-width:520px){.tile-first .fan{width:260px}.tile-gift .tv-art{width:180px}}
+@media (prefers-reduced-motion:reduce){.js .tile-first .fan.rv:not(.in) .f-cv{transform:translateX(-80%) rotate(-10deg)}.js .tile-first .fan.rv:not(.in) .f-ch{transform:translateX(-20%) rotate(8deg)}}
+/* карточки: крупная картинка сверху по центру, текст под ней во всю ширину */
+.tile-first,.tile-gift{grid-template-columns:1fr!important;align-content:start}
+.tile-first .fan{width:min(330px,100%)!important;aspect-ratio:1/0.92;justify-self:center;margin:-6px 0 8px}
+.tile-first .fan img{width:52%;top:4%}
+.tile-gift .tv-art{width:min(210px,70%)!important;justify-self:center;margin:0 0 14px}
+.tile-vis .asks{margin-top:4px}
