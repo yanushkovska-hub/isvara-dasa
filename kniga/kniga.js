@@ -418,7 +418,7 @@
     '.answers > .shell > .eyebrow', '.answers .h2', '.answers .lead', '.ph-stats > div', '.phone',
     '.calc > *', '.method-head .mh-text > *', '.kundali', '.part-h', '.author > div', '.bio p', '.no-photo', '.abook', '.vcard', '.proof article', '.proof-note', '.path li', '.path-note', '#path .cta-row',
     '.revs figure', '.voices-h', '.voices figure', '.cta-row', '.moments figure', '.moments dl > div',
-    '.now .h2', '.slot', '.now .lead', '.eta', '.faq details', '.final-head > *', '.form'
+    '.now .h2', '.slot', '.now .lead', '.eta', '.reason', '.faq details', '.final-head > *', '.form'
   ].join(',');
   var els = Array.prototype.slice.call(document.querySelectorAll(SEL));
   els.forEach(function (el) {
