@@ -935,3 +935,11 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .book-float{animation:bookFloat 6s ease-in-out .6s infinite}
 @keyframes bookFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 @media (prefers-reduced-motion:reduce){.book,.book-float{animation:none}}
+
+/* кнопки: лёгкий блик пробегает по кнопке сам, без наведения */
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 0%,rgba(255,255,255,.08) 35%,rgba(255,255,255,.55) 50%,rgba(255,255,255,.08) 65%,transparent 100%);transform:skewX(-18deg);animation:btnShine 4.8s ease-in-out infinite}
+.btn-ink::after{background:linear-gradient(105deg,transparent 0%,rgba(232,211,160,.06) 35%,rgba(232,211,160,.35) 50%,rgba(232,211,160,.06) 65%,transparent 100%)}
+@keyframes btnShine{0%,62%{left:-60%}100%{left:130%}}
+.btn:nth-of-type(2n)::after{animation-delay:1.2s}
+@media (prefers-reduced-motion:reduce){.btn::after{animation:none;display:none}}
