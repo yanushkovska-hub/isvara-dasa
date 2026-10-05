@@ -81,31 +81,191 @@
     });
   });
 
-  // страницы книги
+  // книга: обложка открывается, страницы переворачиваются вокруг корешка
   var mr = document.getElementById('m-reader');
-  var img = mr.querySelector('.reader-stage img');
+  var book = document.getElementById('flip-book');
   var count = mr.querySelector('[data-count]');
   var prev = mr.querySelector('[data-step="-1"]');
   var next = mr.querySelector('[data-step="1"]');
-  var pages = [], idx = 0;
-  for (var i = 1; i <= 12; i++) pages.push('../img/kniga/stranica-' + (i < 10 ? '0' + i : i) + '.webp');
-  function show(n) {
-    idx = Math.max(0, Math.min(pages.length - 1, n));
-    img.src = pages[idx];
-    img.alt = 'Страница ' + (idx + 1);
-    count.textContent = (idx + 1) + ' / ' + pages.length;
-    prev.disabled = idx === 0;
-    next.disabled = idx === pages.length - 1;
-    if (idx + 1 < pages.length) new Image().src = pages[idx + 1];
+  var PAGES = [];
+  for (var i = 1; i <= 12; i++) PAGES.push('../img/kniga/stranica-' + (i < 10 ? '0' + i : i) + '.webp');
+  var RATIO = 1419 / 1000;
+  var REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DUR = REDUCED ? 20 : 900;
+  var leaves = [], cur = 0, single = false, busy = false;
+
+  function face(side, what) {
+    var f = document.createElement('div');
+    f.className = 'face ' + side;
+    if (what === 'endpaper') {
+      f.className += ' endpaper';
+      if (side === 'back') f.innerHTML = '<span>Эта книга написана для одного человека</span>';
+    } else if (what === 'blank') {
+      f.className += ' blank';
+    } else if (what === 'end') {
+      f.className += ' endpage';
+      f.innerHTML = '<div class="end-in"><p class="eyebrow">Конец фрагмента</p><b>Дальше — ваша жизнь.</b>' +
+        '<p>Каждая книга пишется для одного человека. Ваша начнётся со знакомства.</p>' +
+        '<a class="btn btn-gold" href="#contact" data-close>Обсудить мою книгу</a></div>';
+    } else {
+      var im = document.createElement('img');
+      im.src = what;
+      im.alt = '';
+      im.draggable = false;
+      f.appendChild(im);
+      if (what === PAGES[0]) f.className += ' hard';
+    }
+    var sh = document.createElement('i');
+    sh.className = 'shade';
+    f.appendChild(sh);
+    return f;
   }
-  function step(d) { show(idx + d); }
+
+  function build() {
+    single = window.innerWidth < 720;
+    book.innerHTML = '';
+    book.classList.toggle('is-single', single);
+    var specs = [];
+    if (single) {
+      PAGES.forEach(function (p, n) { specs.push([p, n === 0 ? 'endpaper' : 'blank']); });
+      specs.push(['end', 'blank']);
+    } else {
+      specs.push([PAGES[0], 'endpaper']);
+      for (var n = 1; n < PAGES.length; n += 2) specs.push([PAGES[n], PAGES[n + 1] || 'end']);
+      if (PAGES.length % 2 === 0) specs[specs.length - 1][1] = 'end';
+    }
+    var base = document.createElement('div');
+    base.className = 'base';
+    book.appendChild(base);
+    leaves = specs.map(function (sp) {
+      var l = document.createElement('div');
+      l.className = 'leaf';
+      l.appendChild(face('front', sp[0]));
+      l.appendChild(face('back', sp[1]));
+      book.appendChild(l);
+      return l;
+    });
+    layout();
+  }
+
+  function layout() {
+    var w = window.innerWidth, h = window.innerHeight - 200;
+    var pw = single ? Math.min(w - 32, h / RATIO, 460) : Math.min((w - 80) / 2, h / RATIO, 480);
+    pw = Math.max(140, Math.floor(pw));
+    book.style.setProperty('--pw', pw + 'px');
+    book.style.setProperty('--ph', Math.round(pw * RATIO) + 'px');
+  }
+
+  function zfix() {
+    leaves.forEach(function (l, i) { l.style.zIndex = i < cur ? i + 1 : leaves.length * 2 - i; });
+  }
+
+  function label() {
+    if (cur === 0) return 'Обложка';
+    if (cur === leaves.length) return 'Конец фрагмента';
+    if (single) return cur === leaves.length - 1 ? 'Конец фрагмента' : 'Страница ' + (cur + 1) + ' из ' + PAGES.length;
+    return 'Разворот ' + cur + ' из ' + (leaves.length - 1);
+  }
+
+  function state() {
+    book.classList.toggle('is-closed', cur === 0);
+    count.textContent = label();
+    prev.disabled = cur === 0;
+    next.disabled = cur >= leaves.length - (single ? 1 : 0);
+  }
+
+  function step(d) {
+    if (busy) return;
+    if (d > 0 && next.disabled) return;
+    if (d < 0 && cur === 0) return;
+    busy = true;
+    var leaf = leaves[d > 0 ? cur : cur - 1];
+    leaf.style.zIndex = 999;
+    leaf.classList.add(d > 0 ? 'turn-fwd' : 'turn-back');
+    leaf.classList.toggle('is-flipped', d > 0);
+    cur += d;
+    state();
+    setTimeout(function () {
+      leaf.classList.remove('turn-fwd', 'turn-back');
+      zfix();
+      busy = false;
+    }, DUR);
+  }
+
+  function jump(n) {
+    book.classList.add('no-anim');
+    cur = n;
+    leaves.forEach(function (l, i) { l.classList.toggle('is-flipped', i < cur); });
+    zfix();
+    state();
+    void book.offsetWidth;
+    book.classList.remove('no-anim');
+  }
+
   prev.addEventListener('click', function () { step(-1); });
   next.addEventListener('click', function () { step(1); });
+
+  // нажатие по правой половине листает вперёд, по левой назад; смахивание тоже листает
+  var downX = null, swiped = false;
+  book.addEventListener('pointerdown', function (e) { downX = e.clientX; swiped = false; });
+  book.addEventListener('pointerup', function (e) {
+    if (downX === null) return;
+    var dx = e.clientX - downX;
+    downX = null;
+    if (Math.abs(dx) > 40) { swiped = true; step(dx < 0 ? 1 : -1); }
+  });
+  book.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-close]');
+    if (a) { close(mr); return; }
+    if (swiped) return;
+    var r = book.getBoundingClientRect();
+    var mid = single ? r.left + r.width * 0.3 : r.left + r.width / 2;
+    step(e.clientX >= mid ? 1 : -1);
+  });
+
+  window.addEventListener('resize', function () {
+    if (mr.hidden) return;
+    if ((window.innerWidth < 720) !== single) { build(); jump(0); } else layout();
+  });
+
   document.querySelectorAll('[data-reader]').forEach(function (b) {
     b.addEventListener('click', function () {
-      show(+b.getAttribute('data-reader') || 0);
+      var n = +b.getAttribute('data-reader') || 0;
+      build();
+      var target = single ? n : n === 0 ? 0 : n % 2 ? (n + 1) / 2 : n / 2 + 1;
+      jump(target);
       open(mr);
+      // с первой страницы книга сама открывает обложку
+      if (target === 0) setTimeout(function () { if (!mr.hidden && cur === 0) step(1); }, REDUCED ? 0 : 650);
     });
+  });
+})();
+
+/* Книга на первом экране наклоняется вслед за курсором */
+(function () {
+  var wrap = document.querySelector('.hero-book');
+  var cover = document.querySelector('.book3d .cover');
+  if (!wrap || !cover || !window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var raf = 0, tx = 0, ty = 0;
+  function apply() {
+    raf = 0;
+    cover.style.setProperty('--ry', (tx * 14).toFixed(2) + 'deg');
+    cover.style.setProperty('--rx', (-ty * 10).toFixed(2) + 'deg');
+    cover.style.setProperty('--gx', (50 + tx * 60).toFixed(1) + '%');
+    cover.style.setProperty('--gy', (40 + ty * 60).toFixed(1) + '%');
+  }
+  document.querySelector('.hero').addEventListener('pointermove', function (e) {
+    var r = cover.getBoundingClientRect();
+    tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 1.2)));
+    ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 1.2)));
+    cover.classList.add('is-tilt');
+    if (!raf) raf = requestAnimationFrame(apply);
+  });
+  document.querySelector('.hero').addEventListener('pointerleave', function () {
+    tx = 0; ty = 0;
+    cover.classList.remove('is-tilt');
+    if (!raf) raf = requestAnimationFrame(apply);
   });
 })();
 
@@ -180,4 +340,55 @@
       btn.disabled = false;
     });
   });
+})();
+
+/* Появление при прокрутке: блоки проявляются и поднимаются, в сетках по очереди; цифры досчитывают */
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var SEL = [
+    '.head > *', '.thesis q', '.thesis .by', '.why > div', '.facts .voice', '.facts li',
+    '.state', '.bridge', '.change-end', '.inside-top .tile', '.spheres li', '.relic > div',
+    '.answers > .shell > .eyebrow', '.answers .h2', '.answers .lead', '.ph-stats > div', '.phone',
+    '.calc > *', '.author > div', '.proof article', '.proof-note', '.path li', '.path-note',
+    '.revs figure', '.voices-h', '.voices figure', '.cta-row', '.moments figure', '.moments dl > div',
+    '.pack li', '.now .h2', '.slot', '.now .lead', '.eta', '.faq details', '.final-head > *', '.form'
+  ].join(',');
+  var els = Array.prototype.slice.call(document.querySelectorAll(SEL));
+  els.forEach(function (el) {
+    el.classList.add('rv');
+    var sibs = Array.prototype.filter.call(el.parentNode.children, function (c) { return els.indexOf(c) !== -1; });
+    var i = sibs.indexOf(el);
+    if (i > 0) el.style.transitionDelay = Math.min(i, 8) * 90 + 'ms';
+  });
+
+  // цифры досчитывают до своего значения, диапазоны «200–550» тоже
+  function countUp(b) {
+    if (!b || b.dataset.counted) return;
+    var m = /^(\d+)(?:–(\d+))?([+%]?)$/.exec(b.textContent.trim());
+    if (!m) return;
+    b.dataset.counted = '1';
+    var a = +m[1], z = m[2] ? +m[2] : null, suf = m[3], t0 = null, dur = 1500;
+    if (a < 5 && z === null) return;
+    function fmt(e) { return Math.round(a * e) + (z !== null ? '–' + Math.round(z * e) : '') + suf; }
+    function tick(t) {
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / dur);
+      b.textContent = fmt(1 - Math.pow(1 - p, 3));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    b.textContent = fmt(0);
+    setTimeout(function () { requestAnimationFrame(tick); }, parseFloat(b.parentNode.style.transitionDelay || 0) || 0);
+  }
+
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      e.target.querySelectorAll && e.target.querySelectorAll('.facts b, .author b').forEach(countUp);
+      if (e.target.matches('.facts li, .author > div')) countUp(e.target.querySelector('b'));
+      io.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  els.forEach(function (el) { io.observe(el); });
 })();

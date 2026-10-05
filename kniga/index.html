@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kniga.css?v=20261005">
+<link rel="stylesheet" href="kniga.css?v=20261006">
 <link rel="alternate" hreflang="en" href="../en/personal-book/">
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -77,36 +77,42 @@
 <section class="sec paper thesis" id="why" aria-labelledby="why-h">
   <div class="shell">
     <h2 class="vh" id="why-h">Почему книга</h2>
-    <q>Почти всё, что вы годами объясняли тяжёлым характером, ленью или невезением, объясняется устройством вашей карты.</q>
+    <q>Почти всё, что вы годами объясняли тяжёлым характером, ленью или невезением, объясняется устройством вашей карты</q>
     <p class="by">Ишвара Дас</p>
     <div class="why">
       <div><h3>Понять себя полностью</h3><p>Разрозненные части жизни складываются в одну картину. Видно, откуда берутся силы и куда они утекают.</p></div>
       <div><h3>Перестать винить себя</h3><p>То, у чего есть имя и расчёт, перестаёт быть виной. Повторяющееся становится понятным.</p></div>
       <div><h3>Принимать правильные решения</h3><p>Книга не говорит, как жить. Она даёт карту, и по ней вы сами находите ответы на свои вопросы.</p></div>
     </div>
-    <figure class="voice">
-      <blockquote>«У меня ушло чувство вины, что я как-то неправильно делаю что-то, что сама какая-то неправильная. Я теперь понимаю, почему всё именно так складывалось в жизни, и как мне дальше поступать!»</blockquote>
-      <p>Из отзыва после консультации · <button class="orig" type="button" data-shot="../img/reviews/r06-konsult.jpg">Смотреть оригинал</button></p>
-    </figure>
   </div>
 </section>
 <section class="facts" aria-label="Коротко о книге">
-  <ul class="shell">
-    <li><b>1</b><span>печатный экземпляр. Второго нет и не будет</span></li>
-    <li><b>200–550</b><span>страниц о вашей жизни</span></li>
-    <li><b>12–15</b><span>сфер жизни, от призвания до рода</span></li>
-    <li><b>900</b><span>ответов по вашей карте в отдельном томе</span></li>
-  </ul>
+  <div class="shell facts-in">
+    <ul>
+      <li><b>1</b><span>печатный экземпляр. Второго нет и не будет</span></li>
+      <li><b>200–550</b><span>страниц о вашей жизни</span></li>
+      <li><b>12–15</b><span>сфер жизни, от призвания до рода</span></li>
+      <li><b>900</b><span>ответов по вашей карте в отдельном томе</span></li>
+    </ul>
+    <figure class="voice">
+      <blockquote>«У меня ушло чувство вины, что я как-то неправильно делаю что-то, что сама какая-то неправильная. Я теперь понимаю, почему всё именно так складывалось в жизни, и как мне дальше поступать!»</blockquote>
+      <p>Из отзыва · <button class="orig" type="button" data-shot="../img/reviews/r06-konsult.jpg">Смотреть оригинал</button></p>
+    </figure>
+  </div>
 </section>
 
 <!-- 3. До и после -->
 <section class="sec change" id="change" aria-labelledby="change-h">
   <div class="shell">
-    <h2 class="vh" id="change-h">Что меняется после книги</h2>
+    <div class="head">
+      <p class="eyebrow">Для кого эта книга</p>
+      <h2 class="h2" id="change-h">Всё есть. Кроме ясности.</h2>
+      <p class="lead">Для тех, кто многого добился, но стоит перед главным выбором — и устал от гороскопов и разовых консультаций.</p>
+    </div>
     <div class="shift">
       <article class="state before">
         <p class="eyebrow">Узнаёте себя?</p>
-        <h3>Когда всё есть, а ясности нет</h3>
+        <h3>Пять узлов, которые не развязываются годами</h3>
         <ul>
           <li><b>Годами вините себя за характер, срывы и ошибки</b><span>Вспышки, спады, одни и те же ошибки в отношениях. Кажется, что с вами что-то не так. Чаще всего вы просто не знаете, как устроены.</span></li>
           <li><b>Цели достигнуты, но больше не зажигают. Кто я на самом деле?</b><span>Дело, статус, достаток — есть. Вкуса к жизни — нет. И вопрос, от которого не спрятаться: кто я без всего этого и куда дальше?</span></li>
@@ -475,14 +481,17 @@
   <button class="modal-close" type="button" aria-label="Закрыть">×</button>
   <img class="shot-big" alt="Скриншот отзыва">
 </div>
-<div class="modal" id="m-reader" role="dialog" aria-modal="true" aria-label="Страницы книги" hidden>
+<div class="modal flip-modal" id="m-reader" role="dialog" aria-modal="true" aria-label="Страницы книги" hidden>
   <button class="modal-close" type="button" aria-label="Закрыть">×</button>
-  <div class="reader-stage">
-    <img alt="Страница книги">
-    <div class="reader-nav"><button type="button" data-step="-1" aria-label="Предыдущая страница">←</button><span data-count></span><button type="button" data-step="1" aria-label="Следующая страница">→</button></div>
+  <div class="flip-stage"><div class="flip-book" id="flip-book"></div></div>
+  <div class="flip-ui">
+    <button type="button" data-step="-1" aria-label="Предыдущая страница">←</button>
+    <span data-count aria-live="polite"></span>
+    <button type="button" data-step="1" aria-label="Следующая страница">→</button>
   </div>
+  <p class="flip-hint">Нажмите на страницу, смахните или листайте стрелками</p>
 </div>
 
-<script src="kniga.js?v=20261005"></script>
+<script src="kniga.js?v=20261006"></script>
 </body>
 </html>
