@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Макет персональной книги</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,500;1,7..72,400&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* Макет: короткий лендинг, «один экран — одна мысль». Чередование тёмных (ткань переплёта) и светлых (лист) экранов. */
+:root{
+  --cloth:#1F2A5A;
+  --cloth-deep:#141B40;
+  --gold:#CDB16F;
+  --gold-ink:#7A5E1E;
+  --leaf:#F4EEE1;
+  --leaf-light:#FBF8F2;
+  --ink:#1C1C28;
+  --ink-soft:#4B4A5C;
+  --on-dark:#E9E4D6;
+  --on-dark-soft:#A9AEC8;
+  --line-dark:rgba(205,177,111,.22);
+  --line-light:rgba(122,94,30,.22);
+  --f-display:"Old Standard TT","Times New Roman",Georgia,serif;
+  --f-text:"Literata",Georgia,"Times New Roman",serif;
+  --f-data:"IBM Plex Mono",Consolas,"Courier New",monospace;
+  --gutter:clamp(16px,5vw,64px);
+  --shell:1180px;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--cloth-deep);color:var(--on-dark);font-family:var(--f-text);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+p{margin:0}
+h1,h2,h3{margin:0;font-weight:400;text-wrap:balance}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.shell{max-width:var(--shell);margin:0 auto;padding-inline:var(--gutter)}
+.sec{padding-block:clamp(72px,11vw,136px)}
+.dark{background:var(--cloth-deep);color:var(--on-dark)}
+.cloth{background:var(--cloth);color:var(--on-dark)}
+.light{background:var(--leaf);color:var(--ink)}
+.paper{background:var(--leaf-light);color:var(--ink)}
+
+.eyebrow{font-family:var(--f-data);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.light .eyebrow,.paper .eyebrow{color:var(--gold-ink)}
+.h2{font-family:var(--f-display);font-size:clamp(34px,5.2vw,60px);line-height:1.06;letter-spacing:-.01em}
+.lead{font-size:clamp(18px,1.9vw,21px);line-height:1.55;max-width:40em;color:var(--on-dark-soft)}
+.light .lead,.paper .lead{color:var(--ink-soft)}
+.head{display:grid;gap:18px;justify-items:center;text-align:center;margin-bottom:clamp(40px,6vw,72px)}
+.head .lead{max-width:34em}
+
+/* кнопки */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 28px;border-radius:999px;font-family:var(--f-text);font-size:17px;text-decoration:none;cursor:pointer;border:0;transition:transform .2s ease,background-color .2s ease}
+.btn-gold{background:var(--gold);color:var(--cloth-deep);font-weight:500}
+.btn-gold:hover{background:#DCC287;transform:translateY(-1px)}
+.link{color:var(--gold);text-decoration:none;font-size:17px}
+.link:hover{text-decoration:underline;text-underline-offset:.25em}
+.light .link,.paper .link{color:var(--cloth)}
+
+/* верхняя строка */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(20,27,64,.88);backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid var(--line-dark)}
+.top .shell{height:60px;display:flex;align-items:center;gap:28px}
+.brand{font-family:var(--f-display);letter-spacing:.2em;text-transform:uppercase;font-size:14px;color:var(--gold);text-decoration:none;white-space:nowrap}
+.nav{display:flex;gap:24px;margin-left:auto;font-size:15px}
+.nav a{text-decoration:none;color:var(--on-dark-soft)}
+.nav a:hover{color:var(--on-dark)}
+.top .btn{min-height:38px;padding:0 18px;font-size:15px}
+@media (max-width:860px){.nav{display:none}.top .btn{margin-left:auto}}
+
+/* 1. первый экран */
+.hero{padding-block:clamp(56px,8vw,96px) 0;text-align:center;overflow:hidden;background:radial-gradient(60% 55% at 50% 72%,rgba(205,177,111,.16),transparent 70%),var(--cloth-deep)}
+.hero h1{font-family:var(--f-display);font-size:clamp(44px,8vw,96px);line-height:1;letter-spacing:-.015em;margin-top:18px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero .lead{margin:22px auto 0;max-width:33em}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px 26px;justify-content:center;align-items:center;margin-top:32px}
+.hero-book{position:relative;width:min(400px,74vw);max-width:100%;margin:clamp(44px,6vw,64px) auto 0;aspect-ratio:800/1122;overflow:hidden;border-radius:3px 9px 9px 3px;box-shadow:0 50px 90px -40px rgba(0,0,0,.9),0 0 0 1px rgba(205,177,111,.35);animation:rise 1.2s cubic-bezier(.2,.7,.2,1) both}
+.hero-book img{width:100%;height:100%;object-fit:cover;object-position:top}
+@keyframes rise{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+
+.facts{border-top:1px solid var(--line-dark);margin-top:-1px;background:var(--cloth-deep)}
+.facts ul{list-style:none;margin:0 auto;padding-block:clamp(28px,4vw,44px);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;text-align:center}
+.facts b{display:block;font-family:var(--f-display);font-weight:400;font-size:clamp(34px,4.4vw,52px);line-height:1;color:var(--gold);font-variant-numeric:lining-nums}
+.facts span{display:block;margin-top:10px;font-size:15px;line-height:1.4;color:var(--on-dark-soft)}
+@media (max-width:700px){.facts ul{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:32px}}
+
+/* 2. смысл */
+.thesis q{display:block;font-family:var(--f-display);font-size:clamp(30px,4.6vw,54px);line-height:1.15;text-align:center;max-width:22em;margin:0 auto;quotes:"«" "»"}
+.thesis .by{text-align:center;margin-top:20px;font-family:var(--f-data);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-ink)}
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,56px);margin-top:clamp(56px,7vw,88px);padding-top:clamp(36px,5vw,56px);border-top:1px solid var(--line-light)}
+.why h3{font-family:var(--f-display);font-size:26px;line-height:1.2;margin-bottom:10px}
+.why p{color:var(--ink-soft);font-size:17px}
+@media (max-width:760px){.why{grid-template-columns:1fr}}
+
+/* 3. что внутри */
+.inside-top{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(24px,4vw,48px);align-items:stretch}
+.tile{border-radius:22px;background:var(--cloth);border:1px solid var(--line-dark);padding:clamp(24px,3.4vw,40px);display:grid;gap:14px;align-content:start}
+.tile h3{font-family:var(--f-display);font-size:clamp(26px,2.8vw,34px);line-height:1.12}
+.tile p{color:var(--on-dark-soft);font-size:17px}
+.tile-power{grid-template-columns:minmax(0,1fr) minmax(0,150px);align-items:center}
+.tile-power img{border-radius:4px;box-shadow:0 20px 40px -20px rgba(0,0,0,.8)}
+@media (max-width:560px){.tile-power{grid-template-columns:1fr}.tile-power img{max-width:150px}}
+.spheres{list-style:none;margin:clamp(24px,4vw,48px) 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);border-radius:22px;overflow:hidden}
+.spheres li{background:var(--cloth-deep);padding:22px 22px 24px;min-width:0}
+.spheres b{display:block;font-family:var(--f-display);font-weight:400;font-size:21px;color:var(--on-dark);margin-bottom:6px}
+.spheres span{font-size:15px;line-height:1.45;color:var(--on-dark-soft)}
+@media (max-width:900px){.spheres{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:460px){.spheres{grid-template-columns:1fr}}
+@media (max-width:760px){.inside-top{grid-template-columns:1fr}}
+
+.pages-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px 24px;margin-top:clamp(56px,7vw,88px)}
+.pages-head h3{font-family:var(--f-display);font-size:clamp(24px,2.6vw,30px)}
+.pages-head p{color:var(--on-dark-soft);font-size:15px}
+.pages{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(180px,22vw,240px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding-block:20px 8px;scrollbar-width:thin}
+.pages figure{margin:0;scroll-snap-align:start}
+.pages img{width:100%;aspect-ratio:1/1.414;object-fit:cover;background:#fff;border-radius:3px;box-shadow:0 18px 34px -22px rgba(0,0,0,.9)}
+
+/* 4. точность */
+.proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.4vw,28px)}
+.proof article{background:#fff;border-radius:22px;padding:clamp(26px,3vw,38px);display:grid;gap:12px;align-content:start;box-shadow:0 1px 2px rgba(28,28,40,.05),0 20px 40px -30px rgba(28,28,40,.35)}
+.proof b{font-family:var(--f-display);font-weight:400;font-size:clamp(46px,5vw,64px);line-height:1;color:var(--cloth)}
+.proof h3{font-family:var(--f-text);font-weight:500;font-size:19px}
+.proof p{color:var(--ink-soft);font-size:16.5px}
+.proof-note{margin:clamp(28px,4vw,44px) auto 0;max-width:42em;text-align:center;color:var(--ink-soft);font-size:16.5px}
+@media (max-width:860px){.proof{grid-template-columns:1fr}}
+
+/* 5. как идёт работа */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,3vw,36px);counter-reset:s}
+.steps li{counter-increment:s;border-top:1px solid var(--line-dark);padding-top:22px;display:grid;gap:10px;align-content:start}
+.steps li::before{content:counter(s);font-family:var(--f-display);font-size:44px;line-height:1;color:var(--gold)}
+.steps h3{font-family:var(--f-text);font-weight:500;font-size:19px;color:var(--on-dark)}
+.steps p{font-size:16px;color:var(--on-dark-soft)}
+.steps-note{margin-top:clamp(32px,4vw,48px);text-align:center;color:var(--on-dark-soft);font-size:16px}
+@media (max-width:860px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* 6. отзывы */
+.revs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);align-items:start}
+.revs figure{margin:0;display:grid;gap:12px}
+.revs video,.revs img{width:100%;height:auto;border-radius:18px;background:var(--cloth)}
+.revs video{aspect-ratio:4/5;object-fit:cover}
+.revs .shot{aspect-ratio:4/5;object-fit:cover}
+.revs figcaption{font-size:14.5px;color:var(--ink-soft)}
+.rev-text{background:#fff;border-radius:18px;padding:22px;display:grid;gap:14px;box-shadow:0 20px 40px -30px rgba(28,28,40,.35)}
+.rev-text blockquote{margin:0;font-size:17px;line-height:1.5}
+@media (max-width:860px){.revs{grid-template-columns:1fr 1fr}.revs figure:last-child{grid-column:1/-1}}
+@media (max-width:520px){.revs{grid-template-columns:1fr}}
+
+/* 7. ценность */
+.value{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(20px,3vw,32px)}
+.value .tile{background:var(--cloth)}
+.incl{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:0}
+.incl li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding-block:14px;border-top:1px solid var(--line-dark);font-size:17px;color:var(--on-dark)}
+.incl li:first-child{border-top:0}
+.incl li::before{content:"";width:9px;height:9px;margin-top:9px;transform:rotate(45deg);border:1px solid var(--gold)}
+.incl small{display:block;color:var(--on-dark-soft);font-size:15px}
+.price-line{margin-top:10px;padding-top:20px;border-top:1px solid var(--line-dark);display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;justify-content:space-between}
+.price-line p{font-size:16px;color:var(--on-dark-soft);max-width:22em}
+.not-for{background:transparent}
+.not-for ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.not-for li{font-size:16.5px;color:var(--on-dark-soft);padding-left:22px;position:relative}
+.not-for li::before{content:"—";position:absolute;left:0;color:var(--gold)}
+.gift{margin-top:8px;padding-top:18px;border-top:1px solid var(--line-dark)}
+@media (max-width:860px){.value{grid-template-columns:1fr}}
+
+/* 8. вопросы */
+.faq{max-width:820px;margin:0 auto;border-top:1px solid var(--line-light)}
+.faq details{border-bottom:1px solid var(--line-light)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:20px;padding-block:22px;font-size:clamp(18px,2vw,21px);font-weight:500}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-data);color:var(--gold-ink);font-size:22px;line-height:1;transition:transform .2s ease}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding-bottom:22px;color:var(--ink-soft);max-width:40em}
+
+/* 9. финал */
+.final{text-align:center;background:radial-gradient(50% 60% at 50% 0%,rgba(205,177,111,.14),transparent 70%),var(--cloth-deep)}
+.final .h2{font-size:clamp(38px,6vw,72px)}
+.final .lead{margin:18px auto 0}
+.final-cta{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:center;align-items:center;margin-top:30px}
+.final small{display:block;margin-top:14px;color:var(--on-dark-soft);font-size:14.5px}
+.form{max-width:640px;margin:clamp(44px,6vw,64px) auto 0;display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:left}
+.form label{display:grid;gap:6px;font-size:14px;color:var(--on-dark-soft)}
+.form .wide{grid-column:1/-1}
+.form input,.form select,.form textarea{font:inherit;font-size:16px;color:var(--on-dark);background:var(--cloth);border:1px solid var(--line-dark);border-radius:12px;padding:12px 14px;width:100%}
+.form textarea{min-height:96px;resize:vertical}
+.form .btn{justify-self:center}
+.form-status{text-align:center;font-size:14.5px;color:var(--gold)}
+@media (max-width:560px){.form{grid-template-columns:1fr}}
+
+.foot{border-top:1px solid var(--line-dark);padding-block:28px;font-size:14px;color:var(--on-dark-soft)}
+.foot .shell{display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-book{animation:none}.btn{transition:none}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="shell">
+    <a class="brand" href="#top">Ишвара Дас</a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#inside">Что внутри</a>
+      <a href="#proof">Точность</a>
+      <a href="#how">Как создаётся</a>
+      <a href="#reviews">Отзывы</a>
+    </nav>
+    <a class="btn btn-gold" href="https://t.me/Ishvaradasa" target="_blank" rel="noopener">Написать</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- 1. Первый экран: обещание + продукт -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="shell">
+    <p class="eyebrow">Персональная книга по джйотишу</p>
+    <h1 id="hero-h">Книга о Вас.<br><em>В единственном экземпляре.</em></h1>
+    <p class="lead">Ваша жизнь целиком, в одной ясной картине: характер, дело, любовь, род, здоровье и годы вперёд. Рассчитано по Вашей карте и сверено с Вашей биографией.</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="https://t.me/Ishvaradasa" target="_blank" rel="noopener">Написать о книге</a>
+      <a class="link" href="#pages">Посмотреть страницы&nbsp;→</a>
+    </div>
+    <div class="hero-book"><img src="img/kniga-cover.webp" width="800" height="1135" alt="Обложка персональной книги «Damayānti Dāya»"></div>
+  </div>
+</section>
+<section class="facts" aria-label="Коротко о книге">
+  <ul class="shell">
+    <li><b>1</b><span>печатный экземпляр. Второго не существует</span></li>
+    <li><b>12–15</b><span>сфер Вашей жизни</span></li>
+    <li><b>49</b><span>систем планетных периодов проверяется по Вашей карте</span></li>
+    <li><b>900</b><span>ответов по Вашей карте в томе-приложении</span></li>
+  </ul>
+</section>
+
+<!-- 2. Смысл: зачем эта книга -->
+<section class="sec light thesis" aria-labelledby="why-h">
+  <div class="shell">
+    <h2 class="visually-hidden" id="why-h">Зачем эта книга</h2>
+    <q>Почти всё, что Вы годами объясняли своим характером, объясняется устройством гороскопа.</q>
+    <p class="by">Ишвара Дас</p>
+    <div class="why">
+      <div><h3>Увидеть себя целиком</h3><p>Разрозненные части жизни складываются в одну картину. Видно, откуда берутся силы и куда они утекают.</p></div>
+      <div><h3>Перестать винить себя</h3><p>То, у чего есть имя и расчёт, перестаёт быть виной. Повторяющееся становится понятным.</p></div>
+      <div><h3>Решать самому</h3><p>Книга не говорит, как жить. Она даёт карту, и по ней Вы сами находите ответы на свои вопросы.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Что внутри -->
+<section class="sec dark" id="inside" aria-labelledby="inside-h">
+  <div class="shell">
+    <div class="head">
+      <p class="eyebrow">Что внутри</p>
+      <h2 class="h2" id="inside-h">Главы вырастают из Вашей жизни.</h2>
+      <p class="lead">Одинаковых оглавлений у этих книг не бывает. Нет детей, значит не будет глав о детях. Главный вопрос о призвании, переезде или роде получит отдельную большую часть.</p>
+    </div>
+
+    <div class="inside-top">
+      <article class="tile tile-power">
+        <div style="display:grid;gap:12px">
+          <p class="eyebrow">Первые страницы</p>
+          <h3>Книга начинается с того, откуда Вам брать силы.</h3>
+          <p>Тотем личной силы и духовное имя по традиции Нама-карана. Эти страницы трогают людей сильнее всего.</p>
+        </div>
+        <img src="img/kniga/stranica-03.webp" alt="Страница книги" loading="lazy">
+      </article>
+      <article class="tile">
+        <p class="eyebrow">В подарок к книге</p>
+        <h3>«900 вопросов, которые стоило бы задать астрологу»</h3>
+        <p>Электронный том с ответами по Вашей карте. А свои вопросы Вы задаёте сколько угодно: 100, 200, 500. На всё, на что можно ответить по карте, я отвечу в тексте глав.</p>
+      </article>
+    </div>
+
+    <ul class="spheres" aria-label="Сферы жизни в книге">
+      <li><b>Характер</b><span>Сильные стороны и слабые места</span></li>
+      <li><b>Предназначение</b><span>Задача, ради которой Вы здесь</span></li>
+      <li><b>Дело и деньги</b><span>Где рост, где потери</span></li>
+      <li><b>Любовь и брак</b><span>Что повторяется из раза в раз</span></li>
+      <li><b>Дети</b><span>О каждом ребёнке своя глава</span></li>
+      <li><b>Род</b><span>Мать, отец, линия семьи</span></li>
+      <li><b>Тело и здоровье</b><span>Ориентир для профилактики</span></li>
+      <li><b>Дом и место</b><span>Страны и города, где легче</span></li>
+      <li><b>Прошлое</b><span>Что принесено и тянется до сих пор</span></li>
+      <li><b>Годы</b><span>Сезоны жизни и карта на каждый год</span></li>
+      <li><b>Трудная сторона</b><span>То, о чём обычно молчат</span></li>
+      <li><b>Что с этим делать</b><span>Практики и упайи под Вашу карту</span></li>
+    </ul>
+
+    <div class="pages-head" id="pages">
+      <h3>Настоящие страницы одной книги</h3>
+      <p>Листайте вбок&nbsp;→</p>
+    </div>
+    <div class="pages" tabindex="0" aria-label="Фрагмент книги, 12 страниц">
+      <figure><img src="img/kniga/stranica-01.webp" alt="Страница 1" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-02.webp" alt="Страница 2" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-03.webp" alt="Страница 3" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-04.webp" alt="Страница 4" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-05.webp" alt="Страница 5" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-06.webp" alt="Страница 6" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-07.webp" alt="Страница 7" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-08.webp" alt="Страница 8" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-09.webp" alt="Страница 9" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-10.webp" alt="Страница 10" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-11.webp" alt="Страница 11" loading="lazy"></figure>
+      <figure><img src="img/kniga/stranica-12.webp" alt="Страница 12" loading="lazy"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Точность: почему этому можно верить -->
+<section class="sec light" id="proof" aria-labelledby="proof-h">
+  <div class="shell">
+    <div class="head">
+      <p class="eyebrow">Точность</p>
+      <h2 class="h2" id="proof-h">Написана под одного человека.<br>Проверена тремя способами.</h2>
+    </div>
+    <div class="proof">
+      <article>
+        <b>100+</b>
+        <h3>Своя программа расчёта</h3>
+        <p>Формулы традиции, которых нет в открытом доступе. Швейцарские эфемериды, звёздный каталог Hipparcos, 49 систем периодов.</p>
+      </article>
+      <article>
+        <b>5</b>
+        <h3>Школ в сверке</h3>
+        <p>Парашара, КП, Джаймини, Нади, Лал Китаб. В книгу идёт только то, на что указывают две-три системы сразу.</p>
+      </article>
+      <article>
+        <b>10–20</b>
+        <h3>Событий Вашей жизни</h3>
+        <p>По ним я уточняю время рождения и нахожу периоды, которые работают именно у Вас.</p>
+      </article>
+    </div>
+    <p class="proof-note">Всё считается на моём компьютере, Ваши данные никуда не уходят. Каждую новую книгу программа сверяет со всеми прежними: если подряд совпадают восемь слов, я переписываю это место.</p>
+  </div>
+</section>
+
+<!-- 5. Как идёт работа -->
+<section class="sec cloth" id="how" aria-labelledby="how-h">
+  <div class="shell">
+    <div class="head">
+      <p class="eyebrow">Как создаётся книга</p>
+      <h2 class="h2" id="how-h">Четыре шага до книги в Ваших руках.</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>Знакомство в Zoom</h3><p>Говорим о Вашей жизни и о том, что Вы хотите понять.</p></li>
+      <li><h3>Данные и вопросы</h3><p>Дата, время и место рождения, 10–20 событий жизни, Ваши вопросы и мой опросник.</p></li>
+      <li><h3>Расчёт и текст</h3><p>От трёх до пяти месяцев с того дня, когда собраны все данные.</p></li>
+      <li><h3>Печать и доставка</h3><p>Твёрдый переплёт. Отправляю почтой в любую страну.</p></li>
+    </ol>
+    <p class="steps-note">Одновременно я веду не больше пяти книг.</p>
+  </div>
+</section>
+
+<!-- 6. Отзывы -->
+<section class="sec paper" id="reviews" aria-labelledby="reviews-h">
+  <div class="shell">
+    <div class="head">
+      <p class="eyebrow">Отзывы</p>
+      <h2 class="h2" id="reviews-h">Что меняется после книги.</h2>
+    </div>
+    <div class="revs">
+      <figure>
+        <video controls playsinline preload="none" poster="img/reviews/video-poster.jpg" width="576" height="720" aria-label="Видео: владелица получает персональную книгу"><source src="media/kniga-yadviga.mp4" type="video/mp4"></video>
+        <figcaption>Книга приехала. Видео</figcaption>
+      </figure>
+      <figure>
+        <img class="shot" src="img/reviews/r07-kniga-foto.jpg" width="700" height="810" alt="Владелица держит свою персональную книгу" loading="lazy">
+        <figcaption>Персональная книга «Ядвига»</figcaption>
+      </figure>
+      <figure class="rev-text">
+        <blockquote>«Я обычно всегда стесняюсь и не делаю этого. А вчера я даже от себя не ожидала… Даже ни один мускул не дрогнул».</blockquote>
+        <img src="img/reviews/r01-kniga.jpg" width="441" height="267" alt="Скриншот отзыва после прочтения книги" loading="lazy">
+        <figcaption>Через несколько дней после прочтения</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Ценность вместо цены -->
+<section class="sec dark" id="value" aria-labelledby="value-h">
+  <div class="shell">
+    <div class="head">
+      <p class="eyebrow">Ценность</p>
+      <h2 class="h2" id="value-h">Одна книга. На всю жизнь.</h2>
+      <p class="lead">Это месяцы расчёта и текста, написанного для одного человека. К ней возвращаются годами: в каждый новый период, перед каждым большим решением.</p>
+    </div>
+    <div class="value">
+      <article class="tile">
+        <h3>Что входит</h3>
+        <ul class="incl">
+          <li><span>Полная книга<small>Короткой версии нет</small></span></li>
+          <li><span>Главы о супруге, детях и родителях<small>Входят в книгу без доплат</small></span></li>
+          <li><span>Том «900 вопросов»<small>С ответами по Вашей карте, в подарок</small></span></li>
+          <li><span>Твёрдый переплёт и доставка<small>В любую страну</small></span></li>
+        </ul>
+        <div class="price-line">
+          <p>Стоимость называю лично, после знакомства. Без скидок и рассрочки.</p>
+          <a class="btn btn-gold" href="https://t.me/Ishvaradasa" target="_blank" rel="noopener">Узнать стоимость</a>
+        </div>
+      </article>
+      <article class="tile not-for">
+        <h3>Когда я не возьмусь</h3>
+        <ul>
+          <li>Время рождения неизвестно</li>
+          <li>Нужна книга для бизнеса. Эта книга про человека</li>
+          <li>Нужно «удивите меня» или «докажите, что работает»</li>
+          <li>Ждут волшебной таблетки без своей внутренней работы</li>
+        </ul>
+        <p class="gift"><span class="eyebrow">В подарок</span><br>Книгу можно подарить близкому, если у Вас есть его точные данные рождения и даты событий его жизни.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Вопросы -->
+<section class="sec light" id="faq" aria-labelledby="faq-h">
+  <div class="shell">
+    <div class="head">
+      <p class="eyebrow">Вопросы</p>
+      <h2 class="h2" id="faq-h">Коротко о главном.</h2>
+    </div>
+    <div class="faq">
+      <details><summary>Я не знаю точное время рождения. Возьмётесь?</summary><p>Если разброс 10–15 минут, сначала проверю время по событиям Вашей жизни и тогда скажу. Если время неизвестно совсем, книгу не пишу: без точного времени расчёт превращается в догадки.</p></details>
+      <details><summary>Будет ли в книге что-то тяжёлое?</summary><p>Трудные места есть в любой карте, и без них книга была бы нечестной. Я выношу их в отдельное приложение и пишу, как с ними обходиться. Смерть не предсказываю.</p></details>
+      <details><summary>Можно получить книгу в PDF?</summary><p>Нет. Книга существует в одном печатном экземпляре, у Вас.</p></details>
+      <details><summary>А если мне не понравится вывод?</summary><p>Фактическую ошибку исправлю. Выводы из карты под пожелания не переписываю.</p></details>
+      <details><summary>Можно задать вопросы после книги?</summary><p>Да, на отдельной консультации: выбираете темы, которые хотите разобрать глубже.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- 9. Финальный призыв -->
+<section class="sec final" id="contact" aria-labelledby="contact-h">
+  <div class="shell">
+    <h2 class="h2" id="contact-h">Начните со знакомства.</h2>
+    <p class="lead">Поговорим в Zoom о Вашей жизни и о том, что Вы хотите понять. Отвечаю сам, в течение суток.</p>
+    <div class="final-cta">
+      <a class="btn btn-gold" href="https://t.me/Ishvaradasa" target="_blank" rel="noopener">Написать в Telegram</a>
+    </div>
+    <small>@Ishvaradasa · или оставьте заявку</small>
+    <form class="form" id="lead-form" novalidate>
+      <label>Имя<input id="f-name" name="name" autocomplete="name"></label>
+      <label>Telegram или телефон<input id="f-contact" name="contact"></label>
+      <label class="wide">О чём хотите поговорить
+        <select id="f-topic" name="topic"><option>Персональная книга</option><option>Книга в подарок</option><option>Вопросы по готовой книге</option></select>
+      </label>
+      <label class="wide">Ваш вопрос<textarea id="f-msg" name="msg"></textarea></label>
+      <button class="btn btn-gold wide" type="submit">Отправить заявку</button>
+      <p class="form-status wide" id="form-status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell"><span>Ишвара Дас · Īśvara Dāsa</span><span>© 2026</span></div>
+</footer>
+
+<script>
+document.getElementById('lead-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  document.getElementById('form-status').textContent = 'Это макет. На сайте форма будет отправлять заявку в Telegram, как сейчас.';
+});
+</script>
+</body>
+</html>
