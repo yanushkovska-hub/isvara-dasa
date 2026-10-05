@@ -265,8 +265,8 @@
       return;
     }
     book.classList.add('is-tilt');
-    book.style.setProperty('--ry', (-26 + tx * 30).toFixed(2) + 'deg');
-    book.style.setProperty('--rx', (5 - ty * 14).toFixed(2) + 'deg');
+    book.style.setProperty('--ry', (-18 + tx * 26).toFixed(2) + 'deg');
+    book.style.setProperty('--rx', (3 - ty * 12).toFixed(2) + 'deg');
     book.style.setProperty('--gx', (60 - tx * 90).toFixed(1) + '%');
     shadow.style.setProperty('--sx', (14 - tx * 22).toFixed(1) + 'px');
   }
