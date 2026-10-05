@@ -880,3 +880,5 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 /* бронь: заштрихованный блок с золотой рамкой, как на образце */
 .shelf .slot.held i{opacity:1;background:repeating-linear-gradient(135deg,#1C2560 0 7px,#3A4785 7px 12px)!important;box-shadow:inset 0 0 0 1px rgba(212,180,106,.75),0 10px 18px -8px rgba(0,0,0,.85)!important;border-radius:3px}
 .shelf .slot.held i::before,.shelf .slot.held i::after{display:none}
+.hero-eyebrow{font-size:clamp(15px,1.5vw,19px);letter-spacing:.16em;line-height:1.5}
+.hero-eyebrow::before{transform:translateY(-6px)}
