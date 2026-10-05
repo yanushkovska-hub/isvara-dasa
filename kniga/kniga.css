@@ -850,3 +850,5 @@ body.modal-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){.js .fan2.rv:not(.in) .p-mid{transform:rotate(-2deg)}}
 .fan2 .p-mid{top:-3%;left:30%}
 .bf-front img{height:100%}
+.author-quote{font-family:var(--f-display);font-style:italic;font-weight:300;font-size:clamp(20px,2.2vw,26px);line-height:1.35;color:var(--ink-soft);max-width:30em}
+.author-quote{text-wrap:balance}
