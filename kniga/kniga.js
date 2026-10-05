@@ -416,7 +416,7 @@
     '.head > *', '.thesis q', '.thesis .by', '.why-h', '.why > div', '.facts .voice', '.facts li', '.facts-cta', '#change .cta-row',
     '.state', '.bridge', '.inside-top .tile', '.fan', '.sph-head > *', '.pack-list > li', '.pkg-cta', '.spheres li', '.relic > div',
     '.answers > .shell > .eyebrow', '.answers .h2', '.answers .lead', '.ph-stats > div', '.phone',
-    '.calc > *', '.method-head .mh-text > *', '.kundali', '.part-h', '.author > div', '.bio p', '.no-photo', '.abook', '.vcard', '.proof article', '.proof-note', '.path li', '.path-note',
+    '.calc > *', '.method-head .mh-text > *', '.kundali', '.part-h', '.author > div', '.bio p', '.no-photo', '.abook', '.vcard', '.proof article', '.proof-note', '.path li', '.path-note', '#path .cta-row',
     '.revs figure', '.voices-h', '.voices figure', '.cta-row', '.moments figure', '.moments dl > div',
     '.now .h2', '.slot', '.now .lead', '.eta', '.faq details', '.final-head > *', '.form'
   ].join(',');
