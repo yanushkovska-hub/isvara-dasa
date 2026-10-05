@@ -849,3 +849,4 @@ body.modal-open{overflow:hidden}
 .fan2 .fan-tag{left:8%;bottom:3%}
 @media (prefers-reduced-motion:reduce){.js .fan2.rv:not(.in) .p-mid{transform:rotate(-2deg)}}
 .fan2 .p-mid{top:-3%;left:30%}
+.bf-front img{height:100%}
