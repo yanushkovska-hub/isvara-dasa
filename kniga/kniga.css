@@ -1093,3 +1093,37 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 @media (max-width:400px){.hero-cta{display:grid;justify-items:stretch}.hero-cta .btn{width:auto}.play{justify-self:start}}
 @media (max-width:900px){.hero .shell{grid-template-columns:minmax(0,1fr)}}
 .fan3 .s-cover{aspect-ratio:497/708;border-radius:2px}
+
+/* Стоимость: компактный список без номеров */
+.pack-list .pk-txt b::before{content:none!important;display:none}
+.pack-list li{grid-template-columns:132px minmax(0,1fr)!important;gap:22px!important;padding:8px 0!important}
+.pack-list .pk-vis{width:132px!important;height:96px!important}
+.pack-list .pk-txt{gap:3px}
+.pack-list .pk-txt b{font-size:clamp(19px,1.8vw,22px)}
+.pack-list .pk-txt span{font-size:15px}
+.pack-list .pk-book{--w:56px;--h:79px;--d:9px}
+.pack-list .pk-fan img{width:50px;margin:-36px 0 0 -25px}
+.pack-list .pk-tablet{width:62px}
+.pack-list .pk-photo{width:70px}
+.pack-list .zm{transform:translate(-50%,-50%) scale(.6)}
+.pkg{align-items:center}
+@media (max-width:600px){
+  .pack-list li{grid-template-columns:96px minmax(0,1fr)!important;gap:14px!important;padding:6px 0!important}
+  .pack-list .pk-vis{width:96px!important;height:80px!important}
+  .pack-list .pk-book{--w:44px;--h:62px;--d:7px}
+  .pack-list .pk-fan img{width:38px;margin:-28px 0 0 -19px}
+  .pack-list .pk-tablet{width:48px}
+  .pack-list .pk-photo{width:56px}
+  .pack-list .zm{transform:translate(-50%,-50%) scale(.45)}
+  .pack-list .pk-txt b{font-size:18px}
+  .pack-list .pk-txt span{font-size:14px}
+}
+@media (max-width:400px){
+  .pack-list li{grid-template-columns:80px minmax(0,1fr)!important;gap:12px!important}
+  .pack-list .pk-vis{width:80px!important;height:72px!important}
+  .pack-list .pk-book{--w:38px;--h:53px;--d:6px}
+  .pack-list .pk-fan img{width:32px;margin:-24px 0 0 -16px}
+  .pack-list .pk-tablet{width:42px}
+  .pack-list .pk-photo{width:48px}
+  .pack-list .zm{transform:translate(-50%,-50%) scale(.38)}
+}
