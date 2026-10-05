@@ -943,3 +943,23 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 @keyframes btnShine{0%,62%{left:-60%}100%{left:130%}}
 .btn:nth-of-type(2n)::after{animation-delay:1.2s}
 @media (prefers-reduced-motion:reduce){.btn::after{animation:none;display:none}}
+/* веер точно по образцу: три листа одного размера, нижние края почти на одной линии,
+   расходятся от общей точки внизу; сверху между ними открывается клин средней страницы */
+.tile-first .fan3{width:min(420px,100%);aspect-ratio:527/448}
+.fan3 img{width:42%!important;transform-origin:50% 92%}
+.fan3 .s-cover{left:8%!important;top:22%!important;z-index:3;transform:rotate(-9deg)}
+.fan3 .s-chart{left:27%!important;top:17%!important;z-index:1;transform:rotate(-2deg)}
+.fan3 .s-text{left:47%!important;top:21%!important;z-index:2;transform:rotate(9deg)}
+.js .fan3.rv:not(.in) .s-cover{transform:translateX(45%) rotate(0)}
+.js .fan3.rv:not(.in) .s-chart{transform:rotate(0)}
+.js .fan3.rv:not(.in) .s-text{transform:translateX(-45%) rotate(0)}
+.fan3:hover .s-cover{transform:rotate(-12deg) translateX(-3%)}
+.fan3:hover .s-chart{transform:rotate(-2deg) translateY(-4%)}
+.fan3:hover .s-text{transform:rotate(12deg) translateX(3%)}
+@media (prefers-reduced-motion:reduce){.js .fan3.rv:not(.in) .s-cover{transform:rotate(-9deg)}.js .fan3.rv:not(.in) .s-chart{transform:rotate(-2deg)}.js .fan3.rv:not(.in) .s-text{transform:rotate(9deg)}}
+@media (max-width:520px){.tile-first .fan3{width:min(320px,100%)}}
+.tile-first .fan3{aspect-ratio:527/470}
+.fan3 img{width:46%!important}
+.fan3 .s-cover{left:4%!important;top:9%!important}
+.fan3 .s-chart{left:26%!important;top:3%!important}
+.fan3 .s-text{left:50%!important;top:8%!important}
