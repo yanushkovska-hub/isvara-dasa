@@ -9,7 +9,7 @@
   var free = document.querySelectorAll('.slot.free').length;
   var words = ['', 'одно место', 'два места', 'три места', 'четыре места', 'пять мест'];
   var title = document.querySelector('[data-season-title]');
-  if (title) title.textContent = free ? 'На эту ' + season + ' — ' + words[free] + '.' : 'На эту ' + season + ' мест больше нет.';
+  if (title) title.textContent = free ? 'На эту ' + season + ' — ' + words[free] : 'На эту ' + season + ' мест больше нет';
   var pill = document.querySelector('[data-free]');
   if (pill) pill.textContent = free ? 'Свободно ' + free + (free === 1 ? ' место' : ' места') + ' на ' + season : 'Все места на ' + season + ' заняты';
 
@@ -104,7 +104,7 @@
       f.className += ' blank';
     } else if (what === 'end') {
       f.className += ' endpage';
-      f.innerHTML = '<div class="end-in"><p class="eyebrow">Конец фрагмента</p><b>Дальше — ваша жизнь.</b>' +
+      f.innerHTML = '<div class="end-in"><p class="eyebrow">Конец фрагмента</p><b>Дальше — ваша жизнь</b>' +
         '<p>Каждая книга пишется для одного человека. Ваша начнётся со знакомства.</p>' +
         '<a class="btn btn-gold" href="#contact" data-close>Обсудить мою книгу</a></div>';
     } else {
