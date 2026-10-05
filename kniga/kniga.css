@@ -711,3 +711,7 @@ body.modal-open{overflow:hidden}
 /* доставка: фото в аккуратной плашке */
 .pk-photo{width:150px;padding:6px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(212,180,106,.35);box-shadow:0 20px 34px -18px rgba(0,0,0,.85)}
 .pk-photo img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 40%;border-radius:11px}
+#stories .revs .shot{object-position:50% 30%}
+.moments figure img{object-position:50% 75%}
+.facts-cta{margin-top:clamp(40px,5vw,60px);padding-inline:var(--gutter)}
+.facts .cta-note{color:var(--ink-soft)}
