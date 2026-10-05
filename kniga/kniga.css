@@ -995,3 +995,9 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .pack-list .zm{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.66)}
 @media (max-width:520px){.pack-list .zm{transform:translate(-50%,-50%) scale(.46)}}
 @media (max-width:900px){.pkg-cta{order:0}}
+.pack-list .pk-vis{background:none!important;border-radius:0;overflow:visible}
+.zm-body{grid-template-columns:minmax(0,1fr) 34px}
+.zm-main{overflow:hidden}
+.zm-main img{height:68px}
+.zm-side{min-width:0}
+.zm span{padding-inline:0!important}
