@@ -97,10 +97,10 @@ button{font:inherit;color:inherit}
 .hero-book{display:grid;justify-items:center;gap:22px;perspective:1700px}
 .hero h1 .ln{display:block}
 /* объёмная книга: обложка, обрез, корешок, крышка */
-.book-stage{--bw:min(320px,66vw);--bh:calc(var(--bw) * 1.4025);--bd:30px;position:relative;width:var(--bw);height:var(--bh);margin-top:10px;animation:rise 1.2s cubic-bezier(.2,.7,.2,1) both}
+.book-stage{--bw:min(320px,66vw);--bh:calc(var(--bw) * 1.4025);--bd:30px;position:relative;perspective:1500px;perspective-origin:50% 45%;width:var(--bw);height:var(--bh);margin-top:10px;animation:rise 1.2s cubic-bezier(.2,.7,.2,1) both}
 .book-float{position:absolute;inset:0;transform-style:preserve-3d;animation:bookFloat 6s ease-in-out 1.4s infinite}
 @keyframes bookFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
-.book{--rx:5deg;--ry:-26deg;position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.book{--rx:3deg;--ry:-18deg;position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform 1s cubic-bezier(.2,.7,.2,1)}
 .book.is-tilt{transition:transform .14s linear}
 .bf{position:absolute;backface-visibility:hidden;-webkit-backface-visibility:hidden}
 .bf-front{inset:0;transform:translateZ(calc(var(--bd) / 2));border-radius:2px 6px 6px 2px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(212,180,106,.35)}
