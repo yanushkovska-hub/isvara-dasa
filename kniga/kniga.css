@@ -1144,5 +1144,4 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .relic-open{display:inline-flex;align-items:center;gap:10px;padding:0 24px;min-height:48px;border-radius:999px;border:1px solid rgba(212,180,106,.5);background:rgba(17,23,58,.6);font-family:var(--f-text);font-size:15.5px;font-weight:600;color:var(--gold);text-decoration:none!important;transition:border-color .2s,background-color .2s}
 .relic-open:hover{border-color:var(--gold);background:rgba(212,180,106,.1)}
 @media (max-width:860px){.relic-photo{grid-template-columns:1fr!important}.relic-book img{width:min(320px,80%)}}
-.relic-photo .relic-open{margin-top:30px;border:0;background:var(--gold);color:var(--night)}
-.relic-photo .relic-open:hover{background:var(--gold-soft)}
+.relic-photo .relic-open{margin-top:30px}
