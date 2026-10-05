@@ -783,3 +783,10 @@ body.modal-open{overflow:hidden}
 .hero .hero-sub + .lead{margin-top:18px}
 .js .hero .shell > div:first-child > :nth-child(8){animation-delay:.8s}
 .hero h1{font-size:clamp(40px,5vw,66px);line-height:1.04}
+/* первый экран: книга просто мягко покачивается, без реакции на мышь и бликов */
+.glint{display:none}
+.book{transition:none;animation:bookSway 8s ease-in-out 1.4s infinite}
+@keyframes bookSway{0%,100%{transform:rotateX(0deg) rotateY(-18deg)}50%{transform:rotateX(0deg) rotateY(-12deg)}}
+.book-float{animation:bookFloat 8s ease-in-out 1.4s infinite}
+@keyframes bookFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media (prefers-reduced-motion:reduce){.book,.book-float{animation:none}}

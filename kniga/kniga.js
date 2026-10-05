@@ -247,41 +247,6 @@
   });
 })();
 
-/* Объёмная книга на первом экране поворачивается вслед за курсором */
-(function () {
-  var hero = document.querySelector('.hero');
-  var book = document.getElementById('book');
-  var shadow = document.querySelector('.book-shadow');
-  if (!hero || !book || !window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var raf = 0, tx = 0, ty = 0, on = false;
-  function apply() {
-    raf = 0;
-    if (!on) {
-      book.classList.remove('is-tilt');
-      ['--ry', '--rx', '--gx'].forEach(function (k) { book.style.removeProperty(k); });
-      shadow.style.removeProperty('--sx');
-      return;
-    }
-    book.classList.add('is-tilt');
-    book.style.setProperty('--ry', (-18 + tx * 26).toFixed(2) + 'deg');
-    book.style.setProperty('--rx', (-ty * 10).toFixed(2) + 'deg');
-    book.style.setProperty('--gx', (60 - tx * 90).toFixed(1) + '%');
-    shadow.style.setProperty('--sx', (14 - tx * 22).toFixed(1) + 'px');
-  }
-  hero.addEventListener('pointermove', function (e) {
-    var r = book.getBoundingClientRect();
-    tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2.4)));
-    ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)));
-    on = true;
-    if (!raf) raf = requestAnimationFrame(apply);
-  });
-  hero.addEventListener('pointerleave', function () {
-    on = false;
-    if (!raf) raf = requestAnimationFrame(apply);
-  });
-})();
-
 /* Том в телефоне: вопросы прокручиваются сами, их можно листать и вручную */
 (function () {
   var list = document.querySelector('.ph-list');
