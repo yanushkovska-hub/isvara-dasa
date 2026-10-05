@@ -1174,3 +1174,25 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .relic-open::after,.leaf-btn::after{content:"";position:absolute;top:-20%;bottom:-20%;left:-60%;width:40%;z-index:-1;pointer-events:none;background:linear-gradient(105deg,transparent 0%,rgba(242,205,114,.06) 35%,rgba(242,205,114,.38) 50%,rgba(242,205,114,.06) 65%,transparent 100%);transform:skewX(-18deg);animation:btnShine 4.8s ease-in-out .6s infinite}
 @media (prefers-reduced-motion:reduce){.relic-open::after,.leaf-btn::after{display:none}}
 .ph-stats span{max-width:17em;line-height:1.45}.ph-stats.l span{margin-left:auto}
+
+/* ===== Единая шкала основного текста =====
+   lead — подзаголовки разделов; body — весь описательный текст; note — подписи и пояснения */
+:root{--t-lead:20px;--t-body:17px;--t-note:15px}
+@media (max-width:600px){:root{--t-lead:18px;--t-body:16px;--t-note:14px}}
+.lead,.hero .lead{font-size:var(--t-lead)}
+/* основной текст */
+.why p,.helps .why p,.tile p,.tile>p,.tv-text p,.state li span,.after li span,.before li span,
+.spheres span,.sph-head p,.relic>div>p,.relic-photo p,
+.proof p,.proof-note,.path p,.path-note,.reason p,.moments dd,.moments dt,
+.pack-list .pk-txt span,.case p,.bio,.bio p,.faq details p,.answers .lead+*,
+.ph-stats span,.calc .eq+p,.tile .asks,.final-grid .final-head .lead,.now .lead,.mh-text .lead{font-size:var(--t-body);line-height:1.6}
+.spheres span{line-height:1.5}
+/* подписи и пояснения */
+.cta-note,.hero-note,.pill,.revs figcaption,.moments figcaption,.voices figcaption,.voice p,
+.author span,.relic dd,.try p,.tg-row small,.vc-t>span,.form label,.case .meta,.path small,.thesis .by{font-size:var(--t-note)}
+.path small,.case .meta,.thesis .by{letter-spacing:.12em}
+.path-note b,.moments dt{font-weight:600}
+.pkg-cta .lead{font-size:var(--t-body)}
+.pkg-cta .eyebrow{font-size:clamp(14px,1.4vw,16px)}
+.consent span{font-size:14px}
+.abook span{font-size:var(--t-note)}
