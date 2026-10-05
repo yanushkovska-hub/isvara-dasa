@@ -17,7 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="kniga.css?v=20261011">
+<link rel="stylesheet" href="kniga.css?v=20261012">
 <link rel="alternate" hreflang="en" href="../en/personal-book/">
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -28,11 +28,11 @@
   <div class="shell">
     <a class="brand" href="../"><b>Ишвара Дас</b><span>Персональная книга</span></a>
     <nav class="nav" aria-label="Разделы">
-      <a href="#why">Почему книга</a>
-      <a href="#inside">Книга</a>
-      <a href="#author">Почему здесь</a>
-      <a href="#package">Стоимость</a>
-      <a href="#now">Почему сейчас</a>
+      <a href="#why" data-ch="why">Почему книга</a>
+      <a href="#inside" data-ch="book">Книга</a>
+      <a href="#author" data-ch="here">Почему здесь</a>
+      <a href="#package" data-ch="price">Стоимость</a>
+      <a href="#now" data-ch="now">Почему сейчас</a>
     </nav>
     <a class="lang" href="../en/personal-book/" hreflang="en" lang="en" title="English version">EN</a>
     <a class="btn btn-gold" href="#contact">Обсудить мою книгу</a>
@@ -42,11 +42,11 @@
 <main id="main">
 
 <!-- 1. Первый экран -->
-<section class="hero" id="top" aria-labelledby="hero-h">
+<section class="hero" id="top" data-theme="night" data-ch="top" aria-labelledby="hero-h">
   <div class="shell">
     <div>
       <p class="eyebrow hero-eyebrow">Персональная книга по ведической астрологии · Īśvara Dāsa</p>
-      <h1 id="hero-h">На обложке&nbsp;— ваше имя. <em>Внутри&nbsp;— ваша&nbsp;жизнь</em></h1>
+      <h1 id="hero-h"><span class="ln">На обложке&nbsp;—</span> <span class="ln">ваше имя.</span> <em class="ln">Внутри&nbsp;— ваша&nbsp;жизнь</em></h1>
       <p class="lead">Характер, предназначение, деньги, любовь, дети, род и годы впереди. <b>200–550 страниц</b>, которые автор пишет лично — по вашей карте рождения и вашим вопросам. От одного до трёх месяцев работы. <b>Один экземпляр.</b></p>
       <div class="hero-cta">
         <a class="btn btn-gold" href="#contact">Обсудить мою книгу</a>
@@ -56,11 +56,22 @@
       <p class="pill" data-free>Свободно 2 места на осень</p>
     </div>
     <div class="hero-book">
-      <div class="book3d">
-        <div class="cover">
-          <div class="cover-img"><img src="../img/kniga-cover.webp" width="800" height="1135" alt="Обложка персональной книги «Дамаянти Дайя»"></div>
-          <div class="cover-name" id="cover-name" aria-hidden="true"></div>
+      <div class="book-stage">
+        <div class="book-float">
+          <div class="book" id="book">
+            <div class="bf bf-front">
+              <img src="../img/kniga-cover.webp" width="800" height="1135" alt="Обложка персональной книги «Дамаянти Дайя»">
+              <div class="cover-name" id="cover-name" aria-hidden="true"></div>
+              <span class="glint" aria-hidden="true"></span>
+            </div>
+            <div class="bf bf-pages" aria-hidden="true"></div>
+            <div class="bf bf-spine" aria-hidden="true"></div>
+            <div class="bf bf-top" aria-hidden="true"></div>
+            <div class="bf bf-bottom" aria-hidden="true"></div>
+            <div class="bf bf-back" aria-hidden="true"></div>
+          </div>
         </div>
+        <div class="book-shadow" aria-hidden="true"></div>
         <button class="leaf-btn" type="button" data-reader="0"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5c3-1 6-1 10 2 4-3 7-3 10-2v14c-3-1-6-1-10 2-4-3-7-3-10-2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 7v14" stroke="currentColor" stroke-width="1.8"/></svg>Листать страницы</button>
       </div>
       <div class="try">
@@ -73,7 +84,7 @@
 </section>
 
 <!-- 2. Почему книга -->
-<section class="sec paper thesis" id="why" aria-labelledby="why-h">
+<section class="sec paper thesis" id="why" data-theme="paper" data-ch="why" aria-labelledby="why-h">
   <div class="shell">
     <h2 class="vh" id="why-h">Почему книга</h2>
     <q>Почти всё, что вы годами объясняли тяжёлым характером, ленью или невезением, объясняется устройством вашей карты</q>
@@ -85,7 +96,7 @@
     </div>
   </div>
 </section>
-<section class="facts" aria-label="Коротко о книге">
+<section class="facts" data-theme="paper" data-ch="why" aria-label="Коротко о книге">
   <div class="shell facts-in">
     <ul>
       <li><b>1</b><span>печатный экземпляр. Второго нет и не будет</span></li>
@@ -101,7 +112,7 @@
 </section>
 
 <!-- 3. До и после -->
-<section class="sec change" id="change" aria-labelledby="change-h">
+<section class="sec change" id="change" data-theme="night" data-ch="why" aria-labelledby="change-h">
   <div class="shell">
     <div class="head">
       <p class="eyebrow">Для кого эта книга</p>
@@ -139,7 +150,7 @@
 </section>
 
 <!-- 4. Что внутри -->
-<section class="sec night" id="inside" aria-labelledby="inside-h">
+<section class="sec night" id="inside" data-theme="night" data-ch="book" aria-labelledby="inside-h">
   <div class="shell">
     <div class="head">
       <p class="eyebrow">Что внутри</p>
@@ -148,16 +159,34 @@
     </div>
 
     <div class="inside-top">
-      <article class="tile">
-        <p class="eyebrow">Первые страницы</p>
-        <h3>Книга начинается с того, откуда вам брать силы</h3>
-        <p>Тотем личной силы и духовное имя по традиции Нама-карана — то, к чему вы возвращаетесь, когда пусто и опускаются руки.</p>
-        <p class="asks">Вы задаёте сколько угодно вопросов: 100, 200, 500. На всё, на что можно ответить по карте, я отвечу в тексте глав.</p>
+      <article class="tile tile-vis">
+        <div class="tv-text">
+          <p class="eyebrow">Первые страницы</p>
+          <h3>Книга начинается с того, откуда вам брать силы</h3>
+          <p>Тотем личной силы и духовное имя по традиции Нама-карана — то, к чему вы возвращаетесь, когда пусто и опускаются руки.</p>
+          <p class="asks">Вы задаёте сколько угодно вопросов: 100, 200, 500. На всё, на что можно ответить по карте, я отвечу в тексте глав.</p>
+        </div>
+        <div class="tv-art art-book" aria-hidden="true">
+          <img class="pg" src="../img/kniga/stranica-03.webp" alt="" loading="lazy">
+          <img class="cv" src="../img/kniga-cover.webp" alt="" loading="lazy">
+        </div>
       </article>
-      <article class="tile tile-gift">
-        <p class="eyebrow">В подарок к книге</p>
-        <h3>«900 вопросов, которые стоило бы задать астрологу»</h3>
-        <p>Электронный том с ответами по вашей карте, в том числе на вопросы, которые вам не пришли бы в голову. Это около 300 часов устных консультаций.</p>
+      <article class="tile tile-gift tile-vis">
+        <div class="tv-text">
+          <p class="eyebrow">В подарок к книге</p>
+          <h3>«900 вопросов, которые стоило бы задать астрологу»</h3>
+          <p>Электронный том с ответами по вашей карте, в том числе на вопросы, которые вам не пришли бы в голову. Это около 300 часов устных консультаций.</p>
+        </div>
+        <div class="tv-art art-tab" aria-hidden="true">
+          <div class="tab"><div class="tab-scr">
+            <p class="tc-k">Приложение к вашей книге</p>
+            <span class="tc-orn"></span>
+            <p class="tc-t">900<br>вопросов</p>
+            <p class="tc-s">которые стоило бы задать астрологу</p>
+            <span class="tc-orn"></span>
+            <p class="tc-n">с ответами по вашей карте</p>
+          </div></div>
+        </div>
       </article>
     </div>
 
@@ -181,7 +210,7 @@
         <h3>Семейная реликвия</h3>
         <p>Книга существует только на бумаге. PDF самой книги автор не отдаёт никому: её нет ни в облаке, ни в почте, ни в интернете — только у вас на полке.</p>
         <dl>
-          <div><dt>200–550</dt><dd>страниц</dd></div>
+          <div><dt>200–500</dt><dd>страниц</dd></div>
           <div><dt>80&nbsp;000+</dt><dd>слов — объём настоящего романа. Главный герой в нём — вы.</dd></div>
           <div><dt>4</dt><dd>цветные карты рождения на отдельной вклейке</dd></div>
           <div><dt>1</dt><dd>экземпляр. Второго не существует.</dd></div>
@@ -189,6 +218,10 @@
         <a class="btn btn-gold" href="#contact">Обсудить мою книгу</a>
       </div>
       <div style="min-width:0">
+        <div class="pages-nav">
+          <button class="pages-open" type="button" data-reader="0"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 5c3-1 6-1 10 2 4-3 7-3 10-2v14c-3-1-6-1-10 2-4-3-7-3-10-2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 7v14" stroke="currentColor" stroke-width="1.6"/></svg>Смотреть фрагмент книги</button>
+          <div class="pg-btns"><button type="button" data-pg="-1" aria-label="Листать ленту назад">←</button><button type="button" data-pg="1" aria-label="Листать ленту вперёд">→</button></div>
+        </div>
         <div class="pages" aria-label="Фрагмент книги, 12 страниц">
           <button type="button" data-reader="0"><img src="../img/kniga/stranica-01.webp" alt="Страница 1" loading="lazy"></button>
           <button type="button" data-reader="1"><img src="../img/kniga/stranica-02.webp" alt="Страница 2" loading="lazy"></button>
@@ -203,14 +236,14 @@
           <button type="button" data-reader="10"><img src="../img/kniga/stranica-11.webp" alt="Страница 11" loading="lazy"></button>
           <button type="button" data-reader="11"><img src="../img/kniga/stranica-12.webp" alt="Страница 12" loading="lazy"></button>
         </div>
-        <p class="pages-hint">Настоящие страницы одной книги. Листайте вбок или нажмите на страницу&nbsp;→</p>
+        
       </div>
     </div>
   </div>
 </section>
 
 <!-- 900 ответов -->
-<section class="sec answers" id="answers" aria-labelledby="answers-h">
+<section class="sec answers" id="answers" data-theme="night" data-ch="book" aria-labelledby="answers-h">
   <div class="shell">
     <p class="eyebrow">— И ещё кое-что —</p>
     <h2 class="h2" id="answers-h" style="margin-top:14px">900 ответов.<br>Всегда под рукой</h2>
@@ -223,16 +256,34 @@
       <div class="phone" aria-hidden="true">
         <div class="phone-in">
           <div class="ph-head"><b>Девятьсот вопросов</b><small>приложение к вашей книге · PDF</small><p class="ph-search">⌕ Поиск по тому</p></div>
-          <div class="ph-list">
-            <div><b>Какая профессия подойдёт дочери?</b><i></i><i></i></div>
-            <em>Дело и деньги</em>
-            <div><b>Когда лучше менять работу?</b><i></i><i></i></div>
-            <div><b>Входить ли в партнёрство?</b><i></i><i></i></div>
-            <em>Здоровье</em>
-            <div><b>Почему в этом месяце обострилась тревога?</b><i></i><i></i></div>
-            <em>Отношения</em>
-            <div><b>Почему мы спорим об одном и том же?</b><i></i><i></i></div>
-          </div>
+          <div class="ph-list"><div class="ph-roll">
+              <em>Дом и место</em>
+              <div><b>Стоит ли сейчас покупать недвижимость?</b><i></i><i></i></div>
+              <div><b>В каком городе мне легче жить?</b><i></i><i></i></div>
+              <em>Дети</em>
+              <div><b>В какую секцию отдать сына?</b><i></i><i></i></div>
+              <div><b>Какая профессия подойдёт дочери?</b><i></i><i></i></div>
+              <em>Дело и деньги</em>
+              <div><b>Когда лучше менять работу?</b><i></i><i></i></div>
+              <div><b>Входить ли в партнёрство?</b><i></i><i></i></div>
+              <em>Здоровье</em>
+              <div><b>Почему в этом месяце обострилась тревога?</b><i></i><i></i></div>
+              <em>Отношения</em>
+              <div><b>Почему мы спорим об одном и том же?</b><i></i><i></i></div>
+              <em>Дом и место</em>
+              <div><b>Стоит ли сейчас покупать недвижимость?</b><i></i><i></i></div>
+              <div><b>В каком городе мне легче жить?</b><i></i><i></i></div>
+              <em>Дети</em>
+              <div><b>В какую секцию отдать сына?</b><i></i><i></i></div>
+              <div><b>Какая профессия подойдёт дочери?</b><i></i><i></i></div>
+              <em>Дело и деньги</em>
+              <div><b>Когда лучше менять работу?</b><i></i><i></i></div>
+              <div><b>Входить ли в партнёрство?</b><i></i><i></i></div>
+              <em>Здоровье</em>
+              <div><b>Почему в этом месяце обострилась тревога?</b><i></i><i></i></div>
+              <em>Отношения</em>
+              <div><b>Почему мы спорим об одном и том же?</b><i></i><i></i></div>
+            </div></div>
         </div>
       </div>
       <div class="ph-stats r">
@@ -244,15 +295,15 @@
     <div class="calc">
       <div><p class="eq">900 вопросов × 20 минут = <em>300 часов</em></p><p>столько заняли бы ответы на консультациях</p></div>
       <div><p class="eq">= <em>200 встреч</em> по полтора часа</p><p>почти 4 года, если встречаться раз в неделю</p></div>
-      <div><p class="eq">900 × 1&nbsp;500 ₽ = <em>1&nbsp;350&nbsp;000 ₽</em></p><p>по минимальной рыночной ставке</p></div>
-      <p class="calc-sum">Всё это — в одной книге. И стоит она в разы меньше, чем всё это по отдельности.</p>
+      <p class="calc-mult">Умножьте это на стоимость одной консультации</p>
+      <p class="calc-sum">Здесь всё собрано — в одной книге. И стоит она в разы меньше, чем всё это по отдельности.</p>
       <a class="btn btn-gold" href="#contact">Узнать стоимость</a>
     </div>
   </div>
 </section>
 
 <!-- 5. Автор и метод -->
-<section class="sec paper" id="author" aria-labelledby="author-h">
+<section class="sec paper" id="author" data-theme="paper" data-ch="here" aria-labelledby="author-h">
   <div class="shell">
     <div class="head">
       <p class="eyebrow">Автор и метод</p>
@@ -286,7 +337,7 @@
 </section>
 
 <!-- 6. Путь -->
-<section class="sec paper-2" id="path" aria-labelledby="path-h">
+<section class="sec paper-2" id="path" data-theme="paper" data-ch="here" aria-labelledby="path-h">
   <div class="shell">
     <div class="head">
       <p class="eyebrow">Как создаётся книга</p>
@@ -305,7 +356,7 @@
 </section>
 
 <!-- 7. Истории и отзывы -->
-<section class="sec paper" id="stories" aria-labelledby="stories-h">
+<section class="sec mist" id="stories" data-theme="mist" data-ch="here" aria-labelledby="stories-h">
   <div class="shell">
     <div class="head">
       <p class="eyebrow">Истории</p>
@@ -343,7 +394,7 @@
 </section>
 
 <!-- 8. Одна книга вместо лет поиска -->
-<section class="sec paper-2" id="years" aria-labelledby="years-h">
+<section class="sec paper-2" id="years" data-theme="paper" data-ch="here" aria-labelledby="years-h">
   <div class="shell">
     <div class="head">
       <h2 class="h2" id="years-h">Одна книга вместо лет поиска</h2>
@@ -366,7 +417,7 @@
 </section>
 
 <!-- 9. Один пакет -->
-<section class="sec night" id="package" aria-labelledby="package-h">
+<section class="sec night" id="package" data-theme="night" data-ch="price" aria-labelledby="package-h">
   <div class="shell">
     <div class="head">
       <p class="eyebrow">Стоимость</p>
@@ -400,10 +451,10 @@
 </section>
 
 <!-- 10. Почему сейчас -->
-<section class="sec now" id="now" aria-labelledby="now-h">
+<section class="sec now" id="now" data-theme="night" data-ch="now" aria-labelledby="now-h">
   <div class="shell">
     <h2 class="h2" id="now-h" data-season-title>На эту осень — два места</h2>
-    <div class="slots" role="img" aria-label="Пять мест: два в работе, одно забронировано, два свободны">
+    <div class="slots shelf" role="img" aria-label="Пять мест: два в работе, одно забронировано, два свободны">
       <div class="slot busy"><i></i><small>В работе</small></div>
       <div class="slot busy"><i></i><small>В работе</small></div>
       <div class="slot held"><i></i><small>Бронь</small></div>
@@ -420,7 +471,7 @@
 </section>
 
 <!-- Вопросы и ответы -->
-<section class="sec paper" id="faq" aria-labelledby="faq-h">
+<section class="sec paper" id="faq" data-theme="paper" data-ch="now" aria-labelledby="faq-h">
   <div class="shell">
     <div class="head">
       <h2 class="h2" id="faq-h">Вопросы и ответы</h2>
@@ -436,7 +487,7 @@
 </section>
 
 <!-- 11. Финал -->
-<section class="sec final" id="contact" aria-labelledby="contact-h">
+<section class="sec final" id="contact" data-theme="night" data-ch="now" aria-labelledby="contact-h">
   <div class="shell">
     <div class="final-head">
       <h2 class="ps" id="contact-h"><em>P.S.</em> Через три месяца у вас на полке может стоять книга, в которой вы найдёте себя — и в самый трудный день, и в самый счастливый</h2>
@@ -468,6 +519,11 @@
   <div class="shell"><a href="../">Ишвара Дас · Īśvara Dāsa</a><a href="../privacy/">Политика конфиденциальности</a><span>© 2026</span></div>
 </footer>
 
+<div class="dock" id="dock">
+  <span class="dock-s"><i aria-hidden="true"></i><span data-free>Свободно 2 места на осень</span></span>
+  <a class="btn btn-gold" href="#contact">Обсудить</a>
+</div>
+
 <div class="modal" id="m-video" role="dialog" aria-modal="true" aria-label="Как вручают книгу" hidden>
   <button class="modal-close" type="button" aria-label="Закрыть">×</button>
   <video controls playsinline preload="none" poster="../img/reviews/video-poster.jpg"><source src="../media/kniga-yadviga.mp4" type="video/mp4"></video>
@@ -487,6 +543,6 @@
   <p class="flip-hint">Нажмите на страницу, смахните или листайте стрелками</p>
 </div>
 
-<script src="kniga.js?v=20261009"></script>
+<script src="kniga.js?v=20261012"></script>
 </body>
 </html>

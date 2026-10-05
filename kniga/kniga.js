@@ -10,14 +10,15 @@
   var words = ['', 'одно место', 'два места', 'три места', 'четыре места', 'пять мест'];
   var title = document.querySelector('[data-season-title]');
   if (title) title.textContent = free ? 'На эту ' + season + ' — ' + words[free] : 'На эту ' + season + ' мест больше нет';
-  var pill = document.querySelector('[data-free]');
-  if (pill) pill.textContent = free ? 'Свободно ' + free + (free === 1 ? ' место' : ' места') + ' на ' + season : 'Все места на ' + season + ' заняты';
+  var freeText = free ? 'Свободно ' + free + (free === 1 ? ' место' : ' места') + ' на ' + season : 'Все места на ' + season + ' заняты';
+  document.querySelectorAll('[data-free]').forEach(function (el) { el.textContent = freeText; });
 
   // книга будет готова через два календарных месяца после текущего: в октябре это декабрь
   var MONTHS = ['январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
   var eta = new Date(now.getFullYear(), m + 2, 1);
   var etaEl = document.querySelector('[data-eta]');
   if (etaEl) etaEl.textContent = 'в ' + MONTHS[eta.getMonth()] + ' ' + eta.getFullYear() + ' года';
+  if (etaEl && eta.getMonth() === 11) etaEl.insertAdjacentText('afterend', ' — как раз к Новому году');
 })();
 
 /* Примерка обложки: имя появляется на плашке вместо названия */
@@ -241,32 +242,92 @@
   });
 })();
 
-/* Книга на первом экране наклоняется вслед за курсором */
+/* Объёмная книга на первом экране поворачивается вслед за курсором */
 (function () {
-  var wrap = document.querySelector('.hero-book');
-  var cover = document.querySelector('.book3d .cover');
-  if (!wrap || !cover || !window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var hero = document.querySelector('.hero');
+  var book = document.getElementById('book');
+  var shadow = document.querySelector('.book-shadow');
+  if (!hero || !book || !window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  var raf = 0, tx = 0, ty = 0;
+  var raf = 0, tx = 0, ty = 0, on = false;
   function apply() {
     raf = 0;
-    cover.style.setProperty('--ry', (tx * 14).toFixed(2) + 'deg');
-    cover.style.setProperty('--rx', (-ty * 10).toFixed(2) + 'deg');
-    cover.style.setProperty('--gx', (50 + tx * 60).toFixed(1) + '%');
-    cover.style.setProperty('--gy', (40 + ty * 60).toFixed(1) + '%');
+    if (!on) {
+      book.classList.remove('is-tilt');
+      ['--ry', '--rx', '--gx'].forEach(function (k) { book.style.removeProperty(k); });
+      shadow.style.removeProperty('--sx');
+      return;
+    }
+    book.classList.add('is-tilt');
+    book.style.setProperty('--ry', (-26 + tx * 30).toFixed(2) + 'deg');
+    book.style.setProperty('--rx', (5 - ty * 14).toFixed(2) + 'deg');
+    book.style.setProperty('--gx', (60 - tx * 90).toFixed(1) + '%');
+    shadow.style.setProperty('--sx', (14 - tx * 22).toFixed(1) + 'px');
   }
-  document.querySelector('.hero').addEventListener('pointermove', function (e) {
-    var r = cover.getBoundingClientRect();
-    tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width * 1.2)));
-    ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height * 1.2)));
-    cover.classList.add('is-tilt');
+  hero.addEventListener('pointermove', function (e) {
+    var r = book.getBoundingClientRect();
+    tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2.4)));
+    ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2)));
+    on = true;
     if (!raf) raf = requestAnimationFrame(apply);
   });
-  document.querySelector('.hero').addEventListener('pointerleave', function () {
-    tx = 0; ty = 0;
-    cover.classList.remove('is-tilt');
+  hero.addEventListener('pointerleave', function () {
+    on = false;
     if (!raf) raf = requestAnimationFrame(apply);
   });
+})();
+
+/* Лента страниц: стрелки листают вбок */
+(function () {
+  var strip = document.querySelector('.pages');
+  if (!strip) return;
+  var prev = document.querySelector('[data-pg="-1"]'), next = document.querySelector('[data-pg="1"]');
+  function upd() {
+    prev.disabled = strip.scrollLeft < 4;
+    next.disabled = strip.scrollLeft + strip.clientWidth > strip.scrollWidth - 4;
+  }
+  function go(d) {
+    var item = strip.querySelector('button');
+    var w = item ? item.getBoundingClientRect().width + 14 : 200;
+    strip.scrollBy({ left: d * w * 2, behavior: 'smooth' });
+  }
+  prev.addEventListener('click', function () { go(-1); });
+  next.addEventListener('click', function () { go(1); });
+  strip.addEventListener('scroll', upd, { passive: true });
+  window.addEventListener('resize', upd);
+  upd();
+})();
+
+/* Шапка перекрашивается под блок и подсвечивает текущий раздел; на телефоне внизу панель с записью */
+(function () {
+  var top = document.querySelector('.top');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav a[data-ch]'));
+  var dock = document.getElementById('dock');
+  var hero = document.getElementById('top');
+  var contact = document.getElementById('contact');
+  var ticking = false;
+  function sectionAt(y) {
+    var el = document.elementFromPoint(Math.round(window.innerWidth / 2), y);
+    return el && el.closest ? el.closest('[data-theme]') : null;
+  }
+  function frame() {
+    ticking = false;
+    var h = top.offsetHeight;
+    var sec = sectionAt(h + 2);
+    if (sec && !sec.closest('.top')) top.classList.toggle('is-light', sec.getAttribute('data-theme') !== 'night');
+    var mid = sectionAt(Math.round(window.innerHeight * 0.4));
+    var ch = mid ? mid.getAttribute('data-ch') : '';
+    links.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('data-ch') === ch); });
+    if (dock) {
+      var pastHero = hero.getBoundingClientRect().bottom < 0;
+      var atContact = contact.getBoundingClientRect().top < window.innerHeight;
+      dock.classList.toggle('is-on', pastHero && !atContact);
+    }
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  frame();
 })();
 
 /* Переход «до / после»: правая часть загорается, когда блок появляется на экране */
@@ -359,7 +420,10 @@
     el.classList.add('rv');
     var sibs = Array.prototype.filter.call(el.parentNode.children, function (c) { return els.indexOf(c) !== -1; });
     var i = sibs.indexOf(el);
-    if (i > 0) el.style.transitionDelay = Math.min(i, 8) * 90 + 'ms';
+    if (i > 0) {
+      el.style.transitionDelay = Math.min(i, 8) * 90 + 'ms';
+      el.style.setProperty('--d', Math.min(i, 8) * 90 + 'ms');
+    }
   });
 
   // цифры досчитывают до своего значения, диапазоны «200–550» тоже
