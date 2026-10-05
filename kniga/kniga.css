@@ -743,3 +743,6 @@ body.modal-open{overflow:hidden}
 @media (max-width:820px){.tile-first{grid-template-columns:1fr}.fan{max-width:400px;margin-bottom:8px}}
 @media (max-width:520px){.tile-gift{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.fan img{transition:none}.js .fan.rv:not(.in) .f-cv{transform:translateX(-118%) rotate(-13deg)}.js .fan.rv:not(.in) .f-tx{transform:translateX(-50%) translateY(-3%)}.js .fan.rv:not(.in) .f-ch{transform:translateX(18%) rotate(13deg)}}
+.faq-more{max-width:820px;margin:24px auto 0;text-align:center}
+.faq-more a{color:var(--cloth);font-weight:600;text-decoration:none}
+.faq-more a:hover{text-decoration:underline}
