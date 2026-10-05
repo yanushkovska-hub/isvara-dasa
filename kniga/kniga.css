@@ -882,3 +882,18 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .shelf .slot.held i::before,.shelf .slot.held i::after{display:none}
 .hero-eyebrow{font-size:clamp(15px,1.5vw,19px);letter-spacing:.16em;line-height:1.5}
 .hero-eyebrow::before{transform:translateY(-6px)}
+
+/* кольцо в стиле джйотиш за книгой на первом экране */
+.halo{position:absolute;left:50%;top:50%;width:175%;height:auto;aspect-ratio:1/1;max-width:none;z-index:-1;pointer-events:none;transform:translate(-50%,-50%);overflow:visible}
+.halo .hl{fill:none;stroke:var(--gold);stroke-width:.8;opacity:.35}
+.halo .hl-faint{opacity:.18}
+.halo .hl-t line{stroke:var(--gold);stroke-width:1;opacity:.45}
+.halo .hl-d circle{fill:var(--gold);opacity:.6}
+.halo-txt{font-family:var(--f-text);font-size:11.5px;font-weight:600;letter-spacing:.18em;fill:var(--gold);opacity:.7}
+.halo-out,.halo-in{transform-origin:200px 200px}
+.halo-out{animation:haloSpin 90s linear infinite}
+.halo-in{animation:haloSpin 150s linear infinite reverse}
+@keyframes haloSpin{to{transform:rotate(360deg)}}
+.book-stage{isolation:isolate}
+@media (max-width:900px){.halo{width:160%}}
+@media (prefers-reduced-motion:reduce){.halo-out,.halo-in{animation:none}}
