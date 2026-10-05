@@ -775,3 +775,6 @@ body.modal-open{overflow:hidden}
 .sph-head h3{font-family:var(--f-display);font-weight:300;font-size:clamp(28px,3.4vw,42px);line-height:1.12}
 .sph-head p{color:var(--on-night-soft);font-size:clamp(16px,1.5vw,18px)}
 .sph-head + .spheres{margin-top:clamp(28px,3.4vw,40px)}
+.bf-bottom{display:none}
+.bf-top{display:none}
+.bf-front img{height:101.1%;object-position:top}
