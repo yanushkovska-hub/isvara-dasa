@@ -14,11 +14,11 @@
     close: 'Close', prev: 'Previous page', next: 'Next page', reader: 'Book excerpt',
     hint: 'Tap a page, swipe, or use the arrows',
     cover: 'Cover', end: 'End of excerpt', page: 'Page', of: 'of', spread: 'Spread',
-    endTitle: 'The rest is in the book', endText: 'The e-book comes to your email: EPUB, PDF or FB2.',
+    endTitle: 'The rest is in the book', endText: 'The e-book in PDF comes to your email.',
     buy: 'Buy the book', author: 'Īśvara Dāsa',
-    buyEyebrow: 'E-book', buyLead: 'Bought directly from the author. The file comes to your email.',
-    steps: ['Leave your email and choose a format', 'Within a day I send you a payment link', 'Right after payment the book arrives in your inbox'],
-    format: 'Format', fmt: [['EPUB', 'phones and e-readers'], ['PDF', 'computer and print'], ['FB2', 'e-readers']],
+    buyEyebrow: 'E-book', buyLead: 'Bought directly from the author. The PDF comes to your email.',
+    steps: ['Leave your name and email', 'Within a day I send you a payment link', 'Right after payment the book arrives in your inbox'],
+    format: 'Format: <b>PDF</b> · opens on a phone, tablet and computer',
     name: 'Name', email: 'Email for the book', contact: 'Telegram or phone (optional)',
     consent: 'By clicking the button, I agree to the <a href="' + PRIVACY + '" target="_blank" rel="noopener">privacy policy</a>.',
     send: 'Buy the book', alt: 'Or message me on Telegram:',
@@ -31,11 +31,11 @@
     close: 'Закрыть', prev: 'Предыдущая страница', next: 'Следующая страница', reader: 'Фрагмент книги',
     hint: 'Нажмите на страницу, смахните или листайте стрелками',
     cover: 'Обложка', end: 'Конец фрагмента', page: 'Страница', of: 'из', spread: 'Разворот',
-    endTitle: 'Дальше — в книге', endText: 'Электронная книга придёт Вам на почту: EPUB, PDF или FB2.',
+    endTitle: 'Дальше — в книге', endText: 'Электронная книга в PDF придёт Вам на почту.',
     buy: 'Купить книгу', author: 'Ишвара Дас',
-    buyEyebrow: 'Электронная книга', buyLead: 'Покупка напрямую у автора. Файл книги придёт Вам на почту.',
-    steps: ['Оставьте почту и выберите формат', 'В течение суток пришлю ссылку на оплату', 'Сразу после оплаты книга придёт на почту'],
-    format: 'Формат', fmt: [['EPUB', 'телефон и читалки'], ['PDF', 'компьютер и печать'], ['FB2', 'читалки']],
+    buyEyebrow: 'Электронная книга', buyLead: 'Покупка напрямую у автора. Книга в PDF придёт Вам на почту.',
+    steps: ['Оставьте имя и почту', 'В течение суток пришлю ссылку на оплату', 'Сразу после оплаты книга придёт на почту'],
+    format: 'Формат: <b>PDF</b> · открывается на телефоне, планшете и компьютере',
     name: 'Имя', email: 'Email, куда прислать книгу', contact: 'Telegram или телефон (по желанию)',
     consent: 'Нажимая кнопку, я соглашаюсь с <a href="' + PRIVACY + '" target="_blank" rel="noopener">политикой конфиденциальности</a>.',
     send: 'Купить книгу', alt: 'Или напишите мне в Telegram:',
@@ -79,11 +79,7 @@
           '<div><p class="br-eyebrow">' + T.buyEyebrow + '</p><h3 id="br-buy-h"></h3><p>' + T.buyLead + '</p></div></div>' +
         '<ol class="br-steps">' + T.steps.map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ol>' +
         '<form class="br-form" novalidate>' +
-          '<fieldset class="chips"><legend>' + T.format + '</legend>' +
-            T.fmt.map(function (f, i) {
-              return '<label class="chip"><input type="radio" name="format" value="' + f[0] + '"' + (i ? '' : ' checked') + '><span><b>' + f[0] + '</b> · ' + f[1] + '</span></label>';
-            }).join('') +
-          '</fieldset>' +
+          '<p class="br-format">' + T.format + '</p><input type="hidden" name="format" value="PDF">' +
           '<div class="fld"><input id="br-name" name="name" autocomplete="name" placeholder=" " required><label for="br-name">' + T.name + '</label></div>' +
           '<div class="fld"><input id="br-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder=" " required><label for="br-email">' + T.email + '</label></div>' +
           '<div class="fld"><input id="br-contact" name="contact" autocomplete="tel" placeholder=" "><label for="br-contact">' + T.contact + '</label></div>' +
@@ -359,7 +355,7 @@
     var btn = form.querySelector('.btn-send');
     btn.disabled = true;
     status.textContent = T.sending;
-    var fmt = form.querySelector('input[name="format"]:checked').value;
+    var fmt = 'PDF';
     fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
