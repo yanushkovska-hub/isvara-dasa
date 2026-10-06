@@ -1204,3 +1204,10 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 @media (max-width:1000px){#stories .revs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){#stories .revs{grid-template-columns:1fr}}
 .bio .no-photo{margin-top:6px}
+/* Метод: настоящая карта — номера знаков и планеты */
+@media (min-width:761px){.method-head{grid-template-columns:minmax(0,1fr) clamp(240px,28vw,340px)}}
+.kundali .k-sign text{font-family:var(--f-text);font-size:8.5px;fill-opacity:.62}
+.kundali .k-pl text{font-family:var(--f-text);font-size:10px;font-weight:600;letter-spacing:.02em}
+.js .kundali.rv .k-pl{transition-delay:2.3s}
+#method .kundali .k-sign text{fill:var(--gold)}
+@media (max-width:760px){.kundali{max-width:min(300px,100%)}}
