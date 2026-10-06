@@ -9,9 +9,9 @@
   --ink:#1C1C28;
   --lapis:#243165;
   --marker:#FFE45C;
-  --f-display:"Old Standard TT","Times New Roman",Georgia,serif;
-  --f-text:"Literata",Georgia,"Times New Roman",serif;
-  --f-data:"IBM Plex Mono",Consolas,"Courier New",monospace;
+  --f-display:"Cormorant Garamond","Times New Roman",Georgia,serif;
+  --f-text:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-data:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --shell:1240px;
   --side:clamp(12px,3vw,40px);
   --pad-x:clamp(20px,5.5vw,88px);
@@ -1565,3 +1565,13 @@ body.reader-open{overflow:hidden}
   .reveal-on .is-up{opacity:1 !important;transform:none !important}
 }
 /* ===== v28: страница книги обычными секциями лендинга - КОНЕЦ ===== */
+
+/* Шрифты как на странице книги: Cormorant Garamond (загружены 500–700, поэтому обычные заголовки идут весом 500) + Manrope */
+body{font-size:17px;line-height:1.6}
+/* Мелкие подписи капсом — Manrope, как «надзаголовки» на странице книги */
+.eyebrow,.imprint,.plate-no,.chapter-name,.contents-title,.offer-caption,.rv-tag,.volume-sub,.reading-label,.source-name,.vow-title,.legal-toc-title,.brand-sm,.es-side{font-family:var(--f-text);font-weight:600;font-size:12px;letter-spacing:.16em}
+.brand{font-family:var(--f-display);font-weight:500;font-size:20px;letter-spacing:.02em;text-transform:none}
+/* У Manrope нет курсива: транслитерация и цитаты — курсивом Cormorant, пояснения — прямым начертанием */
+.translit{font-family:var(--f-display);font-size:clamp(24px,2.2vw,30px)}
+.for-whom,.vow-quote{font-family:var(--f-display);font-size:1.18em;line-height:1.35}
+.reply,.plate-cap,.small-note,.toc-p,.toc-leaf-meta,.reading-foot,.index-list .hint,.reply-inline,.field-hint,.store-where,.name-line,.era-note,.in-cta-note,.in-note,.n-cta-note,.n-card-note{font-style:normal}
