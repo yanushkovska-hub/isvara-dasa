@@ -57,6 +57,18 @@
     var m = document.querySelector('.modal:not([hidden])');
     if (!m) return;
     if (e.key === 'Escape') close(m);
+    if (e.key === 'Tab') {
+      // Фокус не уходит из открытого окна на страницу за ним
+      var items = Array.prototype.filter.call(
+        m.querySelectorAll('button, [href], input, textarea, select, video[controls], [tabindex]:not([tabindex="-1"])'),
+        function (el) { return !el.disabled && el.offsetParent !== null; }
+      );
+      if (!items.length) return;
+      var first = items[0], lastItem = items[items.length - 1];
+      if (!m.contains(document.activeElement)) { e.preventDefault(); first.focus(); }
+      else if (e.shiftKey && document.activeElement === first) { e.preventDefault(); lastItem.focus(); }
+      else if (!e.shiftKey && document.activeElement === lastItem) { e.preventDefault(); first.focus(); }
+    }
     if (m.id === 'm-reader' && e.key === 'ArrowRight') step(1);
     if (m.id === 'm-reader' && e.key === 'ArrowLeft') step(-1);
   });
