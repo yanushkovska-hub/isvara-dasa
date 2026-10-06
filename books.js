@@ -158,12 +158,18 @@
     var box = meas.firstChild, out = [];
     function fits() { return box.scrollHeight <= box.clientHeight + 1; }
     function flush() { out.push(box.innerHTML); box.innerHTML = ''; }
+    // целиком переносятся заголовки, подзаголовки, цитаты и подписи; абзацы делятся по словам
+    function whole(n) { return n.tagName !== 'P' || /\bbr-(label|sep|quote|sign)\b/.test(n.className); }
+    function used() { var l = box.lastElementChild; return l ? l.offsetTop + l.offsetHeight : 0; }
+    var line = parseFloat(getComputedStyle(box).fontSize) * 1.42;
     Array.prototype.forEach.call(B.frag.content.children, function (src) {
       var node = src.cloneNode(true);
       box.appendChild(node);
-      if (fits()) return;
+      // заголовок не остаётся внизу страницы без текста под ним
+      var head = /^H[2-6]$/.test(node.tagName) || node.classList.contains('br-label');
+      if (fits() && !(head && box.clientHeight - used() < line * 3 && box.childNodes.length > 1)) return;
       box.removeChild(node);
-      if (node.tagName !== 'P' || node.classList.contains('br-label')) { if (box.childNodes.length) flush(); box.appendChild(node); return; }
+      if (whole(node)) { if (box.childNodes.length) flush(); box.appendChild(node); return; }
       var words = node.textContent.split(' '), cls = node.className;
       while (words.length) {
         var p = document.createElement('p');
@@ -183,9 +189,10 @@
           continue;
         }
         p.textContent = words.slice(0, best).join(' ');
+        p.classList.add('br-cut');
         words = words.slice(best);
         flush();
-        cls = 'br-cont';
+        cls = (cls.replace(/\bbr-first\b/, '') + ' br-cont').trim();
       }
     });
     if (box.childNodes.length) flush();
