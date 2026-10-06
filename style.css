@@ -1575,3 +1575,7 @@ body{font-size:17px;line-height:1.6}
 .translit{font-family:var(--f-display);font-size:clamp(24px,2.2vw,30px)}
 .for-whom,.vow-quote{font-family:var(--f-display);font-size:1.18em;line-height:1.35}
 .reply,.plate-cap,.small-note,.toc-p,.toc-leaf-meta,.reading-foot,.index-list .hint,.reply-inline,.field-hint,.store-where,.name-line,.era-note,.in-cta-note,.in-note,.n-cta-note,.n-card-note{font-style:normal}
+/* Карточка «Персональная книга»: 3D-модель вместо плоской обложки */
+.offer-3d{display:block;height:86%;aspect-ratio:1060/1484;margin-bottom:14px;transition:transform .3s ease}
+.offer-3d img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 26px 30px rgba(0,0,0,.55)) drop-shadow(0 6px 10px rgba(0,0,0,.3))}
+.offer:hover .offer-3d{transform:translateY(-5px)}
