@@ -1,23 +1,37 @@
 /* Персональная книга: сезон и свободные места, срок готовности, примерка обложки,
    окна (видео, оригиналы отзывов, страницы книги), переход «до / после», заявка. */
 
+/* Язык страницы и путь к корню сайта: английская версия лежит в /en/personal-book/ */
+var EN = document.documentElement.lang === 'en';
+var ROOT = document.documentElement.getAttribute('data-root') || '../';
+
 /* Сезон, свободные места и ориентировочный срок готовности */
 (function () {
   var now = new Date();
   var m = now.getMonth();
-  var season = m === 11 || m < 2 ? 'зиму' : m < 5 ? 'весну' : m < 8 ? 'лето' : 'осень';
   var free = document.querySelectorAll('.slot.free').length;
-  var words = ['', 'одно место', 'два места', 'три места', 'четыре места', 'пять мест'];
   var title = document.querySelector('[data-season-title]');
-  if (title) title.textContent = free ? 'На эту ' + season + ' — ' + words[free] : 'На эту ' + season + ' мест больше нет';
-  var freeText = free ? 'Свободно ' + free + (free === 1 ? ' место' : ' места') + ' на ' + season : 'Все места на ' + season + ' заняты';
+  var freeText;
+  if (EN) {
+    var sEn = m === 11 || m < 2 ? 'winter' : m < 5 ? 'spring' : m < 8 ? 'summer' : 'autumn';
+    var nEn = ['', 'one place', 'two places', 'three places', 'four places', 'five places'];
+    if (title) title.textContent = free ? 'This ' + sEn + ': ' + nEn[free] + ' left' : 'No places left this ' + sEn;
+    freeText = free ? free + (free === 1 ? ' place' : ' places') + ' left this ' + sEn : 'All places this ' + sEn + ' are taken';
+  } else {
+    var season = m === 11 || m < 2 ? 'зиму' : m < 5 ? 'весну' : m < 8 ? 'лето' : 'осень';
+    var words = ['', 'одно место', 'два места', 'три места', 'четыре места', 'пять мест'];
+    if (title) title.textContent = free ? 'На эту ' + season + ' — ' + words[free] : 'На эту ' + season + ' мест больше нет';
+    freeText = free ? 'Свободно ' + free + (free === 1 ? ' место' : ' места') + ' на ' + season : 'Все места на ' + season + ' заняты';
+  }
   document.querySelectorAll('[data-free]').forEach(function (el) { el.textContent = freeText; });
 
   // книга будет готова через два календарных месяца после текущего: в октябре это декабрь
-  var MONTHS = ['январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
+  var MONTHS = EN
+    ? ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    : ['январе', 'феврале', 'марте', 'апреле', 'мае', 'июне', 'июле', 'августе', 'сентябре', 'октябре', 'ноябре', 'декабре'];
   var eta = new Date(now.getFullYear(), m + 2, 1);
   var etaEl = document.querySelector('[data-eta]');
-  if (etaEl) etaEl.textContent = 'в ' + MONTHS[eta.getMonth()] + ' ' + eta.getFullYear() + ' года';
+  if (etaEl) etaEl.textContent = EN ? 'by ' + MONTHS[eta.getMonth()] + ' ' + eta.getFullYear() : 'в ' + MONTHS[eta.getMonth()] + ' ' + eta.getFullYear() + ' года';
 })();
 
 /* Примерка обложки: имя появляется на плашке вместо названия */
@@ -106,7 +120,7 @@
   var prev = mr.querySelector('[data-step="-1"]');
   var next = mr.querySelector('[data-step="1"]');
   var PAGES = [];
-  for (var i = 1; i <= 12; i++) PAGES.push('../img/kniga/stranica-' + (i < 10 ? '0' + i : i) + '.webp');
+  for (var i = 1; i <= 12; i++) PAGES.push(ROOT + 'img/kniga/stranica-' + (i < 10 ? '0' + i : i) + '.webp');
   var RATIO = 1419 / 1000;
   var REDUCED = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var DUR = REDUCED ? 20 : 900;
@@ -117,14 +131,18 @@
     f.className = 'face ' + side;
     if (what === 'endpaper') {
       f.className += ' endpaper';
-      if (side === 'back') f.innerHTML = '<span>Эта книга написана для одного человека</span>';
+      if (side === 'back') f.innerHTML = EN ? '<span>This book was written for one person</span>' : '<span>Эта книга написана для одного человека</span>';
     } else if (what === 'blank') {
       f.className += ' blank';
     } else if (what === 'end') {
       f.className += ' endpage';
-      f.innerHTML = '<div class="end-in"><p class="eyebrow">Конец фрагмента</p><b>Дальше — Ваша жизнь</b>' +
-        '<p>Каждая книга пишется для одного человека. Ваша начнётся со знакомства.</p>' +
-        '<a class="btn btn-gold" href="#contact" data-close>Обсудить мою книгу</a></div>';
+      f.innerHTML = EN
+        ? '<div class="end-in"><p class="eyebrow">End of excerpt</p><b>The rest is your life</b>' +
+          '<p>Every book is written for one person. Yours begins with a first conversation.</p>' +
+          '<a class="btn btn-gold" href="#contact" data-close>Discuss my book</a></div>'
+        : '<div class="end-in"><p class="eyebrow">Конец фрагмента</p><b>Дальше — Ваша жизнь</b>' +
+          '<p>Каждая книга пишется для одного человека. Ваша начнётся со знакомства.</p>' +
+          '<a class="btn btn-gold" href="#contact" data-close>Обсудить мою книгу</a></div>';
     } else {
       var im = document.createElement('img');
       im.src = what;
@@ -179,6 +197,12 @@
   }
 
   function label() {
+    if (EN) {
+      if (cur === 0) return 'Cover';
+      if (cur === leaves.length) return 'End of excerpt';
+      if (single) return cur === leaves.length - 1 ? 'End of excerpt' : 'Page ' + (cur + 1) + ' of ' + PAGES.length;
+      return 'Spread ' + cur + ' of ' + (leaves.length - 1);
+    }
     if (cur === 0) return 'Обложка';
     if (cur === leaves.length) return 'Конец фрагмента';
     if (single) return cur === leaves.length - 1 ? 'Конец фрагмента' : 'Страница ' + (cur + 1) + ' из ' + PAGES.length;
@@ -368,7 +392,15 @@
   var status = document.getElementById('form-status');
   if (!form) return;
   var ENDPOINT = 'https://isvara-dasa-form.isvara-dasa.workers.dev';
-  var T = {
+  var T = EN ? {
+    name: 'Please tell me your name.',
+    contact: 'Leave your Telegram, phone or email so I can reply.',
+    email: 'Please check your email: it looks like there is a typo.',
+    consent: 'Please tick the box to accept the privacy policy.',
+    sending: 'Sending…',
+    ok: 'Thank you, I have your request. I will reply personally within a day.',
+    fail: 'The request did not go through. Please try again or message me on Telegram: @Ishvaradasa'
+  } : {
     name: 'Напишите, как Вас зовут.',
     contact: 'Оставьте Telegram, телефон или email, чтобы я мог ответить.',
     email: 'Проверьте email: похоже, в нём ошибка.',
@@ -405,7 +437,7 @@
       body: JSON.stringify({
         name: val('name'), email: emailVal, contact: contactVal,
         question: val('question'), topic: val('topic'), website: val('website'),
-        lang: 'ru', page: location.href
+        lang: EN ? 'en' : 'ru', page: location.href
       })
     }).then(function (r) {
       return r.json().catch(function () { return null; });
