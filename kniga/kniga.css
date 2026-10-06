@@ -1203,3 +1203,4 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 #stories .revs .case{grid-column:auto}
 @media (max-width:1000px){#stories .revs{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:520px){#stories .revs{grid-template-columns:1fr}}
+.bio .no-photo{margin-top:6px}
