@@ -110,7 +110,7 @@
       f.className += ' blank';
     } else if (what === 'end') {
       f.className += ' endpage';
-      f.innerHTML = '<div class="end-in"><p class="eyebrow">Конец фрагмента</p><b>Дальше — ваша жизнь</b>' +
+      f.innerHTML = '<div class="end-in"><p class="eyebrow">Конец фрагмента</p><b>Дальше — Ваша жизнь</b>' +
         '<p>Каждая книга пишется для одного человека. Ваша начнётся со знакомства.</p>' +
         '<a class="btn btn-gold" href="#contact" data-close>Обсудить мою книгу</a></div>';
     } else {
@@ -357,7 +357,7 @@
   if (!form) return;
   var ENDPOINT = 'https://isvara-dasa-form.isvara-dasa.workers.dev';
   var T = {
-    name: 'Напишите, как вас зовут.',
+    name: 'Напишите, как Вас зовут.',
     contact: 'Оставьте Telegram, телефон или email, чтобы я мог ответить.',
     email: 'Проверьте email: похоже, в нём ошибка.',
     consent: 'Поставьте галочку, чтобы согласиться с политикой конфиденциальности.',
