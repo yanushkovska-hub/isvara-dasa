@@ -1251,3 +1251,6 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 
 /* длинная подпись в первом экране: строки ровные, без одинокого слова в конце */
 .hero-eyebrow{text-wrap:balance}
+/* на компьютере подпись в две строки, перенос по смыслу: после точки-разделителя */
+@media (min-width:901px){.hero-eyebrow{font-size:clamp(15px,1.4vw,18px);letter-spacing:.1em}}
+@media (max-width:900px){.hero-br{display:none}}
