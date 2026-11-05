@@ -1248,3 +1248,6 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .gift-badge{position:absolute;z-index:2;left:50%;top:calc(100% + 12px);transform:translateX(-50%);display:flex;align-items:center;gap:10px;margin:0;padding:9px 20px 9px 14px;border-radius:999px;white-space:nowrap;font-size:18px;font-weight:700;line-height:1.2;color:#14193F;background:linear-gradient(135deg,#F2CD72,#DEAC3A);box-shadow:0 12px 26px -10px rgba(0,0,0,.75),0 0 0 3px rgba(242,205,114,.22)}
 .gift-badge svg{display:block;flex:none}
 @media (max-width:700px){.tile-gift .tv-art{margin-bottom:calc(var(--fan)*.24 + 12px)}}
+
+/* длинная подпись в первом экране: строки ровные, без одинокого слова в конце */
+.hero-eyebrow{text-wrap:balance}
