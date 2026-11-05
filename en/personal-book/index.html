@@ -2,6 +2,18 @@
 <html lang="en" data-root="../../">
 <head>
 <meta charset="utf-8">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=114081491', 'ym');
+
+    ym(114081491, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
 <link rel="canonical" href="https://isvaradasa.com/en/personal-book/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A personal Jyotish book — the most complete birth chart reading · Īśvara Dāsa</title>
@@ -218,6 +230,7 @@
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
+<noscript><div><img src="https://mc.yandex.ru/watch/114081491" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="top">
@@ -286,7 +299,7 @@
       </div>
       <div class="try">
         <label for="try-name">Try on the cover: type a name</label>
-        <input id="try-name" type="text" maxlength="22" placeholder="Your name" autocomplete="given-name">
+        <input class="ym-disable-keys" id="try-name" type="text" maxlength="22" placeholder="Your name" autocomplete="given-name">
         <p>Cover of the book “Damayanti Daya”. Every book has its own illustration.</p>
       </div>
     </div>
@@ -760,11 +773,11 @@
       </div>
     </div>
     <form class="form" id="lead-form" novalidate>
-      <label>Name<input id="f-name" name="name" autocomplete="name" required></label>
-      <label>Telegram or phone<input id="f-contact" name="contact" autocomplete="tel"></label>
-      <label class="wide">Email<input id="f-email" name="email" type="email" autocomplete="email" inputmode="email"></label>
+      <label>Name<input class="ym-disable-keys" id="f-name" name="name" autocomplete="name" required></label>
+      <label>Telegram or phone<input class="ym-disable-keys" id="f-contact" name="contact" autocomplete="tel"></label>
+      <label class="wide">Email<input class="ym-disable-keys" id="f-email" name="email" type="email" autocomplete="email" inputmode="email"></label>
       <input type="hidden" name="topic" value="Персональная книга (EN)">
-      <label class="wide">Your question<textarea id="f-question" name="question" rows="2"></textarea></label>
+      <label class="wide">Your question<textarea class="ym-disable-keys" id="f-question" name="question" rows="2"></textarea></label>
       <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <label class="wide consent"><input type="checkbox" name="consent" required><span>By clicking the button, I agree to the <a href="../privacy/" target="_blank" rel="noopener">privacy policy</a>.</span></label>
       <button class="btn btn-gold wide btn-send" type="submit">Send request</button>
@@ -832,6 +845,6 @@
   <p class="flip-hint">Tap a page, swipe, or use the arrows. The book pages are in Russian.</p>
 </div>
 
-<script src="../../personal-book/kniga.js?v=20261087"></script>
+<script src="../../personal-book/kniga.js?v=20261088"></script>
 </body>
 </html>

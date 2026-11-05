@@ -2,6 +2,18 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=114081491', 'ym');
+
+    ym(114081491, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<!-- /Yandex.Metrika counter -->
 <link rel="canonical" href="https://isvaradasa.com/">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ишвара Дас · Īśvara Dāsa</title>
@@ -108,6 +120,7 @@
 <link rel="alternate" type="text/plain" title="Справка для нейросетей" href="https://isvaradasa.com/llms.txt">
 </head>
 <body>
+<noscript><div><img src="https://mc.yandex.ru/watch/114081491" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="fleuron" viewBox="0 0 140 12"><path d="M0 6H56M84 6H140" stroke="currentColor" stroke-width="1" fill="none"/><path d="M70 .5L75.5 6 70 11.5 64.5 6Z" stroke="currentColor" stroke-width="1" fill="none"/><circle cx="70" cy="6" r="1.7" fill="currentColor"/><circle cx="60" cy="6" r="1" fill="currentColor"/><circle cx="80" cy="6" r="1" fill="currentColor"/></symbol>
 </svg>
@@ -457,10 +470,10 @@
           <label class="chip"><input type="radio" name="topic" value="Книги"><span>Книги</span></label>
           <label class="chip"><input type="radio" name="topic" value="Другое" checked><span>Другое</span></label>
         </fieldset>
-        <div class="fld"><input id="f-name" name="name" autocomplete="name" placeholder=" " required><label for="f-name">Имя</label></div>
-        <div class="fld"><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder=" "><label for="f-email">Email</label></div>
-        <div class="fld"><input id="f-contact" name="contact" autocomplete="tel" placeholder=" "><label for="f-contact">Telegram или телефон</label></div>
-        <div class="fld"><textarea id="f-question" name="question" rows="3" placeholder=" "></textarea><label for="f-question">Ваш вопрос</label></div>
+        <div class="fld"><input class="ym-disable-keys" id="f-name" name="name" autocomplete="name" placeholder=" " required><label for="f-name">Имя</label></div>
+        <div class="fld"><input class="ym-disable-keys" id="f-email" name="email" type="email" autocomplete="email" inputmode="email" placeholder=" "><label for="f-email">Email</label></div>
+        <div class="fld"><input class="ym-disable-keys" id="f-contact" name="contact" autocomplete="tel" placeholder=" "><label for="f-contact">Telegram или телефон</label></div>
+        <div class="fld"><textarea class="ym-disable-keys" id="f-question" name="question" rows="3" placeholder=" "></textarea><label for="f-question">Ваш вопрос</label></div>
         <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
         <button class="btn-send" type="submit">Отправить заявку <span aria-hidden="true">→</span></button>
         <label class="consent-check"><input type="checkbox" name="consent" required><span class="consent-box" aria-hidden="true"></span><span>Нажимая кнопку, я соглашаюсь с <a href="privacy/" target="_blank" rel="noopener">политикой конфиденциальности</a>.</span></label>
@@ -482,7 +495,7 @@
   </div>
 </footer>
 
-<script src="site.js?v=1789990351"></script>
+<script src="site.js?v=1789990352"></script>
 <script src="books.js?v=3"></script>
 </body>
 </html>

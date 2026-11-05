@@ -442,7 +442,7 @@ var ROOT = document.documentElement.getAttribute('data-root') || '../';
     }).then(function (r) {
       return r.json().catch(function () { return null; });
     }).then(function (j) {
-      if (j && j.ok) { form.reset(); status.textContent = T.ok; }
+      if (j && j.ok) { if (window.ym) ym(114081491, 'reachGoal', 'lead_form'); form.reset(); status.textContent = T.ok; }
       else { status.textContent = T.fail; }
     }).catch(function () {
       status.textContent = T.fail;
@@ -504,4 +504,19 @@ var ROOT = document.documentElement.getAttribute('data-root') || '../';
     });
   }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
   els.forEach(function (el) { io.observe(el); });
+})();
+
+/* Цели Яндекс Метрики: переход в Telegram и запуск видео (заявка отмечается в обработчике формы) */
+(function () {
+  if (!window.ym) return;
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href*="t.me/"]');
+    if (a) ym(114081491, 'reachGoal', 'telegram_click');
+  });
+  document.addEventListener('play', function (e) {
+    if (e.target.tagName === 'VIDEO' && !e.target.dataset.ymPlayed) {
+      e.target.dataset.ymPlayed = '1';
+      ym(114081491, 'reachGoal', 'video_play');
+    }
+  }, true);
 })();
