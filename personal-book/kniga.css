@@ -1222,3 +1222,20 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .rev-feature figcaption{font-size:var(--t-body);line-height:1.4;color:var(--ink)}
 @media (max-width:1000px){.rev-feature{grid-template-columns:repeat(2,minmax(0,1fr))}.rev-feature-txt{grid-column:1/-1}}
 @media (max-width:520px){.rev-feature{grid-template-columns:1fr}.rev-feature-photo{height:auto;aspect-ratio:4/3;object-position:50% 78%;order:3}}
+
+/* том «900 вопросов»: макет под пропорции обложки, значок подарка */
+.art-tab,.pk-tablet{aspect-ratio:5/7}
+.gift-tag{display:flex;align-items:center;gap:12px}
+.gift-ico{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;color:#F2CD72;background:rgba(222,172,58,.14);box-shadow:inset 0 0 0 1px rgba(222,172,58,.6)}
+.gift-ico svg{display:block}
+
+/* «Истории»: три отзыва в ряд под большой карточкой */
+#stories .revs{grid-template-columns:repeat(3,minmax(0,1fr))}
+#stories .revs figcaption{font-size:var(--t-body);line-height:1.4;color:var(--ink)}
+@media (max-width:700px){#stories .revs{grid-template-columns:repeat(2,minmax(0,1fr))}#stories .revs figure:last-child{grid-column:1/-1;max-width:calc(50% - 8px);justify-self:center}}
+@media (max-width:520px){#stories .revs{grid-template-columns:1fr}#stories .revs figure:last-child{max-width:none}}
+
+/* блок с P.S. идёт сразу за блоком об осени, без разделителя */
+#now + #contact::before,#now + #contact::after{display:none}
+#now.sec{padding-bottom:clamp(20px,3vw,36px)}
+#now + #contact.sec{padding-top:clamp(28px,3.5vw,48px)}
