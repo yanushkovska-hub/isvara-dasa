@@ -1225,9 +1225,6 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 
 /* том «900 вопросов»: макет под пропорции обложки, значок подарка */
 .art-tab,.pk-tablet{aspect-ratio:5/7}
-.gift-tag{display:flex;align-items:center;gap:12px}
-.gift-ico{flex:none;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;color:#F2CD72;background:rgba(222,172,58,.14);box-shadow:inset 0 0 0 1px rgba(222,172,58,.6)}
-.gift-ico svg{display:block}
 
 /* «Истории»: три отзыва в ряд под большой карточкой */
 #stories .revs{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -1243,3 +1240,11 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 /* подпись «Видеоотзыв владелицы…»: тот же шрифт, что у цитаты, курсивом и заметно мельче неё */
 .rev-feature figcaption,#stories .revs figcaption{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(17px,1.35vw,19px);line-height:1.35;color:var(--ink)}
 .eta,.rev-feature figcaption,#stories .revs figcaption{text-wrap:balance}
+
+/* том «900 вопросов» того же размера, что страницы книги в соседней карточке (46% ширины веера, см. .fan3 img); заметная плашка «подарок» на обложке */
+.tile-gift .tv-art{--fan:min(330px,100%);width:calc(var(--fan)*.46)!important;aspect-ratio:152/210;justify-self:center;margin:calc(var(--fan)*.04) 0 calc(var(--fan)*.24 + 42px)}
+.tile-gift .tab{padding:5px;border-radius:12px}
+.tile-gift .tab-img{border-radius:7px}
+.gift-badge{position:absolute;z-index:2;left:50%;top:calc(100% + 12px);transform:translateX(-50%);display:flex;align-items:center;gap:10px;margin:0;padding:9px 20px 9px 14px;border-radius:999px;white-space:nowrap;font-size:18px;font-weight:700;line-height:1.2;color:#14193F;background:linear-gradient(135deg,#F2CD72,#DEAC3A);box-shadow:0 12px 26px -10px rgba(0,0,0,.75),0 0 0 3px rgba(242,205,114,.22)}
+.gift-badge svg{display:block;flex:none}
+@media (max-width:700px){.tile-gift .tv-art{margin-bottom:calc(var(--fan)*.24 + 12px)}}
