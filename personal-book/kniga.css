@@ -1239,3 +1239,7 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 #now + #contact::before,#now + #contact::after{display:none}
 #now.sec{padding-bottom:clamp(20px,3vw,36px)}
 #now + #contact.sec{padding-top:clamp(28px,3.5vw,48px)}
+
+/* подпись «Видеоотзыв владелицы…»: тот же шрифт, что у цитаты, курсивом и заметно мельче неё */
+.rev-feature figcaption,#stories .revs figcaption{font-family:var(--f-display);font-style:italic;font-weight:500;font-size:clamp(17px,1.35vw,19px);line-height:1.35;color:var(--ink)}
+.eta,.rev-feature figcaption,#stories .revs figcaption{text-wrap:balance}
