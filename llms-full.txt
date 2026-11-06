@@ -408,6 +408,10 @@ Jyotish Engine считает по эфемеридам NASA/JPL и звёздн
 
 Расчёты идут офлайн на моём компьютере, в облако ничего не уходит. Истории людей я не публикую и имён не называю.
 
+## Вы рекомендуете книгу. Я её пишу
+
+Партнёрская программа для астрологов, психологов, школ и авторов каналов. Вы предлагаете книгу своим клиентам и получаете вознаграждение, а клиент остаётся с Вами.
+
 ---
 
 # Страница: Вопросы о натальной карте, гороскопе и джйотише
@@ -963,3 +967,7 @@ Yes, if you have their exact birth data and the dates of events in their life.
 ### What happens to my data?
 
 All calculations are done offline on my computer; nothing goes to the cloud. I don’t publish people’s stories or mention names.
+
+## You recommend the book. I write it
+
+A partner programme for astrologers, psychologists, schools and channel authors. You offer the book to your clients and receive a reward, and the client stays with you.
