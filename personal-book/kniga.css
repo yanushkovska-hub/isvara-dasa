@@ -1252,10 +1252,10 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 @media (min-width:901px){.hero-eyebrow{font-size:clamp(15px,1.4vw,18px);letter-spacing:.1em}}
 @media (max-width:900px){.hero-br{display:none}}
 
-/* яркий значок подарка у тома «900 вопросов»: стоит на верхнем правом углу, название на обложке не закрывает */
-.gift-sticker{position:absolute;z-index:2;top:-38px;right:-62px;width:clamp(80px,7.6vw,100px);aspect-ratio:1;transform:rotate(12deg);filter:drop-shadow(0 10px 14px rgba(0,0,0,.45));animation:giftBob 3.2s ease-in-out infinite;pointer-events:none}
+/* яркий значок подарка рядом с подписью «В подарок к книге»; отрицательные поля, чтобы заголовок остался на одной линии с соседней карточкой */
+.gift-line{display:flex;align-items:center;gap:12px}
+.gift-sticker{flex:none;width:clamp(58px,5vw,66px);aspect-ratio:1;margin:-22px 0;transform:rotate(12deg);filter:drop-shadow(0 10px 14px rgba(0,0,0,.45));animation:giftBob 3.2s ease-in-out infinite;pointer-events:none}
 .gift-sticker svg{display:block;width:100%;height:100%}
 @keyframes giftBob{0%,100%{transform:rotate(12deg) translateY(0)}50%{transform:rotate(8deg) translateY(-5px)}}
-@media (max-width:520px){.gift-sticker{right:-52px;top:-30px}}
 @media (prefers-reduced-motion:reduce){.gift-sticker{animation:none}}
 @media (max-width:700px){.tile-gift .tv-art{margin-bottom:24px}}
