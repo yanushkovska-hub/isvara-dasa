@@ -1268,3 +1268,10 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .btn-line-gold{background:transparent;color:var(--gold-soft);box-shadow:inset 0 0 0 1.5px var(--gold)}
 .btn-line-gold:hover{background:rgba(222,172,58,.12)}
 @media (max-width:760px){.partner-band-in{grid-template-columns:1fr}.partner-band .btn{justify-self:start}}
+
+/* верхнее меню: пункты стали длиннее, держим их в одну строку; на экранах уже 1260 px меню прячется, как раньше на узких */
+.nav{gap:clamp(14px,1.4vw,22px)}
+.nav a,.top .btn{white-space:nowrap}
+.top .btn,.top .lang,.top .brand{flex:none}
+@media (min-width:1260px){.top .brand:has(~ .nav a[data-ch]) span{display:none}}
+@media (max-width:1259px){.nav:has(a[data-ch]){display:none}.nav:has(a[data-ch]) ~ .lang{margin-left:auto}}
