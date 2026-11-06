@@ -1242,15 +1242,20 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .eta,.rev-feature figcaption,#stories .revs figcaption{text-wrap:balance}
 
 /* том «900 вопросов» того же размера, что страницы книги в соседней карточке (46% ширины веера, см. .fan3 img); заметная плашка «подарок» на обложке */
-.tile-gift .tv-art{--fan:min(330px,100%);width:calc(var(--fan)*.46)!important;aspect-ratio:152/210;justify-self:center;margin:calc(var(--fan)*.04) 0 calc(var(--fan)*.24 + 42px)}
+.tile-gift .tv-art{--fan:min(330px,100%);width:calc(var(--fan)*.46)!important;aspect-ratio:152/210;justify-self:center;margin:calc(var(--fan)*.04) 0 calc(var(--fan)*.24)}
 .tile-gift .tab{padding:5px;border-radius:12px}
 .tile-gift .tab-img{border-radius:7px}
-.gift-badge{position:absolute;z-index:2;left:50%;top:calc(100% + 12px);transform:translateX(-50%);display:flex;align-items:center;gap:10px;margin:0;padding:9px 20px 9px 14px;border-radius:999px;white-space:nowrap;font-size:18px;font-weight:700;line-height:1.2;color:#14193F;background:linear-gradient(135deg,#F2CD72,#DEAC3A);box-shadow:0 12px 26px -10px rgba(0,0,0,.75),0 0 0 3px rgba(242,205,114,.22)}
-.gift-badge svg{display:block;flex:none}
-@media (max-width:700px){.tile-gift .tv-art{margin-bottom:calc(var(--fan)*.24 + 12px)}}
 
 /* длинная подпись в первом экране: строки ровные, без одинокого слова в конце */
 .hero-eyebrow{text-wrap:balance}
 /* на компьютере подпись в две строки, перенос по смыслу: после точки-разделителя */
 @media (min-width:901px){.hero-eyebrow{font-size:clamp(15px,1.4vw,18px);letter-spacing:.1em}}
 @media (max-width:900px){.hero-br{display:none}}
+
+/* яркий значок подарка у тома «900 вопросов»: стоит на верхнем правом углу, название на обложке не закрывает */
+.gift-sticker{position:absolute;z-index:2;top:-38px;right:-62px;width:clamp(80px,7.6vw,100px);aspect-ratio:1;transform:rotate(12deg);filter:drop-shadow(0 10px 14px rgba(0,0,0,.45));animation:giftBob 3.2s ease-in-out infinite;pointer-events:none}
+.gift-sticker svg{display:block;width:100%;height:100%}
+@keyframes giftBob{0%,100%{transform:rotate(12deg) translateY(0)}50%{transform:rotate(8deg) translateY(-5px)}}
+@media (max-width:520px){.gift-sticker{right:-52px;top:-30px}}
+@media (prefers-reduced-motion:reduce){.gift-sticker{animation:none}}
+@media (max-width:700px){.tile-gift .tv-art{margin-bottom:24px}}
