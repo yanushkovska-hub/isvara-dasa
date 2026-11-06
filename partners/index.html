@@ -36,7 +36,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../personal-book/kniga.css?v=20261106">
-<link rel="stylesheet" href="../partners/partners.css?v=20261109">
+<link rel="stylesheet" href="../partners/partners.css?v=20261110">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -103,14 +103,14 @@
       </div>
     </div>
     <div class="pt-strip" role="group" aria-label="Страницы настоящей книги">
-      <a href="../img/kniga/stranica-05.webp" target="_blank" rel="noopener"><img src="../img/kniga/stranica-05.webp" alt="Страница персональной книги" loading="lazy"></a>
-      <a href="../img/kniga/stranica-06.webp" target="_blank" rel="noopener"><img src="../img/kniga/stranica-06.webp" alt="Страница персональной книги" loading="lazy"></a>
-      <a href="../img/kniga/stranica-07.webp" target="_blank" rel="noopener"><img src="../img/kniga/stranica-07.webp" alt="Страница персональной книги" loading="lazy"></a>
-      <a href="../img/kniga/stranica-08.webp" target="_blank" rel="noopener"><img src="../img/kniga/stranica-08.webp" alt="Страница персональной книги" loading="lazy"></a>
-      <a href="../img/kniga/stranica-09.webp" target="_blank" rel="noopener"><img src="../img/kniga/stranica-09.webp" alt="Страница персональной книги" loading="lazy"></a>
-      <a href="../img/kniga/stranica-10.webp" target="_blank" rel="noopener"><img src="../img/kniga/stranica-10.webp" alt="Страница персональной книги" loading="lazy"></a>
+      <button class="pt-page" type="button" data-reader="4" aria-label="Открыть страницы книги"><img src="../img/kniga/stranica-05.webp" alt="Страница персональной книги" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="5" aria-label="Открыть страницы книги"><img src="../img/kniga/stranica-06.webp" alt="Страница персональной книги" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="6" aria-label="Открыть страницы книги"><img src="../img/kniga/stranica-07.webp" alt="Страница персональной книги" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="7" aria-label="Открыть страницы книги"><img src="../img/kniga/stranica-08.webp" alt="Страница персональной книги" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="8" aria-label="Открыть страницы книги"><img src="../img/kniga/stranica-09.webp" alt="Страница персональной книги" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="9" aria-label="Открыть страницы книги"><img src="../img/kniga/stranica-10.webp" alt="Страница персональной книги" loading="lazy"></button>
     </div>
-    <p class="pt-strip-note">Нажмите на страницу, чтобы прочитать её крупно. <a class="pt-link" href="../personal-book/">Все страницы и отзывы на сайте книги →</a></p>
+    <p class="pt-strip-note">Нажмите на любую страницу, чтобы полистать книгу. <a class="pt-link" href="../personal-book/">Все страницы и отзывы на сайте книги →</a></p>
   </div>
 </section>
 
@@ -348,6 +348,16 @@
 <footer class="foot">
   <div class="shell"><a href="../">Ишвара Дас · Īśvara Dāsa</a><a href="../personal-book/">Персональная книга</a><a href="../voprosy/">Вопросы об астрологии</a><a href="../privacy/">Политика конфиденциальности</a><span>© 2026</span></div>
 </footer>
-<script src="../partners/partners.js?v=20261109"></script>
+<div class="modal flip-modal" id="m-reader" role="dialog" aria-modal="true" aria-label="Страницы книги" hidden>
+  <button class="modal-close" type="button" aria-label="Закрыть">×</button>
+  <div class="flip-stage"><div class="flip-book" id="flip-book"></div></div>
+  <div class="flip-ui">
+    <button type="button" data-step="-1" aria-label="Предыдущая страница">←</button>
+    <span data-count aria-live="polite"></span>
+    <button type="button" data-step="1" aria-label="Следующая страница">→</button>
+  </div>
+  <p class="flip-hint">Нажмите на страницу, смахните или листайте стрелками</p>
+</div>
+<script src="../partners/partners.js?v=20261110"></script>
 </body>
 </html>

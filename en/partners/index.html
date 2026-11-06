@@ -36,7 +36,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../../personal-book/kniga.css?v=20261106">
-<link rel="stylesheet" href="../../partners/partners.css?v=20261109">
+<link rel="stylesheet" href="../../partners/partners.css?v=20261110">
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -103,14 +103,14 @@
       </div>
     </div>
     <div class="pt-strip" role="group" aria-label="Pages of a real book">
-      <a href="../../img/kniga/stranica-05.webp" target="_blank" rel="noopener"><img src="../../img/kniga/stranica-05.webp" alt="A page of a personal book" loading="lazy"></a>
-      <a href="../../img/kniga/stranica-06.webp" target="_blank" rel="noopener"><img src="../../img/kniga/stranica-06.webp" alt="A page of a personal book" loading="lazy"></a>
-      <a href="../../img/kniga/stranica-07.webp" target="_blank" rel="noopener"><img src="../../img/kniga/stranica-07.webp" alt="A page of a personal book" loading="lazy"></a>
-      <a href="../../img/kniga/stranica-08.webp" target="_blank" rel="noopener"><img src="../../img/kniga/stranica-08.webp" alt="A page of a personal book" loading="lazy"></a>
-      <a href="../../img/kniga/stranica-09.webp" target="_blank" rel="noopener"><img src="../../img/kniga/stranica-09.webp" alt="A page of a personal book" loading="lazy"></a>
-      <a href="../../img/kniga/stranica-10.webp" target="_blank" rel="noopener"><img src="../../img/kniga/stranica-10.webp" alt="A page of a personal book" loading="lazy"></a>
+      <button class="pt-page" type="button" data-reader="4" aria-label="Open the book pages"><img src="../../img/kniga/stranica-05.webp" alt="A page of a personal book" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="5" aria-label="Open the book pages"><img src="../../img/kniga/stranica-06.webp" alt="A page of a personal book" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="6" aria-label="Open the book pages"><img src="../../img/kniga/stranica-07.webp" alt="A page of a personal book" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="7" aria-label="Open the book pages"><img src="../../img/kniga/stranica-08.webp" alt="A page of a personal book" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="8" aria-label="Open the book pages"><img src="../../img/kniga/stranica-09.webp" alt="A page of a personal book" loading="lazy"></button>
+      <button class="pt-page" type="button" data-reader="9" aria-label="Open the book pages"><img src="../../img/kniga/stranica-10.webp" alt="A page of a personal book" loading="lazy"></button>
     </div>
-    <p class="pt-strip-note">Tap a page to read it in full size. The book in these pages is in Russian. <a class="pt-link" href="../personal-book/">All pages and reviews on the book’s site →</a></p>
+    <p class="pt-strip-note">Tap any page to leaf through the book. The book in these pages is in Russian. <a class="pt-link" href="../personal-book/">All pages and reviews on the book’s site →</a></p>
   </div>
 </section>
 
@@ -348,6 +348,16 @@
 <footer class="foot">
   <div class="shell"><a href="../">Īśvara Dāsa</a><a href="../personal-book/">Personal book</a><a href="../../partners/" hreflang="ru" lang="ru">Русская версия</a><a href="../privacy/">Privacy policy</a><span>© 2026</span></div>
 </footer>
-<script src="../../partners/partners.js?v=20261109"></script>
+<div class="modal flip-modal" id="m-reader" role="dialog" aria-modal="true" aria-label="Book pages" hidden>
+  <button class="modal-close" type="button" aria-label="Close">×</button>
+  <div class="flip-stage"><div class="flip-book" id="flip-book"></div></div>
+  <div class="flip-ui">
+    <button type="button" data-step="-1" aria-label="Previous page">←</button>
+    <span data-count aria-live="polite"></span>
+    <button type="button" data-step="1" aria-label="Next page">→</button>
+  </div>
+  <p class="flip-hint">Tap a page, swipe or use the arrows</p>
+</div>
+<script src="../../partners/partners.js?v=20261110"></script>
 </body>
 </html>

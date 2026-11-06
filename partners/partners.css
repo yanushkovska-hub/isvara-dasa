@@ -38,7 +38,9 @@ body.pt{font-size:clamp(17px,1.4vw,18px);line-height:1.55}
 .pt-book-side blockquote{margin:18px 0 0;font-family:var(--f-display);font-style:italic;font-size:clamp(22px,2vw,26px);line-height:1.22}
 .pt-book-side cite{display:block;margin-top:6px;font-family:var(--f-text);font-style:normal;font-size:16px}
 .pt-strip{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:12px;margin-top:clamp(22px,3vw,34px);overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:6px}
-.pt-strip a{display:block;scroll-snap-align:start;border-radius:6px;overflow:hidden;box-shadow:0 8px 22px rgba(28,28,40,.16)}
+.pt-page{display:block;padding:0;border:0;background:none;cursor:zoom-in;scroll-snap-align:start;border-radius:6px;overflow:hidden;box-shadow:0 8px 22px rgba(28,28,40,.16);transition:transform .25s ease,box-shadow .25s ease}
+.pt-page:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(28,28,40,.22)}
+.pt-page:focus-visible{outline:2px solid var(--gold-ink);outline-offset:3px}
 .pt-strip img{width:100%;height:100%;object-fit:cover;object-position:top;aspect-ratio:3/4}
 .pt-strip-note{margin-top:12px}
 
@@ -175,3 +177,8 @@ html[lang="en"] .pt-au-stats div{grid-template-columns:128px minmax(0,1fr)}
   .pt-link{white-space:normal}
 }
 @media (prefers-reduced-motion:reduce){.pt-hero-book img,.pt-wheel-spin{animation:none}}
+
+/* листатель: механика и вид из kniga.css, здесь только крупнее и без приглушённого текста */
+.pt .flip-ui{font-size:16px;color:var(--on-night)}
+.pt .flip-hint{font-size:16px;color:var(--on-night)}
+.pt .end-in p{color:var(--ink)}
