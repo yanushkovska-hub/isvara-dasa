@@ -358,6 +358,11 @@ var ROOT = document.documentElement.getAttribute('data-root') || '../';
     if (sec && !sec.closest('.top')) top.classList.toggle('is-light', sec.getAttribute('data-theme') !== 'night');
     var mid = sectionAt(Math.round(window.innerHeight * 0.4));
     var ch = mid ? mid.getAttribute('data-ch') : '';
+    // в самом низу страницы последний блок (для партнёров) не доходит до середины экрана: подсвечиваем его пункт
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+      var secs = document.querySelectorAll('main section[data-ch]');
+      if (secs.length) ch = secs[secs.length - 1].getAttribute('data-ch');
+    }
     links.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('data-ch') === ch); });
     if (dock) {
       var pastHero = hero.getBoundingClientRect().bottom < 0;
