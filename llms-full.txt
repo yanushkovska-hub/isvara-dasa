@@ -408,9 +408,9 @@ Jyotish Engine считает по эфемеридам NASA/JPL и звёздн
 
 Расчёты идут офлайн на моём компьютере, в облако ничего не уходит. Истории людей я не публикую и имён не называю.
 
-## Вы рекомендуете книгу. Я её пишу
+## Вы рекомендуете книгу и получаете вознаграждение
 
-Партнёрская программа для астрологов, психологов, школ и авторов каналов. Вы предлагаете книгу своим клиентам и получаете вознаграждение, а клиент остаётся с Вами.
+Партнёрская программа для астрологов, психологов, школ и авторов каналов. Я пишу книгу по карте Вашего клиента, и клиент остаётся с Вами.
 
 ---
 
@@ -968,6 +968,6 @@ Yes, if you have their exact birth data and the dates of events in their life.
 
 All calculations are done offline on my computer; nothing goes to the cloud. I don’t publish people’s stories or mention names.
 
-## You recommend the book. I write it
+## You recommend the book and receive a reward
 
-A partner programme for astrologers, psychologists, schools and channel authors. You offer the book to your clients and receive a reward, and the client stays with you.
+A partner programme for astrologers, psychologists, schools and channel authors. I write the book from your client’s chart, and the client stays with you.
