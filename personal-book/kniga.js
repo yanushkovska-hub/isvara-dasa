@@ -550,3 +550,15 @@ var ROOT = document.documentElement.getAttribute('data-root') || '../';
   document.addEventListener('click', function (e) { if (!e.target.closest('.sph')) close(null); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(null); });
 })();
+
+/* Кнопки «Для себя / Для ребёнка / Для подарка»: повод сразу подставляется в форму заявки */
+(function () {
+  var q = document.getElementById('f-question');
+  if (!q) return;
+  var auto = '';
+  document.querySelectorAll('[data-occasion]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (!q.value.trim() || q.value === auto) { auto = b.getAttribute('data-occasion'); q.value = auto; }
+    });
+  });
+})();

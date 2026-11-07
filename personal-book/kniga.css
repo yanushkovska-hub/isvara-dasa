@@ -1330,3 +1330,27 @@ main .btn{min-height:58px;padding:0 34px;font-size:18px}
 /* Подпись к видео справа от кнопки, когда есть место хотя бы на две строки; иначе ровно под кнопкой */
 .hero-cta{flex-wrap:wrap}
 .hero-cta .play{flex:1 1 240px}
+
+/* ===== Для себя, для ребёнка или в подарок ===== */
+.occ-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,24px);align-items:stretch}
+.occ{display:flex;flex-direction:column;background:var(--paper-2);border-radius:22px;overflow:hidden;box-shadow:0 14px 30px -24px rgba(28,28,40,.35)}
+.occ img{width:100%;aspect-ratio:4/3;object-fit:cover;object-position:50% 35%}
+.occ-body{display:flex;flex-direction:column;gap:14px;flex:1;padding:clamp(20px,2.4vw,30px)}
+.occ h3{font-family:var(--f-display);font-weight:500;font-size:clamp(28px,2.8vw,34px);line-height:1.1;color:var(--ink)}
+.occ p{margin:0;font-size:clamp(17px,1.4vw,18px);line-height:1.55;color:var(--ink)}
+.occ .occ-extra{font-family:var(--f-display);font-style:italic;font-size:clamp(19px,1.6vw,21px);line-height:1.35;color:var(--gold-ink)}
+.occ-btn{margin-top:auto;align-self:stretch}
+.occasions .shell{max-width:1400px;padding-inline:clamp(16px,3vw,40px)}
+.occ-btn{white-space:nowrap;padding-inline:22px}
+@media (max-width:1180px){.occ-grid{grid-template-columns:minmax(0,1fr)}.occ{flex-direction:row}.occ img{width:34%;flex:none;aspect-ratio:auto;height:auto;align-self:stretch;contain:size;min-height:240px}.occ-btn{align-self:flex-start}}
+@media (max-width:640px){.occ{flex-direction:column}.occ img{width:100%;aspect-ratio:16/10;min-height:0;contain:none}.occ-btn{align-self:stretch;white-space:normal}}
+
+/* ===== Второй экран: карточки шире, блок короче ===== */
+.change .shell{max-width:1400px;padding-inline:clamp(16px,3vw,40px)}
+.change .shift{grid-template-columns:minmax(0,1fr) 44px minmax(0,1fr);gap:clamp(10px,1.4vw,18px)}
+.change .state{padding:clamp(22px,2.6vw,34px)}
+.change .state{gap:14px}
+.change .state li{padding-block:11px}
+.change .state li:first-child{padding-top:0}
+.change .head{margin-bottom:clamp(28px,4vw,52px)}
+@media (max-width:900px){.change .shift{grid-template-columns:1fr}}
