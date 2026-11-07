@@ -1357,7 +1357,7 @@ main .btn{min-height:58px;padding:0 34px;font-size:18px}
 
 /* Фото в карточках поводов: выше кадр, Ядвига с головой целиком, у «Аэлиты» в кадре книга */
 .occ img{aspect-ratio:4/5}
-.occ-self img{object-position:50% 8%}
+.occ-self img{object-position:50% 62%}
 .occ-child img{object-position:50% 40%}
 .occ-gift img{object-position:50% 100%}
 @media (max-width:1180px){.occ img{aspect-ratio:auto}}
