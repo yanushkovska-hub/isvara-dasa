@@ -1365,3 +1365,28 @@ main .btn{min-height:58px;padding:0 34px;font-size:18px}
 
 /* Компьютер: «Для себя» в центре (ребёнок, для себя, подарок); планшет и телефон: для себя, ребёнок, подарок */
 @media (min-width:1181px){.occ-child{order:-1}}
+
+/* Второй экран: одинаковый отступ между надзаголовком и заголовком в обеих колонках */
+#change .state h3{margin-top:0}
+
+/* Второй экран на компьютере: надзаголовки, заголовки и списки обеих колонок стоят на одних уровнях */
+@media (min-width:901px){
+  #change .shift{grid-template-rows:auto auto 1fr auto;row-gap:0}
+  #change .state{grid-row:1 / span 4;grid-template-rows:subgrid;row-gap:14px}
+  #change .bridge{grid-row:1 / span 4}
+}
+
+/* Левая колонка второго экрана устроена так же, как правая: сетка с одинаковым шагом */
+#change .before{display:grid}
+#change .before > * + *{margin-top:0}
+#change .before ul{margin-bottom:0}
+
+/* Карточки поводов чуть ниже */
+.occ img{aspect-ratio:9/10}
+.occ-body{gap:12px;padding:clamp(18px,2vw,26px)}
+@media (max-width:1180px){.occ img{aspect-ratio:auto}}
+@media (max-width:640px){.occ img{aspect-ratio:1/1}}
+@media (min-width:901px){#change .after ul{grid-row:3 / span 2}}
+.occ img{aspect-ratio:1/1}
+@media (max-width:1180px){.occ img{aspect-ratio:auto}}
+@media (max-width:640px){.occ img{aspect-ratio:1/1}}
