@@ -1317,3 +1317,6 @@ main .btn{min-height:58px;padding:0 34px;font-size:18px}
 .hero-cta .play{flex:1 1 auto;min-width:0;text-align:left;line-height:1.35}
 .hero-cta .play i{flex:none}
 @media (max-width:760px){.hero-cta{flex-wrap:wrap}}
+
+/* «— В подарок к книге —» над «900 ответов»: значок подарка слева, всё по центру */
+.gift-center{justify-content:center}
