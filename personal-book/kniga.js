@@ -13,12 +13,12 @@ var ROOT = document.documentElement.getAttribute('data-root') || '../';
   var title = document.querySelector('[data-season-title]');
   var freeText;
   if (EN) {
-    var sEn = m === 11 || m < 2 ? 'winter' : m < 5 ? 'spring' : m < 8 ? 'summer' : 'autumn';
+    var sEn = m >= 10 || m < 2 ? 'winter' : m < 5 ? 'spring' : m < 8 ? 'summer' : 'autumn';
     var nEn = ['', 'one place', 'two places', 'three places', 'four places', 'five places'];
     if (title) title.textContent = free ? 'This ' + sEn + ': ' + nEn[free] + ' left' : 'No places left this ' + sEn;
     freeText = free ? free + (free === 1 ? ' place' : ' places') + ' left this ' + sEn : 'All places this ' + sEn + ' are taken';
   } else {
-    var season = m === 11 || m < 2 ? 'зиму' : m < 5 ? 'весну' : m < 8 ? 'лето' : 'осень';
+    var season = m >= 10 || m < 2 ? 'зиму' : m < 5 ? 'весну' : m < 8 ? 'лето' : 'осень';
     var words = ['', 'одно место', 'два места', 'три места', 'четыре места', 'пять мест'];
     if (title) title.textContent = free ? 'На эту ' + season + ' — ' + words[free] : 'На эту ' + season + ' мест больше нет';
     freeText = free ? 'Свободно ' + free + (free === 1 ? ' место' : ' места') + ' на ' + season : 'Все места на ' + season + ' заняты';
