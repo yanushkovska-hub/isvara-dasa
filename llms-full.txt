@@ -260,7 +260,7 @@ Jyotish Engine считает по эфемеридам NASA/JPL и звёздн
 
 ### Знакомство
 
-20 минут разговора: Вы рассказываете о запросе, я уточняю данные рождения и говорю, можно ли уточнить время. Здесь же называю стоимость.
+20 минут: Вы рассказываете о запросе, я уточняю данные рождения. Здесь же называю стоимость.
 
 Первая неделя
 
@@ -838,7 +838,7 @@ You leave a request or message me on Telegram. I reply personally within a day.
 
 ### Introduction
 
-20 minutes of conversation: you tell me what you want to understand, I clarify your birth data and say whether the time can be refined. This is also where I tell you the price.
+20 minutes: you tell me what you want to understand, and I clarify your birth data. This is also where I tell you the price.
 
 First week
 
