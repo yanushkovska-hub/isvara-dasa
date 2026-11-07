@@ -1311,3 +1311,9 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 /* ===== Кнопки крупнее ===== */
 main .btn{min-height:58px;padding:0 34px;font-size:18px}
 @media (max-width:520px){main .btn{padding:0 22px;font-size:17px}}
+
+/* Первый экран: «Посмотрите, как вручают книгу» стоит справа от кнопки, подпись переносится внутри себя */
+.hero-cta{flex-wrap:nowrap}
+.hero-cta .play{flex:1 1 auto;min-width:0;text-align:left;line-height:1.35}
+.hero-cta .play i{flex:none}
+@media (max-width:760px){.hero-cta{flex-wrap:wrap}}
