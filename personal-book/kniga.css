@@ -1390,3 +1390,6 @@ main .btn{min-height:58px;padding:0 34px;font-size:18px}
 .occ img{aspect-ratio:1/1}
 @media (max-width:1180px){.occ img{aspect-ratio:auto}}
 @media (max-width:640px){.occ img{aspect-ratio:1/1}}
+
+/* Курсивная строка в карточках поводов крупнее */
+.occ .occ-extra{font-size:clamp(23px,2vw,26px);line-height:1.3}
