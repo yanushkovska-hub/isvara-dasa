@@ -1362,3 +1362,6 @@ main .btn{min-height:58px;padding:0 34px;font-size:18px}
 .occ-gift img{object-position:50% 100%}
 @media (max-width:1180px){.occ img{aspect-ratio:auto}}
 @media (max-width:640px){.occ img{aspect-ratio:4/5}}
+
+/* Компьютер: «Для себя» в центре (ребёнок, для себя, подарок); планшет и телефон: для себя, ребёнок, подарок */
+@media (min-width:1181px){.occ-child{order:-1}}
