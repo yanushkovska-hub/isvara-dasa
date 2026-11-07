@@ -525,3 +525,28 @@ var ROOT = document.documentElement.getAttribute('data-root') || '../';
     }
   }, true);
 })();
+
+/* Сферы книги: описание главы раскрывается по нажатию; на компьютере ещё и по наведению */
+(function () {
+  var items = [].slice.call(document.querySelectorAll('.sph'));
+  if (!items.length) return;
+  function close(except) {
+    items.forEach(function (li) {
+      if (li === except) return;
+      li.classList.remove('is-open');
+      li.querySelector('.sph-btn').setAttribute('aria-expanded', 'false');
+    });
+  }
+  items.forEach(function (li) {
+    var b = li.querySelector('.sph-btn');
+    b.addEventListener('click', function () {
+      var open = !li.classList.contains('is-open');
+      close(li);
+      li.classList.toggle('is-open', open);
+      b.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    li.addEventListener('mouseenter', function () { close(li); });
+  });
+  document.addEventListener('click', function (e) { if (!e.target.closest('.sph')) close(null); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(null); });
+})();

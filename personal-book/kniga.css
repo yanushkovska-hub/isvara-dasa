@@ -1275,3 +1275,39 @@ main > section[data-theme="paper"] + section[data-theme="paper"]::after{top:2px}
 .top .btn,.top .lang,.top .brand{flex:none}
 @media (min-width:1260px){.top .brand:has(~ .nav a[data-ch]) span{display:none}}
 @media (max-width:1259px){.nav:has(a[data-ch]){display:none}.nav:has(a[data-ch]) ~ .lang{margin-left:auto}}
+
+/* ===== Сферы с раскрытием: «+» у каждой сферы, описание главы по наведению или нажатию ===== */
+.spheres-more{overflow:visible}
+.spheres-more .sph{position:relative;padding:0}
+.sph-btn{display:block;width:100%;margin:0;padding:22px 56px 24px 22px;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.sph-btn:focus-visible{outline:2px solid var(--gold);outline-offset:-4px}
+.sph-plus{position:absolute;top:20px;right:18px;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gold)}
+.sph-plus::before,.sph-plus::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:var(--gold-soft);transform:translate(-50%,-50%)}
+.sph-plus::after{transform:translate(-50%,-50%) rotate(90deg);transition:transform .2s ease}
+.sph.is-open .sph-plus::after{transform:translate(-50%,-50%) rotate(0)}
+.sph-more{display:none;position:absolute;left:-1px;right:-1px;top:calc(100% - 8px);z-index:20;padding:18px 20px;background:var(--cloth);border:1px solid var(--gold);border-radius:14px;box-shadow:0 26px 44px -20px rgba(0,0,0,.75)}
+.sph-more p{margin:0;font-size:16px;font-weight:400;line-height:1.55;color:var(--on-night)}
+.sph.is-open{z-index:21}
+.sph.is-open .sph-more{display:block}
+@media (hover:hover) and (pointer:fine){
+  .sph:hover{z-index:21}
+  .sph:hover .sph-more{display:block}
+  .sph:hover .sph-plus::after{transform:translate(-50%,-50%) rotate(0)}
+}
+@media (max-width:900px){
+  .sph-more{position:static;padding:0 22px 22px;border:0;border-radius:0;background:none;box-shadow:none}
+  .sph-more p{font-size:16px}
+}
+@media (max-width:600px){.sph-btn{padding:18px 54px 20px 18px}.sph-more{padding:0 18px 20px}}
+
+/* ===== Отзывы из переписки крупнее ===== */
+#stories .voices-h{font-family:var(--f-display);font-size:clamp(28px,3vw,38px);font-weight:500;letter-spacing:0;text-transform:none;color:var(--ink)}
+#stories .voices{grid-template-columns:repeat(2,minmax(0,1fr))}
+#stories .voices figure{padding:clamp(22px,2.4vw,32px)}
+#stories .voices blockquote{font-size:clamp(20px,1.8vw,23px);line-height:1.45}
+#stories .voices figcaption{font-size:16px;color:var(--ink)}
+@media (max-width:640px){#stories .voices{grid-template-columns:minmax(0,1fr)}}
+
+/* ===== Кнопки крупнее ===== */
+main .btn{min-height:58px;padding:0 34px;font-size:18px}
+@media (max-width:520px){main .btn{padding:0 22px;font-size:17px}}
