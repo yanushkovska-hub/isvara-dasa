@@ -1320,3 +1320,13 @@ main .btn{min-height:58px;padding:0 34px;font-size:18px}
 
 /* «— В подарок к книге —» над «900 ответов»: значок подарка слева, всё по центру */
 .gift-center{justify-content:center}
+
+/* Первый экран: кнопка не сжимается и не переносится, подпись к видео переносится ровно, «· 3 мин» не отрывается */
+.hero-cta .btn{flex:none;white-space:nowrap}
+.hero-cta .play-t{text-wrap:balance}
+.hero-cta .play .nw{white-space:nowrap}
+@media (max-width:760px){.hero-cta .btn{white-space:normal}}
+
+/* Подпись к видео справа от кнопки, когда есть место хотя бы на две строки; иначе ровно под кнопкой */
+.hero-cta{flex-wrap:wrap}
+.hero-cta .play{flex:1 1 240px}
