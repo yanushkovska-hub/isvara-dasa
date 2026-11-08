@@ -1596,7 +1596,7 @@ body{font-size:17px;line-height:1.6}
 /* ===== Для партнёров: последний блок главной, тиснение на переплёте ===== */
 .partner-sec{padding-top:clamp(8px,2vw,24px)}
 .partner-fleuron{color:var(--gold);margin:0 auto clamp(28px,4vw,48px)}
-.partner-plate{position:relative;padding:clamp(30px,5vw,72px) clamp(22px,5vw,72px);background:radial-gradient(70% 90% at 85% 50%,rgba(205,177,111,.16),transparent 70%),var(--cloth-deep);box-shadow:0 0 0 1px rgba(205,177,111,.7),0 30px 60px -34px rgba(0,0,0,.8)}
+.partner-plate{position:relative;margin:0 calc(-1 * var(--pad-x));padding:clamp(30px,5vw,72px) var(--pad-x);background:radial-gradient(70% 90% at 85% 50%,rgba(205,177,111,.16),transparent 70%),var(--cloth-deep);box-shadow:0 0 0 1px rgba(205,177,111,.7),0 30px 60px -34px rgba(0,0,0,.8)}
 .partner-plate::before{content:"";position:absolute;inset:10px;border:1px solid rgba(205,177,111,.35);pointer-events:none}
 .partner-card{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,5vw,64px);align-items:center;color:var(--leaf)}
 .partner-body .h2{margin-bottom:16px;color:var(--leaf)}
